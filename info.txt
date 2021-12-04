@@ -1,0 +1,3 @@
+name = Robot Showcase
+author = Tuxedo Labs
+description = Examples of different robot setups that uses the default robot script.
