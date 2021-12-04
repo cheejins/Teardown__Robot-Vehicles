@@ -1,0 +1,4 @@
+name = M4A1
+author = My Cresta
+description = Standard M4A1. Press R to reload. Vox model made by Alagabry.
+tags = Tool

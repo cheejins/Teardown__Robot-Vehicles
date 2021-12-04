@@ -1,0 +1,35 @@
+<prefab version="0.6.0">
+	<group open_="true" name="instance=MOD/instances/contraptions/contraption_flamer.xml" pos="0 0 0" rot="0.0 0.0 0.0">
+
+        <script id_="144122464" open_="true" name="contraption_flamer" pos="0.0 -1.5 0.0" file="MOD/instances/contraptions/contraption_flamer.lua">
+            <vox id_="165422960" open_="true" tags="base" file="MOD/instances/contraptions/contraption_flamer.vox" object="base">
+                <vox id_="1280323840" tags="nozzle" pos="0.0 0.3 0.0" file="MOD/instances/contraptions/contraption_flamer.vox" object="nozzle"/>
+                <vox id_="890819712" tags="nozzle" pos="-4.1 0.3 0.0" file="MOD/instances/contraptions/contraption_flamer.vox" object="nozzle"/>
+                <vox id_="1185028736" tags="nozzle" pos="-4.1 0.3 4.1" file="MOD/instances/contraptions/contraption_flamer.vox" object="nozzle"/>
+                <vox id_="80483120" tags="nozzle" pos="0.0 0.3 4.1" file="MOD/instances/contraptions/contraption_flamer.vox" object="nozzle"/>
+                <vox id_="782547584" tags="nozzle" pos="4.0 0.3 4.1" file="MOD/instances/contraptions/contraption_flamer.vox" object="nozzle"/>
+                <vox id_="234895360" tags="nozzle" pos="4.0 0.3 0.0" file="MOD/instances/contraptions/contraption_flamer.vox" object="nozzle"/>
+                <vox id_="2071195136" tags="nozzle" pos="4.0 0.3 -4.1" file="MOD/instances/contraptions/contraption_flamer.vox" object="nozzle"/>
+                <vox id_="1777838080" tags="nozzle" pos="0.0 0.3 -4.1" file="MOD/instances/contraptions/contraption_flamer.vox" object="nozzle"/>
+                <vox id_="764327488" tags="nozzle" pos="-4.1 0.3 -4.1" file="MOD/instances/contraptions/contraption_flamer.vox" object="nozzle"/>
+                <vox id_="1514825984" tags="nozzle" pos="4.0 0.3 -2.0" file="MOD/instances/contraptions/contraption_flamer.vox" object="nozzle"/>
+                <vox id_="1052965632" tags="nozzle" pos="0.0 0.3 -2.0" file="MOD/instances/contraptions/contraption_flamer.vox" object="nozzle"/>
+                <vox id_="500070208" tags="nozzle" pos="-4.1 0.3 -2.0" file="MOD/instances/contraptions/contraption_flamer.vox" object="nozzle"/>
+                <vox id_="905304000" tags="nozzle" pos="4.0 0.3 2.1" file="MOD/instances/contraptions/contraption_flamer.vox" object="nozzle"/>
+                <vox id_="2106586624" tags="nozzle" pos="0.0 0.3 2.1" file="MOD/instances/contraptions/contraption_flamer.vox" object="nozzle"/>
+                <vox id_="650746688" tags="nozzle" pos="-4.1 0.3 2.1" file="MOD/instances/contraptions/contraption_flamer.vox" object="nozzle"/>
+                <vox id_="1517906432" tags="nozzle" pos="2.0 0.3 4.1" file="MOD/instances/contraptions/contraption_flamer.vox" object="nozzle"/>
+                <vox id_="1660521472" tags="nozzle" pos="2.0 0.3 2.1" file="MOD/instances/contraptions/contraption_flamer.vox" object="nozzle"/>
+                <vox id_="163391216" tags="nozzle" pos="2.0 0.3 0.0" file="MOD/instances/contraptions/contraption_flamer.vox" object="nozzle"/>
+                <vox id_="332156736" tags="nozzle" pos="2.0 0.3 -2.0" file="MOD/instances/contraptions/contraption_flamer.vox" object="nozzle"/>
+                <vox id_="2096559104" tags="nozzle" pos="2.0 0.3 -4.1" file="MOD/instances/contraptions/contraption_flamer.vox" object="nozzle"/>
+                <vox id_="1680380032" tags="nozzle" pos="-2.1 0.3 4.1" file="MOD/instances/contraptions/contraption_flamer.vox" object="nozzle"/>
+                <vox id_="1551659520" tags="nozzle" pos="-2.1 0.3 2.1" file="MOD/instances/contraptions/contraption_flamer.vox" object="nozzle"/>
+                <vox id_="1744019456" tags="nozzle" pos="-2.1 0.3 0.0" file="MOD/instances/contraptions/contraption_flamer.vox" object="nozzle"/>
+                <vox id_="765900416" tags="nozzle" pos="-2.1 0.3 -2.0" file="MOD/instances/contraptions/contraption_flamer.vox" object="nozzle"/>
+                <vox id_="334712768" tags="nozzle" pos="-2.1 0.3 -4.1" file="MOD/instances/contraptions/contraption_flamer.vox" object="nozzle"/>
+            </vox>
+        </script>
+
+	</group>
+</prefab>

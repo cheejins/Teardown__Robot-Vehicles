@@ -1,0 +1,4 @@
+name = P90
+author = My Cresta
+description = Standard P90. Press R to reload. Vox model made by landenbullard (mango.)
+tags = Tool

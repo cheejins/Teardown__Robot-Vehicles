@@ -1,0 +1,26 @@
+<prefab version="0.6.0">
+	<group id_="1239492480" open_="true" name="instance=MOD/instances/zombie_arms.xml" pos="0 0 0" rot="0.0 0.0 0.0">
+		<body id_="824558720" open_="true" name="ai_zombie" tags="ai_zombie nocull" pos="0 0 0" rot="0.0 180.0 0.0" dynamic="true">
+			<vox texture="8" id_="59379240" tags="z_head" pos="-0.05 1.8 0.3" rot="0 0 0" file="MOD/instances/zombie.vox" object="z_head">
+				<joint id_="1669172736" pos="0.05 0.0 0.05"/>
+			</vox>
+			<vox texture="8" id_="1484022272" tags="z_neck" pos="0.0 1.7 0.35" rot="0 0 0" file="MOD/instances/zombie.vox" object="z_neck">
+				<joint id_="748073536" pos="0.0 0.0 0.0"/>
+			</vox>
+			<vox texture="8" id_="46730020" open_="true" tags="z_body" pos="-0.05 1.0 0.4" rot="0 0 0" file="MOD/instances/zombie.vox" object="z_torso">
+				<joint id_="89199936" pos="0.05 0.0 -0.1"/>
+			</vox>
+			<vox texture="8" id_="931651072" open_="true" tags="z_body" pos="-0.05 1.0 0.4" rot="0 0 0" file="MOD/instances/zombie.vox" object="z_torso">
+				<joint id_="1474977664" pos="0.05 0.0 -0.1"/>
+				<joint id_="2046027776" pos="0.4 0.65 -0.05" rot="0.0 90.0 0.0" type="hinge" rotspring="0"/>
+				<joint id_="2095641472" pos="-0.3 0.65 -0.05" rot="0.0 -90.0 0.0" type="hinge" rotspring="0"/>
+			</vox>
+			<vox texture="8" id_="1684377984" tags="z_body" pos="0.36 1.3 0.45" rot="-90.0 0.0 0.0" density="0.1" strength="0.5" prop="true" file="MOD/instances/zombie.vox" object="z_arm"/>
+			<vox texture="8" id_="473460960" tags="z_body" pos="-0.36 1.3 0.45" rot="-90.0 0.0 0.0" density="0.1" strength="0.5" prop="true" file="MOD/instances/zombie.vox" object="z_arm"/>
+			<vox texture="8" id_="464416448" tags="z_legs" pos="-0.05 0.0 0.4" rot="0 0 0" file="MOD/instances/zombie.vox" object="z_legs"/>
+			<vox texture="8" id_="518093696" tags="z_brain" pos="-0.05 1.95 0.33" rot="0 0 0" file="MOD/instances/zombie.vox" object="brain_large">
+				<joint id_="1351500288" pos="0.05 0.0 -0.05"/>
+			</vox>
+		</body>
+	</group>
+</prefab>

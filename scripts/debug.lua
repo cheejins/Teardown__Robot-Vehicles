@@ -1,6 +1,8 @@
 
+
 function initDebug()
-    db = regGetBool('tool.debugMode')
+    db = false
+    -- db = true
 end
 
 function dbw(str, value) if db then DebugWatch(str, value) end end

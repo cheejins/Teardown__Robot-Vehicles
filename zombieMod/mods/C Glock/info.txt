@@ -1,0 +1,4 @@
+name = Desert Eagle
+author = My Cresta
+description = Standard Desert Eagle. Press R to reload.
+tags = Tool

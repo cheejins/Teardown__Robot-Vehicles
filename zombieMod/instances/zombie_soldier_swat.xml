@@ -1,0 +1,29 @@
+<prefab version="0.6.0">
+	<group id_="1239492480" open_="true" name="instance=MOD/instances/zombie_soldier_swat.xml" pos="0 0 0" rot="0.0 0.0 0.0">
+		<body id_="59706940" open_="true" name="ai_zombie_soldier" tags="ai_zombie" pos="0 0 0" rot="0.0 180.0 0.0" dynamic="true">
+			<vox texture="8" id_="1948897408" tags="z_brain" pos="-0.05 1.9 0.4" rot="0 0 0" density="0.4" file="MOD/instances/zombie.vox" object="brain_small">
+				<joint id_="1592949760" pos="0.05 0.0 -0.05"/>
+				<joint id_="1871822336" pos="-0.05 0.0 -0.05"/>
+				<joint id_="1991629568" pos="0.15 0.0 -0.05"/>
+			</vox>
+			<vox texture="8" id_="1920190976" pos="-0.05 1.9 0.3" rot="0 0 0" density="0.4" file="MOD/instances/zombie.vox" object="z_swat_helmet">
+				<joint id_="1462066304" pos="0.05 0.3 0.05"/>
+			</vox>
+			<vox texture="8" id_="1056701440" tags="z_head" pos="-0.05 1.8 0.3" rot="0 0 0" density="0.4" file="MOD/instances/zombie.vox" object="z_soldier_head">
+				<joint id_="748794496" pos="0.05 0.0 0.05"/>
+				<joint id_="2137324928" pos="0.15 0.0 0.05"/>
+				<joint id_="1383025024" pos="-0.05 0.0 0.05"/>
+				<joint id_="1544056832" pos="-0.05 0.0 -0.05"/>
+				<joint id_="1224418304" pos="-0.05 0.0 0.15"/>
+			</vox>
+			<vox texture="8" id_="1864219776" tags="z_neck" pos="-0.05 1.7 0.4" rot="0 0 0" density="0.4" file="MOD/instances/zombie.vox" object="z_soldier_neck">
+				<joint id_="1463377152" pos="0.05 0.0 0.0"/>
+			</vox>
+			<vox texture="8" id_="1796058112" open_="true" tags="z_body" pos="-0.05 1.0 0.0" rot="0 0 0" density="0.4" strength="0.75" file="MOD/instances/zombie.vox" object="z_swat_body">
+				<joint id_="2014175232" pos="0.05 0.0 0.4"/>
+			</vox>
+			<vox texture="8" id_="818266880" tags="z_legs" pos="-0.05 0.0 0.4" rot="0 0 0" density="0.4" strength="0.75" file="MOD/instances/zombie.vox" object="z_swat_legs"/>
+		</body>
+	</group>
+</prefab>
+

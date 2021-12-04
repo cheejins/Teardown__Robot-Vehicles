@@ -1,8 +1,13 @@
 #include "script/common.lua"
-#include "utility.lua"
+#include "customRobot.lua"
 #include "debug.lua"
+#include "timers.lua"
+#include "weapons.lua"
+#include "utility.lua"
+
 
 --= ROBOT OVERVIEW
+do 
 --[[
 
 	The robot script should be parent of all bodies that make up the robot.
@@ -110,13 +115,14 @@
 			(type trigger: optional)
 			If present, robot will start inactive and --! become activated when player enters trigger
 
-]]
+]] 
+end
 
 
 
 --= MAIN
 do 
-	--+ Script
+	--> Script
 	do
 
 		function init()
@@ -133,7 +139,7 @@ do
 			hearingInit()
 			stackInit()
 
-			--+ Sound
+			--> Sound
 			patrolLocations = FindLocations("patrol")
 			shootSound = LoadSound("tools/gun0.ogg", 8.0)
 			rocketSound = LoadSound("tools/launcher0.ogg", 7.0)
@@ -155,7 +161,6 @@ do
 			initCustom() --!
 
 		end
-
 
 		function update(dt)
 			if robot.deleted then 
@@ -247,7 +252,7 @@ do
 			weaponsUpdate(dt)
 			hearingUpdate(dt)
 			stackUpdate(dt)
-			robot.speedScale = 1
+			robot.speedScale = 3
 			robot.speed = 0
 			local state = stackTop()
 			local state = "none"
@@ -551,7 +556,6 @@ do
 			updateCustom(dt)
 		end
 
-
 		function tick(dt)
 			if not robot.enabled then
 				return
@@ -611,9 +615,15 @@ do
 
 		end
 
+		function draw()
+			drawCustom()
+		end
+
 	end
 
-	--+ Config
+
+
+	--> Config
 	do
 
 		pType = GetStringParam("type", "")
@@ -687,7 +697,7 @@ do
 
 	end
 
-	--+ Navigation
+	--> Navigation
 	do
 
 		navigation = {}
@@ -914,13 +924,14 @@ do
 		end
 
 	end
+
 end
 
 
 
 --= ROBOT
 do
-	--+ Robot
+	--> Robot
 	do
 
 		robot = {}
@@ -1084,7 +1095,7 @@ do
 
 	end
 
-	--+ Head
+	--> Head
 	do 
 
 		head = {}
@@ -1220,7 +1231,7 @@ do
 
 	end
 
-	--+ Feet
+	--> Feet
 	do 
 		feet = {}
 
@@ -1374,7 +1385,7 @@ do
 		end
 	end
 
-	--+ Hover
+	--> Hover
 	do 
 
 		hover = {}
@@ -1561,7 +1572,7 @@ do
 
 	end
 
-	--+ Wheels
+	--> Wheels
 	do
 
 		wheels = {}
@@ -1600,7 +1611,7 @@ do
 
 	end
 
-	--+ Weapons
+	--> Weapons
 	do
 
 		weapons = {}
@@ -1654,7 +1665,7 @@ do
 			local perp = getPerpendicular(dir)
 			
 			-- This is the default bullet spread
-			local spread = weapon.spread * rnd(0.0, 1.0)
+			local spread =  1 * rnd(0.0, 1.0)
 		
 			-- Add more spread up based on aim, so that the first bullets never (well, rarely) hit player
 			local extraSpread = math.min(0.5, 2.0 / robot.distToPlayer)
@@ -1822,7 +1833,7 @@ do
 
 	end
 
-	--+ Aims
+	--> Aims
 	do
 
 		aims = {}
@@ -1864,7 +1875,7 @@ do
 
 	end
 
-	--+ Sensor
+	--> Sensor
 	do
 		sensor = {}
 		sensor.blocked = 0
@@ -1914,7 +1925,7 @@ do
 
 	end
 
-	--+ Hearing
+	--> Hearing
 	do
 
 		hearing = {}
@@ -1964,7 +1975,7 @@ end
 
 --= OTHER
 do
-	--+ Util
+	--> Util
 	do
 
 		function truncateToGround(pos)
@@ -2002,7 +2013,7 @@ do
 					local x = tonumber(words[3])
 					local y = tonumber(words[4])
 					local z = tonumber(words[5])
-					hitByExplosion(strength, Vec(x,y,z))
+					hitByExplosion(strength/5, Vec(x,y,z))
 				end
 			end
 			if #words == 8 then
@@ -2144,7 +2155,7 @@ do
 
 	end
 
-	--+ Physics
+	--> Physics
 	do
 
 		function VecDist(a, b)
@@ -2200,7 +2211,7 @@ do
 
 	end
 
-	--+ Logic
+	--> Logic
 	do
 		stack = {}
 		stack.list = {}
@@ -2263,159 +2274,4 @@ do
 			end
 		end
 	end
-end
-
-
---= ROBOT DRIVING
-
-do
-
-	--> SCRIPT
-	function initCustom()
-		CAMERA = {}
-		initCamera()
-		CAMERA.xy = {UiCenter(), UiMiddle()}
-	end
-	function tickCustom(dt)
-
-		local bodyTr = GetBodyTransform(robot.body)
-		local camTr = GetCameraTransform()
-		local crosshairPos = getOuterCrosshairWorldPos()
-
-		--! Robot camera.
-		manageCamera()
-
-		--! Override robot aim.
-		DrawDot(crosshairPos, 0.5,0.5, 1,0,0, 1, false)
-		robot.playerPos = crosshairPos
-		robotTurnTowards(crosshairPos)
-
-		--! Override robot movement.
-		if InputDown('w') then
-
-			-- navigationSetTarget(crosshairPos, 0)
-			robotWalk(crosshairPos)
-			dbl(bodyTr.pos, crosshairPos, 1,1,0, 1)
-
-		elseif InputDown('a') then
-
-			local lookTr = Transform(bodyTr.pos, camTr.rot)
-			local moveDir = TransformToParentPoint(lookTr, Vec(-1,0,0))
-			robotWalk(moveDir)
-			dbl(bodyTr.pos, moveDir, 1,1,0, 1)
-
-		elseif InputDown('d') then
-
-			local lookTr = Transform(bodyTr.pos, camTr.rot)
-			local moveDir = TransformToParentPoint(lookTr, Vec(1,0,0))
-			robotWalk(moveDir)
-			dbl(bodyTr.pos, moveDir, 1,1,0, 1)
-
-		elseif InputDown('s') then
-
-			local lookTr = Transform(bodyTr.pos, camTr.rot)
-			local moveDir = TransformToParentPoint(lookTr, Vec(0,0,1))
-			robotWalk(moveDir)
-			dbl(bodyTr.pos, moveDir, 1,1,0, 1)
-
-		else
-			navigationClear()
-		end
-
-		--! Jump
-		if InputPressed('space') then
-			SetBodyVelocity(robot.body, VecAdd(GetBodyVelocity(robot.body), Vec(0,10,0)))
-		end
-
-		--! Crouch
-		if InputPressed('ctrl') then
-			SetBodyVelocity(robot.body, VecAdd(GetBodyVelocity(robot.body), Vec(0,-5,0)))
-		end
-
-		--! Weapons
-		-- local spread = 0.1
-		-- local spreadVec = Vec(
-		-- 	math.random()-0.5 * spread,
-		-- 	math.random()-0.5 * spread,
-		-- 	math.random()-0.5 * spread)
-		-- local dir = VecNormalize(VecSub(crosshairPos, shootPos))
-
-		local shootPos = TransformToParentPoint(bodyTr, Vec(0,0,-3))
-		if InputDown('rmb') then
-			Shoot(shootPos, VecNormalize(VecSub(crosshairPos, shootPos)), 1)
-		end
-		if InputDown('lmb') then
-			Shoot(shootPos, VecNormalize(VecSub(crosshairPos, shootPos)), 2)
-		end
-
-		SetPlayerTransform(Transform())
-
-	end
-	function updateCustom(dt)
-
-		-- if InputDown('w') then
-			-- navigationUpdate(dt)
-		-- end
-
-	end
-
-
-	--> MOVEMENT
-	robotWalk = function (pos, dir)
-		robot.dir = dir or VecCopy(VecNormalize(VecSub(pos, robot.transform.pos)))
-		local dirDiff = VecDot(VecScale(robot.axes[3], -1), robot.dir)
-		local speedScale = math.max(0.25, dirDiff)
-		speedScale = speedScale * clamp(1.0 - navigation.vertical, 0.3, 1.0)
-		robot.speed = config.speed * speedScale
-	end
-
-	--> CAMERA
-	initCamera = function()
-		cameraX = 0
-		cameraY = 0
-		zoom = 2
-	end
-	manageCamera = function()
-		local mx, my = InputValue("mousedx"), InputValue("mousedy")
-		cameraX = cameraX - mx / 10
-		cameraY = cameraY - my / 10
-		cameraY = clamp(cameraY, -75, 75)
-		local cameraRot = QuatEuler(cameraY, cameraX, 0)
-		local cameraT = Transform(VecAdd(GetBodyTransform(robot.body).pos, 5), cameraRot)
-		zoom = zoom - InputValue("mousewheel") * 2.5
-		zoom = clamp(zoom, 2, 20)
-		local cameraPos = TransformToParentPoint(cameraT, Vec(0, 2, zoom))
-		local camera = Transform(VecLerp(cameraPos, GetCameraTransform().pos, 0.5), cameraRot)
-		SetCameraTransform(camera)
-	end
-	getOuterCrosshairWorldPos = function()
-
-		local crosshairTr = getCrosshairTr()
-		rejectAllBodies(robot.allBodies)
-		local crosshairHit, crosshairHitPos = RaycastFromTransform(crosshairTr, 200)
-		if crosshairHit then
-			return crosshairHitPos
-		else
-			return nil
-		end
-
-	end
-	getCrosshairTr = function(pos)
-
-		pos = pos or GetCameraTransform()
-
-		local crosshairDir = UiPixelToWorld(CAMERA.xy[1], CAMERA.xy[2])
-		local crosshairQuat = QuatDir(crosshairDir)
-		local crosshairTr = Transform(GetCameraTransform().pos, crosshairQuat)
-
-		return crosshairTr
-
-	end
-
-
-	--> DRAW
-	function draw()
-		CAMERA.xy = {UiCenter(), UiMiddle()}
-	end
-
 end

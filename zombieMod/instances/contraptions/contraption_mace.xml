@@ -1,0 +1,48 @@
+<prefab version="0.7.2">
+	<group id_="400580480" open_="true" name="instance=MOD/instances/contraptions/contraption_mace.xml" pos="-5.2 5.1 -2.1" rot="90.0 180.0 0.0">
+		<script id_="1547792640" open_="true" name="contraption_mace" pos="0 0 0" file="MOD/instances/contraptions/contraption_mace.lua">
+			<body id_="1346191616" open_="true" pos="0.0 -0.9 0.0" dynamic="false">
+				<vox id_="1994316672" tags="unbreakable" pos="0.0" file="MOD/instances/contraptions/contraption_mace.vox" object="base"/>
+			</body>
+			<body id_="293946912" tags="unbreakable" pos="0.0 0.4 3.8" rot="0.0 -90.0 0.0"/>
+			<body id_="805945408" open_="true" tags="unbreakable" pos="4.5 0.4 0.0" rot="0.0 0.0 0.0">
+				<vox id_="1758700416" open_="true" pos="0.0" density="10" prop="true" file="MOD/instances/contraptions/contraption_mace.vox" object="ball">
+					<rope id_="1091109888" open_="true" pos="-0.4 0.0 -0.55" rot="0.0 -90.0 0.0" size="0.2" slack="0" strength="-1">
+						<location id_="2112223104" pos="0.5 0.6 2.0" rot="0.0 0.0 0.0"/>
+						<location id_="1330527488" pos="0.55 0.6 -0.4" rot="0.0 0.0 0.0"/>
+					</rope>
+				</vox>
+			</body>
+			<body id_="1936772480" open_="true" tags="unbreakable" pos="-4.4 0.4 0.0" rot="0.0 -180.0 0.0">
+				<vox id_="1112606976" open_="true" pos="0.0" density="10" prop="true" file="MOD/instances/contraptions/contraption_mace.vox" object="ball">
+					<rope id_="726969664" open_="true" pos="-0.4 0.0 -0.55" rot="0.0 -90.0 0.0" size="0.2" slack="0" strength="-1">
+						<location id_="1967052032" pos="0.5 0.6 2.0" rot="0.0 0.0 0.0"/>
+						<location id_="919722816" pos="0.55 0.6 -0.4" rot="0.0 0.0 0.0"/>
+					</rope>
+				</vox>
+			</body>
+			<body id_="1047525824" open_="true" pos="1.0 0.8 0.0" dynamic="true">
+				<vox id_="569149376" open_="true" tags="maceHead unbreakable" pos="-1.0 0.0 0.0" density="50" prop="true" file="MOD/instances/contraptions/contraption_mace.vox" object="head">
+					<joint id_="547914368" tags="maceHeadJoint" pos="0.05 0.0 -0.05" rot="-90.0 0.0 0.0" type="hinge"/>
+				</vox>
+			</body>
+			<body id_="493581728" open_="true" tags="unbreakable" pos="-0.0 0.4 4.4" rot="0.0 -90.0 0.0">
+				<vox id_="27461260" open_="true" pos="0.0" density="10" prop="true" file="MOD/instances/contraptions/contraption_mace.vox" object="ball">
+					<rope id_="338055328" open_="true" pos="-0.4 0.0 -0.55" rot="0.0 -90.0 0.0" size="0.2" slack="0" strength="-1">
+						<location id_="713599488" pos="0.5 0.6 2.0" rot="0.0 0.0 0.0"/>
+						<location id_="458255680" pos="0.55 0.6 -0.4" rot="0.0 0.0 0.0"/>
+					</rope>
+				</vox>
+			</body>
+			<body id_="1283797504" open_="true" tags="unbreakable" pos="0.1 0.4 -4.4" rot="0.0 90.0 0.0">
+				<vox id_="1199578624" open_="true" pos="0.0" density="10" prop="true" file="MOD/instances/contraptions/contraption_mace.vox" object="ball">
+					<rope id_="11862740" open_="true" pos="-0.4 0.0 -0.55" rot="0.0 -90.0 0.0" size="0.2" slack="0" strength="-1">
+						<location id_="59838020" pos="0.5 0.6 2.0" rot="0.0 0.0 0.0"/>
+						<location id_="683123392" pos="0.55 0.6 -0.4" rot="0.0 0.0 0.0"/>
+					</rope>
+				</vox>
+			</body>
+		</script>
+	</group>
+</prefab>
+
