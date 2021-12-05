@@ -66,8 +66,8 @@ function createZombie(body, id) -- Create zombie.
         detection = {
             distances = {
                 idle = math.huge,
-                seeking = 150,
-                chasing = 50,
+                seeking = 50,
+                chasing = 25,
                 attacking = 4,
             },
         },
@@ -105,14 +105,14 @@ function createZombie(body, id) -- Create zombie.
     --[[Physics]]
     zombie.movement = {
         isOnGround = false,
-        speed = 7,
+        speed = 5,
         speeds = {
             walk = 2.5,
             run = 5,
             attacking = 4,
             random = randomSpeed,
         },
-        hop = 1.8, -- Hop = y velocity.
+        hop = 2.2, -- Hop = y velocity.
         jump = 6,
         jumpSpeed = 2,
         lookRate = 0.03, -- The rate at which the zombie turns towards its target.

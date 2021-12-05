@@ -1,0 +1,47 @@
+<prefab version="3">
+	<group id_="1720687104" open_="true" name="instance=vehicle/excavator.xml" pos="41.2 4.2 99.7" rot="0.0 0.0 0.0">
+		<vehicle id_="1066597952" open_="true" tags="frontloader" pos="0.1 0.1 2.0" rot="0.0 0.0 0.0" sound="excavator" spring="2" damping="2" topspeed="10" acceleration="0.2" strength="10" antiroll="0.5" difflock="1">
+			<body id_="1471831808" open_="true" pos="0.0 0.5 0.5" rot="0.0 180.0 0.0" dynamic="true">
+				<vox id_="1355301632" open_="true" pos="0.0 -0.2 0.4" density="4" file="MOD/assets/vehicles/land/excavator.vox" object="body_bottom">
+					<wheel id_="197930800" open_="true" pos="-0.9 0.15 1.35" rot="0.0 180.0 0.0" drive="1" steer="1">
+						<vox id_="1990056576" pos="0.2 -0.45 -0.05" rot="0.0 -180.0 0.0" file="MOD/assets/vehicles/land/excavator.vox" object="wheel_fr_inner"/>
+					</wheel>
+					<wheel id_="2001132800" open_="true" pos="-0.9 0.15 -1.15" rot="0.0 -180.0 0.0" drive="1">
+						<vox id_="871550912" pos="0.2 -0.45 -0.05" rot="0.0 -180.0 0.0" file="MOD/assets/vehicles/land/excavator.vox" object="wheel_br_inner"/>
+					</wheel>
+					<wheel id_="2082533504" open_="true" pos="1.0 0.15 -1.15" rot="0.0 -180.0 0.0" drive="1">
+						<vox id_="979888512" pos="-0.1 -0.45 -0.05" rot="0.0 -180.0 0.0" file="MOD/assets/vehicles/land/excavator.vox" object="wheel_bl_inner"/>
+					</wheel>
+					<wheel id_="1188305792" open_="true" pos="1.0 0.15 1.35" rot="0.0 180.0 0.0" drive="1" steer="1">
+						<vox id_="1756996352" pos="-0.1 -0.45 -0.05" rot="0.0 180.0 0.0" file="MOD/assets/vehicles/land/excavator.vox" object="wheel_fl_inner"/>
+					</wheel>
+				</vox>
+				<vox id_="381573888" pos="0.0 0.6 0.5" density="3" strength="3" file="MOD/assets/vehicles/land/excavator.vox" object="body_top">
+					<location id_="1766958336" tags="player" pos="0.75 1.5 0.4" rot="0.0 0.0 0.0"/>
+					<light id_="1972164096" pos="0.85 0.15 1.3" rot="0.0 0.0 0.0" type="cone" color="1 .9 .8" scale="15" angle="90" penumbra="30" size="0.1" unshadowed="0.3" glare="0.2"/>
+					<light id_="186461296" pos="-0.85 0.15 1.2" rot="0.0 0.0 0.0" type="cone" color="1 .9 .8" scale="15" angle="90" penumbra="30" size="0.1" unshadowed="0.3" glare="0.2"/>
+				</vox>
+			</body>
+			<body id_="1442469888" pos="0.3 3.0 -2.7" rot="-60.0 180.0 0.0" dynamic="true">
+				<vox id_="1863629952" pos="0.0 0.01 -0.99" rot="0.0 0.0 0.0" density="3" strength="6" file="MOD/assets/vehicles/land/excavator.vox" object="arm_1">
+					<joint id_="1197022592" pos="0.1 0.4 -1.1" rot="0.0 270.0 0.0" type="hinge" rotstrength="0" rotspring="0" limits="-30 30"/>
+					<joint id_="1338195712" pos="-0.1 0.4 -1.1" rot="0.0 270.0 0.0" type="hinge" rotstrength="0" rotspring="0" limits="-30 30"/>
+				</vox>
+				<vox id_="469528576" pos="0.0 -0.59 0.21" rot="40.0 0.0 0.0" density="2.5" strength="6" file="MOD/assets/vehicles/land/excavator.vox" object="arm_2"/>
+			</body>
+			<body id_="1831449728" pos="0.3 3.0 -4.8" rot="40.0 180.0 0.0" dynamic="true">
+				<vox id_="370169920" pos="0.0 -0.29 0.08" rot="0.0 0.0 0.0" density="2" strength="10" file="MOD/assets/vehicles/land/excavator.vox" object="arm_3">
+					<joint id_="1761911808" pos="-0.1 0.2 -1.0" rot="0.0 270.0 0.0" type="hinge" rotstrength="0" rotspring="0" limits="-40 40"/>
+					<joint id_="43846260" pos="0.1 0.2 -1.0" rot="0.0 270.0 0.0" type="hinge" rotstrength="0" rotspring="0" limits="-40 40"/>
+				</vox>
+			</body>
+			<body id_="1582856576" pos="0.3 1.8 -5.8" rot="30.0 180.0 0.0" dynamic="true">
+				<vox id_="1850194176" pos="0.0 -0.78 -0.07" rot="0.0 0.0 0.0" density="1.5" strength="15" file="MOD/assets/vehicles/land/excavator.vox" object="shovel">
+					<joint id_="2137324928" pos="-0.1 1.2 -0.4" rot="0.0 270.0 0.0" type="hinge" rotstrength="0" rotspring="0" limits="-20 70"/>
+					<joint id_="185543744" pos="0.1 1.2 -0.4" rot="0.0 270.0 0.0" type="hinge" rotstrength="0" rotspring="0" limits="-20 70"/>
+				</vox>
+			</body>
+		</vehicle>
+	</group>
+</prefab>
+

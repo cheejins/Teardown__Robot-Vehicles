@@ -1,0 +1,31 @@
+<prefab version="0.6.0">
+	<group id_="1306998656" name="instance=MOD/assets/vehicles/land/castanet-500l-gt.xml" pos="-22.1 0.1 -3.4" rot="0.0 0.0 0.0">
+		<vehicle id_="989195200" open_="true" pos="0.0 0.0 0.0" rot="0.0 0.0 0.0" driven="false" sound="classic1" spring="0.5" damping="0.7" topspeed="80" acceleration="4" strength="4" antispin="0" antiroll="0.0" steerassist="0.1">
+			<body id_="1519217152" open_="true" pos="0.0 0.35 -0.15" rot="0.0 0.0 0.0" dynamic="true">
+				<vox id_="1358054400" open_="true" pos="0.0 -0.15 0.15" rot="0.00001 180.0 -0.00001" density="1.5" strength="3" file="MOD/assets/vehicles/land/castanet-500l-gt.vox" object="body">
+					<location id_="154412240" tags="vital" pos="0.0 0.45 2.3" rot="0.0 0.0 0.0"/>
+					<location id_="2101867776" tags="exhaust" pos="0.5 0.1 -2.6" rot="0.00001 180.0 -0.00001"/>
+					<location id_="1022424000" tags="exhaust" pos="-0.5 0.1 -2.7" rot="0.00001 180.0 -0.00001"/>
+					<light id_="318524416" pos="0.9 0.3 -2.9" rot="-0.00001 180.0 0.00001" type="area" color="1 .1 .1" size="0.2 0.2" unshadowed="0.2" glare="0.2"/>
+					<light id_="1471241984" pos="-0.9 0.3 -2.9" rot="-0.00001 180.0 0.00001" type="area" color="1 .1 .1" size="0.2 0.2" unshadowed="0.2" glare="0.2"/>
+					<light id_="1665371392" pos="-0.8 0.4 2.7" rot="0.0 0.0 0.0" type="cone" color="1 .9 .8" scale="20" angle="90" penumbra="30" size="0.1" unshadowed="0.2" glare="0.3"/>
+					<light id_="1760600960" pos="0.8 0.4 2.7" rot="0.0 0.0 0.0" type="cone" color="1 .9 .8" scale="20" angle="90" penumbra="30" size="0.1" unshadowed="0.2" glare="0.3"/>
+					<location id_="1784654208" tags="player" pos="0.35 0.95 0.25" rot="0.0 0.0 0.0"/>
+				</vox>
+				<wheel id_="2121202048" open_="true" name="fl" pos="-0.6 -0.05 -1.75" rot="0.0 0.0 0.0" steer="1" travel="-0.2 0.1">
+					<vox id_="727231872" pos="-0.1 -0.3 0.0" rot="0.00001 180.0 -0.00001" file="MOD/assets/vehicles/land/castanet-500l-gt.vox" object="wheel_fl"/>
+				</wheel>
+				<wheel id_="2039998080" open_="true" name="fr" pos="0.6 -0.05 -1.75" rot="0.0 0.0 0.0" steer="1" travel="-0.2 0.1">
+					<vox id_="2018500864" pos="0.2 -0.3 0.0" rot="0.00001 180.0 -0.00001" file="MOD/assets/vehicles/land/castanet-500l-gt.vox" object="wheel_fr"/>
+				</wheel>
+				<wheel id_="1182865920" open_="true" name="bl" pos="-0.6 -0.05 1.55" rot="0.0 0.0 0.0" drive="1" steer="0" travel="-0.2 0.1">
+					<vox id_="684368704" pos="-0.1 -0.3 0.0" rot="0.00001 180.0 -0.00001" file="MOD/assets/vehicles/land/castanet-500l-gt.vox" object="wheel_bl"/>
+				</wheel>
+				<wheel id_="1467506176" open_="true" name="br" pos="0.6 -0.05 1.55" rot="0.0 0.0 0.0" drive="1" steer="0" travel="-0.2 0.1">
+					<vox id_="1446861056" pos="0.2 -0.3 0.0" rot="0.00001 180.0 -0.00001" file="MOD/assets/vehicles/land/castanet-500l-gt.vox" object="wheel_br"/>
+				</wheel>
+			</body>
+		</vehicle>
+	</group>
+</prefab>
+

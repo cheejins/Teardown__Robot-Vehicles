@@ -67,7 +67,7 @@ function drawHeader()
         -- Image
         UiPush()
             UiTranslate(22.5, 22.5)
-            UiImageBox("MOD/Preview.jpg", 120, 120, 1, 1)
+            UiImageBox("MOD/zombieMod/Preview.jpg", 120, 120, 1, 1)
         UiPop()
         -- Title
         UiTranslate(160, 20)

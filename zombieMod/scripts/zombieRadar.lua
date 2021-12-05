@@ -61,8 +61,8 @@ function drawRadar()
     UiPush()
 
         -- Radar background and border.
-        UiImageBox('MOD/img/radar/squareBg.png', zr.static.bounds.width, zr.static.bounds.height, 1, 1)
-        UiImageBox('MOD/img/radar/square.png', zr.static.bounds.width, zr.static.bounds.height, 1, 1)
+        UiImageBox('MOD/zombieMod/img/radar/squareBg.png', zr.static.bounds.width, zr.static.bounds.height, 1, 1)
+        UiImageBox('MOD/zombieMod/img/radar/square.png', zr.static.bounds.width, zr.static.bounds.height, 1, 1)
 
         -- Blips
         UiPush()
@@ -72,7 +72,7 @@ function drawRadar()
             UiTranslate(zr.static.bounds.width/2, zr.static.bounds.height/2)
 
             -- Player blip
-            UiImageBox('MOD/img/radar/triangle.png', zr.static.blips.player.width, zr.static.blips.player.height)
+            UiImageBox('MOD/zombieMod/img/radar/triangle.png', zr.static.blips.player.width, zr.static.blips.player.height)
 
             -- Zombie blips
             local pTr = GetPlayerTransform()
@@ -94,7 +94,7 @@ function drawRadar()
                 if z.ai.isActive and zIsInRadarBounds then
                     UiPush()
                         UiTranslate(zToPlayerVec[1], zToPlayerVec[3]) -- Translate from center of radar.
-                        UiImageBox('MOD/img/radar/circle_red.png', zr.static.blips.zombie.width, zr.static.blips.zombie.height)
+                        UiImageBox('MOD/zombieMod/img/radar/circle_red.png', zr.static.blips.zombie.width, zr.static.blips.zombie.height)
                     UiPop()
                 end
             end

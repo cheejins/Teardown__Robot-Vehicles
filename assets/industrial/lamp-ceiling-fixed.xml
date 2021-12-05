@@ -1,0 +1,8 @@
+<prefab version="0.6.0">
+	<group id_="212349600" open_="true" name="instance=MOD/assets/industrial/lamp-ceiling-fixed.xml" pos="-30.0 2.9 -26.1" rot="0.0 0.0 0.0">
+		<vox id_="1803595264" open_="true" pos="0.0 0.1 0.1" file="MOD/assets/industrial/lamps.vox" object="ceiling-fixed">
+			<light id_="1074462720" pos="0.0 0.0 -0.05" rot="90.0 0.0 0.0" type="area" color="0.93 0.92 0.76" scale="4" size="1.4 0.1"/>
+		</vox>
+	</group>
+</prefab>
+

@@ -1,0 +1,14 @@
+<prefab version="0.5.4">
+	<group id_="45746920" open_="true" name="instance=MOD/assets/vehicles/sea/mediumboat.xml" pos="4.0 1.0 0.1" rot="0.0 -90.0 0.0">
+		<vehicle id_="1471897344" open_="true" tags="boat" pos="0.05 0.0 -0.05" rot="0.0 0.0 0.0" sound="mediumboat" spring="1.4" topspeed="50" strength="1" steerassist="0.1">
+			<body id_="2142371584" open_="true" tags="boat" pos="-0.05 0.15 -0.1" rot="0.0 0.0 0.0" dynamic="true">
+				<vox id_="1234839168" open_="true" pos="0.05 -1.0 -0.3" rot="0.0 90.0 0.0" file="MOD/assets/vehicles/sea/mediumboat.vox">
+					<location id_="397369024" tags="player" pos="1.25 3.15 -0.45" rot="0.0 90.0 0.0"/>
+					<location id_="2103244160" tags="exit" pos="-2.85 3.15 -0.15" rot="0.0 90.0 0.0"/>
+					<location id_="376134048" tags="propeller" pos="-4.5 0.25 -0.05" rot="0.0 -90.0 0.0"/>
+				</vox>
+			</body>
+		</vehicle>
+	</group>
+</prefab>
+

@@ -1,0 +1,32 @@
+<prefab version="3">
+	<group id_="51121200" open_="true" name="instance=vehicle/salooncar.xml" pos="5.2 4.2 87.7" rot="0.0 0.0 0.0">
+		<vehicle id_="1208885248" open_="true" rot="0.0 0.0 0.0" driven="false" sound="small1 0.8" spring="1.0" damping="1.5" topspeed="90" acceleration="6" strength="4" antiroll="0.2" difflock="0.2" steerassist="0.4" friction="1.8">
+			<body id_="952820544" open_="true" pos="0.0 0.4 -0.15" rot="0.0 0.0 0.0" dynamic="true">
+				<vox id_="816038528" open_="true" pos="0.05 -0.3 0.15" rot="0 180 0" density="1.2" strength="2" file="MOD/assets/vehicles/land/salooncar.vox" object="body">
+					<light id_="1507682176" pos="0.6 0.65 -2.1" rot="0 180 0" type="area" color="1 .1 .1" size="0.2 0.1" unshadowed="0.3" glare="0.2"/>
+					<light id_="521501792" pos="0.75 0.65 -2.1" rot="0 180 0" type="area" size="0.1 0.1" unshadowed="0.3"/>
+					<light id_="1931988096" pos="-0.65 0.65 -2.1" rot="0 180 0" type="area" size="0.1 0.1" unshadowed="0.3"/>
+					<light id_="410149312" pos="-0.5 0.65 -2.1" rot="0 180 0" type="area" color="1 .1 .1" size="0.2 0.1" unshadowed="0.3" glare="0.2"/>
+					<light id_="1577416704" pos="-0.5 0.55 2.1" rot="0.0 0.0 0.0" type="cone" color="1 .9 .8" scale="20" angle="90" penumbra="30" size="0.1" unshadowed="0.2" glare="0.3"/>
+					<light id_="1595702400" pos="0.6 0.55 2.1" rot="0.0 0.0 0.0" type="cone" color="1 .9 .8" scale="20" angle="90" penumbra="30" size="0.1" unshadowed="0.2" glare="0.3"/>
+					<location id_="1340292992" tags="exhaust" pos="0.45 0.15 -2.05" rot="180.0 0.0 180.0"/>
+					<location id_="622236736" tags="vital" pos="0.05 0.55 1.35" rot="180.0 0.0 180.0"/>
+					<location id_="1764926720" tags="player" pos="0.35 1.15 0.1" rot="0.0 0.0 0.0"/>
+				</vox>
+				<wheel id_="1674743680" open_="true" name="bl" pos="-0.65 -0.1 1.45" drive="1" travel="-0.1 0.1">
+					<vox id_="231421744" pos="-0.1 -0.3 0.0" rot="0.0 180.0 0.0" file="MOD/assets/vehicles/land/salooncar.vox" object="wheel_bl"/>
+				</wheel>
+				<wheel id_="969533248" open_="true" name="br" pos="0.65 -0.1 1.45" drive="1" travel="-0.1 0.1">
+					<vox id_="1656785664" pos="0.1 -0.3 0.0" rot="0.0 -180.0 0.0" file="MOD/assets/vehicles/land/salooncar.vox" object="wheel_br"/>
+				</wheel>
+				<wheel id_="553550848" open_="true" name="fl" pos="-0.65 -0.1 -1.15" rot="0.0 0.0 0.0" drive="0" steer="1" travel="-0.1 0.1">
+					<vox id_="990571584" pos="-0.1 -0.3 0.0" rot="0.0 180.0 0.0" file="MOD/assets/vehicles/land/salooncar.vox" object="wheel_fl"/>
+				</wheel>
+				<wheel id_="771471360" open_="true" name="fr" pos="0.65 -0.1 -1.15" drive="0" steer="1" travel="-0.1 0.1">
+					<vox id_="328945248" pos="0.1 -0.3 0.0" rot="0.0 -180.0 0.0" file="MOD/assets/vehicles/land/salooncar.vox" object="wheel_fr"/>
+				</wheel>
+			</body>
+		</vehicle>
+	</group>
+</prefab>
+

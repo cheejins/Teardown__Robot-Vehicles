@@ -1,3 +1,12 @@
-name = Robot Showcase
-author = Tuxedo Labs
-description = Examples of different robot setups that uses the default robot script.
+name = Robot Vehicles (Early Beta)
+author = Cheejins & Tuxedo Labs
+description = [noupload] A simple example of spoofing the robot's inputs/functions to simulate a vehicle.
+tags=Map,Vehicle
+
+# If description contains [noupload] the description on Steam workshop will not be overwritten.
+# Available tags (comma-separated):
+# Map      - A custom map with no particular gameplay
+# Gameplay - Mod has a mission, objective or other gameplay
+# Asset    - A collection of assets for others to use
+# Vehicle  - Mod contains drivable, custom vehicles
+# Tool     - Mod adds a custom weapon or other tool

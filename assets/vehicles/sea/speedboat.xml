@@ -1,0 +1,16 @@
+<prefab version="0.5.4">
+	<group id_="1311586432" open_="true" name="instance=MOD/assets/vehicles/sea/speedboat.xml" pos="32.0 1.0 -0.15" rot="0.0 -90.0 0.0">
+		<vehicle id_="1719507456" open_="true" tags="boat" pos="-0.0 0.0 0.6" rot="0.0 0.0 0.0" sound="speedboat" spring="0.9" topspeed="100" acceleration="0.3" strength="4" steerassist="0.2">
+			<body id_="1731697920" open_="true" tags="boat" pos="0.0 -0.15 0.0" rot="0.0 0.0 0.0" dynamic="true">
+				<vox id_="1429361920" open_="true" pos="0.15 -0.6 -0.4" rot="0.0 90.0 0.0" file="MOD/assets/vehicles/sea/speedboat.vox">
+					<location id_="637310976" tags="player" pos="-0.4 2.7 -0.75" rot="0.0 90.0 0.0"/>
+					<location id_="1825551104" tags="exit" pos="-1.3 2.7 -0.15" rot="0.0 90.0 0.0"/>
+					<location id_="263732960" tags="propeller" pos="-6.2 0.0 -0.15" rot="0.0 -90.0 0.0"/>
+					<location id_="1569420800" tags="exhaust" pos="-6.0 1.0 -1.45" rot="0.0 -90.0 0.0"/>
+					<location id_="978315584" tags="exhaust" pos="-6.0 1.0 1.15" rot="0.0 -90.0 0.0"/>
+				</vox>
+			</body>
+		</vehicle>
+	</group>
+</prefab>
+

@@ -1,0 +1,60 @@
+<prefab version="0.6.0">
+	<group id_="1621656192" open_="true" name="instance=MOD/assets/vehicles/land/crane.xml" pos="-18.1 0.1 -3.4" rot="0.0 0.0 0.0">
+		<vehicle id_="1821553280" open_="true" tags="crane reversebeep" rot="0.0 0.0 0.0" driven="false" sound="excavator 0.9" spring="1" damping="2" topspeed="15" acceleration="0.3" strength="4" difflock="1" steerassist="1">
+			<body id_="128261776" open_="true" pos="-0.05 0.8 0.0" rot="0.0 0.0 0.0" dynamic="true">
+				<vox id_="169945216" pos="0.05 -0.6 0.0" rot="0.0 -179.99998 0.0" density="6" file="MOD/assets/vehicles/land/crane.vox" object="base"/>
+				<vox id_="158606800" pos="0.05 0.2 0.0" rot="0.0 -179.99998 0.0" density="6" strength="4" file="MOD/assets/vehicles/land/crane.vox" object="body">
+					<location id_="827442496" tags="exhaust" pos="-0.1 1.5 -1.2" rot="-89.99999 180.0 0.00001"/>
+					<location id_="1504339584" tags="vital" pos="-0.1 0.6 -0.3" rot="-89.99999 180.0 0.00001"/>
+					<location id_="365778752" tags="player" pos="0.55 1.2 1.15" rot="0.0 0.0 0.0"/>
+					<light id_="1418678784" pos="0.2 0.15 1.6" rot="0.0 0.0 0.0" type="area" scale="8" size="0.2 0.1" glare="0.2"/>
+					<light id_="611357120" pos="0.9 0.15 1.6" rot="0.0 0.0 0.0" type="area" scale="8" size="0.2 0.1" glare="0.2"/>
+				</vox>
+				<wheel id_="222246144" open_="true" name="bl" pos="-0.85 -0.45 2.05" rot="0.0 0.0 0.0" drive="1" steer="-0.5" travel="-0.1 0.1">
+					<vox id_="677618048" pos="-0.2 -0.35 -0.05" rot="0.0 -179.99998 0.0" file="MOD/assets/vehicles/land/crane.vox" object="wheel_l"/>
+				</wheel>
+				<wheel id_="56757640" open_="true" name="bl" pos="-0.85 -0.45 1.05" rot="0.0 0.0 0.0" drive="1" steer="-0.25" travel="-0.1 0.1">
+					<vox id_="533561152" pos="-0.2 -0.35 -0.05" rot="0.0 -179.99998 0.0" file="MOD/assets/vehicles/land/crane.vox" object="wheel_l"/>
+				</wheel>
+				<wheel id_="1782753536" open_="true" name="bl" pos="-0.85 -0.45 0.05" rot="0.0 0.0 0.0" drive="1" travel="-0.1 0.1">
+					<vox id_="1945817088" pos="-0.2 -0.35 -0.05" rot="0.0 -179.99998 0.0" file="MOD/assets/vehicles/land/crane.vox" object="wheel_l"/>
+				</wheel>
+				<wheel id_="50793500" open_="true" name="bl" pos="-0.85 -0.45 -0.95" rot="0.0 0.0 0.0" drive="1" steer="0.25" travel="-0.1 0.1">
+					<vox id_="1525377920" pos="-0.2 -0.35 -0.05" rot="0.0 -179.99998 0.0" file="MOD/assets/vehicles/land/crane.vox" object="wheel_l"/>
+				</wheel>
+				<wheel id_="1728945152" open_="true" name="bl" pos="-0.85 -0.45 -1.95" rot="0.0 0.0 0.0" drive="1" steer="0.5" travel="-0.1 0.1">
+					<vox id_="1584691712" pos="-0.2 -0.35 -0.05" rot="0.0 -179.99998 0.0" file="MOD/assets/vehicles/land/crane.vox" object="wheel_l"/>
+				</wheel>
+				<wheel id_="1598717184" open_="true" name="br" pos="0.85 -0.45 2.05" rot="0.0 0.0 0.0" drive="1" steer="-0.5" travel="-0.1 0.1">
+					<vox id_="945021248" pos="0.1 -0.35 -0.05" rot="0.0 -179.99998 0.0" file="MOD/assets/vehicles/land/crane.vox" object="wheel_r"/>
+				</wheel>
+				<wheel id_="679846400" open_="true" name="br" pos="0.85 -0.45 1.05" rot="0.0 0.0 0.0" drive="1" steer="-0.25" travel="-0.1 0.1">
+					<vox id_="2083713280" pos="0.1 -0.35 -0.05" rot="0.0 -179.99998 0.0" file="MOD/assets/vehicles/land/crane.vox" object="wheel_r"/>
+				</wheel>
+				<wheel id_="299517792" open_="true" name="br" pos="0.85 -0.45 0.05" rot="0.0 0.0 0.0" drive="1" travel="-0.1 0.1">
+					<vox id_="1719900672" pos="0.1 -0.35 -0.05" rot="0.0 -179.99998 0.0" file="MOD/assets/vehicles/land/crane.vox" object="wheel_r"/>
+				</wheel>
+				<wheel id_="277496352" open_="true" name="br" pos="0.85 -0.45 -0.95" rot="0.0 0.0 0.0" drive="1" steer="0.25" travel="-0.1 0.1">
+					<vox id_="530939552" pos="0.1 -0.35 -0.05" rot="0.0 -179.99998 0.0" file="MOD/assets/vehicles/land/crane.vox" object="wheel_r"/>
+				</wheel>
+				<wheel id_="2066869504" open_="true" name="br" pos="0.85 -0.45 -1.95" rot="0.0 0.0 0.0" drive="1" steer="0.5" travel="-0.1 0.1">
+					<vox id_="2091643520" pos="0.1 -0.35 -0.05" rot="0.0 -179.99998 0.0" file="MOD/assets/vehicles/land/crane.vox" object="wheel_r"/>
+				</wheel>
+			</body>
+			<body id_="1876541312" open_="true" pos="-0.1 4.0 -5.4" rot="0.00001 180.0 -0.00001" dynamic="true">
+				<vox id_="1403866752" tags="hook unbreakable" rot="0.0 0.0 0.0" density="4" file="MOD/assets/vehicles/land/crane.vox" object="hook"/>
+				<rope id_="1132989952" open_="true" pos="0.05 0.8 -0.05" rot="0.0 0.0 0.0" strength="100">
+					<location id_="2103113088" pos="0.0 0.0 0.0" rot="0.0 0.0 0.0"/>
+					<location id_="1881915520" pos="0.0 2.05 0.0" rot="0.0 0.0 0.0"/>
+				</rope>
+			</body>
+			<body id_="712485312" open_="true" pos="-0.1 2.3 1.0" rot="50.0 0.0 0.0" dynamic="true">
+				<vox id_="926145728" open_="true" pos="0.1 0.0 0.0" rot="100.0 180.0 0.0" density="3" strength="6" file="MOD/assets/vehicles/land/crane.vox" object="arm">
+					<joint id_="1283011072" pos="0.0 0.0 0.0" rot="0.0 270.0 90.0" type="hinge" rotstrength="0" rotspring="0" collide="false" limits="-40 30"/>
+					<light id_="999747136" pos="0.05 7.95 0.65" rot="0.0 0.0 0.0" type="cone" scale="10" angle="150" penumbra="50" size="0.25" glare="0.2"/>
+				</vox>
+			</body>
+		</vehicle>
+	</group>
+</prefab>
+

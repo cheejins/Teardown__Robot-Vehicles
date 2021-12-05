@@ -1,0 +1,32 @@
+<prefab version="3">
+	<group id_="1443059712" open_="true" name="instance=vehicle/tractor.xml" pos="-54.8 4.2 99.7" rot="0.0 0.0 0.0">
+		<vehicle id_="574130432" open_="true" pos="0.1 0.0 -0.1" rot="0.0 0.0 0.0" driven="false" sound="tractor" spring="2" topspeed="15" acceleration="1" strength="7" antispin="0" difflock="1" friction="2">
+			<body id_="1735826944" open_="true" pos="-0.05 0.6 -0.25" rot="0.0 0.0 0.0" dynamic="true">
+				<vox id_="1101989504" open_="true" pos="0.05 -0.3 0.45" rot="0 180 0" density="4" strength="5" file="MOD/assets/vehicles/land/tractor.vox" object="body">
+					<light id_="300304288" pos="0.4 0.8 1.5" rot="0.0 0.0 0.0" type="cone" color="1 .9 .8" scale="20" angle="50" penumbra="15" size="0.1" unshadowed="0.2" glare="0.3"/>
+					<light id_="780712448" pos="-0.3 0.8 1.5" rot="0.0 0.0 0.0" type="cone" color="1 .9 .8" scale="50" angle="50" penumbra="15" size="0.1" unshadowed="0.2" glare="0.3"/>
+					<light id_="1928580096" pos="-0.5 1.05 -1.3" rot="0.0 180.0 0.0" type="area" color="1 .1 .1" scale="1" size=".2 .1" unshadowed="0.2" glare="0.2"/>
+					<light id_="1345667328" pos="0.6 1.05 -1.3" rot="0.0 180.0 0.0" type="area" color="1 .1 .1" scale="1" size=".2 .1" unshadowed="0.2" glare="0.2"/>
+					<light id_="211497584" pos="-0.5 1.25 -1.0" rot="0.0 180.0 0.0" type="area" color="1 1 1" scale="2" size=".2 .1" unshadowed="0.2"/>
+					<light id_="533757760" pos="0.6 1.25 -1.0" rot="0.0 180.0 0.0" type="area" color="1 1 1" scale="2" size=".2 .1" unshadowed="0.2"/>
+					<location id_="2116221056" tags="exhaust" pos="0.35 1.9 1.15" rot="-90.0 -180.0 0.0"/>
+					<location id_="130883376" tags="vital" pos="0.05186 0.7 0.86641"/>
+					<location id_="1052048064" tags="player" pos="0.05 1.65 -0.4" rot="0.0 0.0 0.0"/>
+				</vox>
+				<wheel id_="2006834816" open_="true" name="bl" pos="-0.65 0.15 1.1" drive="1" travel="0.0 0.1">
+					<vox id_="1369982592" pos="-0.1 -0.75 -0.05" rot="0.0 180.0 0.0" file="MOD/assets/vehicles/land/tractor.vox" object="wheel_bl"/>
+				</wheel>
+				<wheel id_="391339328" open_="true" name="br" pos="0.65 0.15 1.1" drive="1" travel="0.0 0.1">
+					<vox id_="441936224" pos="0.1 -0.75 -0.05" rot="0.0 180.0 0.0" file="MOD/assets/vehicles/land/tractor.vox" object="wheel_br"/>
+				</wheel>
+				<wheel id_="1726126976" open_="true" name="fl" pos="-0.65 -0.15 -1.1" rot="0.0 0.0 0.0" steer="1" travel="-0.0 0.1">
+					<vox id_="1265839616" pos="-0.1 -0.45 -0.05" rot="0.0 180.0 0.0" file="MOD/assets/vehicles/land/tractor.vox" object="wheel_fl"/>
+				</wheel>
+				<wheel id_="509966752" open_="true" name="fr" pos="0.65 -0.15 -1.1" steer="1" travel="-0.0 0.1">
+					<vox id_="1175066624" pos="0.2 -0.45 -0.05" rot="0.0 -180.0 0.0" file="MOD/assets/vehicles/land/tractor.vox" object="wheel_fr"/>
+				</wheel>
+			</body>
+		</vehicle>
+	</group>
+</prefab>
+

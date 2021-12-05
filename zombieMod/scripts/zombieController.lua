@@ -13,7 +13,7 @@
 function initZombieController()
     zombieController = {active = false, pos = Vec(0,0,0),}
 
-    RegisterTool('zombieController','Zombie Controller', 'MOD/vox/zombieController.vox')
+    RegisterTool('zombieController','Zombie Controller', 'MOD/zombieMod/vox/zombieController.vox')
     SetBool('game.tool.zombieController.enabled', true)
 end
 

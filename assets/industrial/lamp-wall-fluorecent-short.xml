@@ -1,0 +1,8 @@
+<prefab version="0.6.0">
+	<group id_="293750272" open_="true" name="instance=MOD/assets/industrial/lamp-wall-fluorecent-short.xml" pos="-30.0 2.9 -32.1" rot="0.0 0.0 0.0">
+		<vox id_="1704236672" open_="true" pos="0.0 0.1 0.1" file="MOD/assets/industrial/lamps.vox" object="wall_fluorecent_short">
+			<light id_="1882046592" pos="0.0 0.3 0.1" rot="90.0 0.0 0.0" type="area" color="0.93 0.92 0.76" scale="4" size="1.8 0.2"/>
+		</vox>
+	</group>
+</prefab>
+

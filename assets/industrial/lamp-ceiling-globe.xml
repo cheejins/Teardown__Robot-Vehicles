@@ -1,0 +1,8 @@
+<prefab version="0.6.0">
+	<group id_="1362773248" open_="true" name="instance=MOD/assets/industrial/lamp-ceiling-globe.xml" pos="-1.4 3.9 -5.6" rot="0.0 -90.0 0.0">
+		<vox id_="1803595264" open_="true" pos="0.0 0.1 0.1" file="MOD/assets/industrial/lamps.vox" object="ceiling-globe">
+			<light id_="547848832" pos="0.0 0.2 0.0" rot="90.0 0.0 0.0" color="0.93 0.92 0.76" scale="3" size="0.1" unshadowed="0.5"/>
+		</vox>
+	</group>
+</prefab>
+

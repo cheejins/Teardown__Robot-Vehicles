@@ -1,0 +1,8 @@
+<prefab version="0.6.0">
+	<group id_="17564720" open_="true" name="instance=MOD/assets/industrial/lamp-ceiling-hanging.xml" pos="-30.0 2.9 -28.1" rot="0.0 0.0 0.0">
+		<vox id_="2083516544" open_="true" pos="0.0 0.1 0.1" file="MOD/assets/industrial/lamps.vox" object="ceiling-hanging">
+			<light id_="458911072" pos="0.0 0.0 -0.05" rot="90.0 0.0 0.0" type="area" color="0.93 0.92 0.76" scale="4" size="1.4 0.1"/>
+		</vox>
+	</group>
+</prefab>
+

@@ -1,0 +1,12 @@
+<prefab version="0.6.0">
+	<group id_="1835840896" name="instance=MOD/assets/props/trashcan-big.xml" pos="6.5 0.4 9.0" rot="0.0 92.0 0.0">
+		<body id_="1872543360" open_="true" name="big trashcan" pos="0.0 0.0 0.0" dynamic="true">
+			<vox id_="325799328" pos="0.0 0.0 0.0" file="MOD/assets/props/trashcan-big.vox" object="bottom"/>
+			<vox id_="652581760" pos="0.0 1.2 0.1" prop="true" file="MOD/assets/props/trashcan-big.vox" object="top">
+				<joint id_="1424053120" pos="0.5 0.1 -0.6" collide="true"/>
+				<joint id_="2062806016" pos="-0.4 0.1 -0.6" collide="true"/>
+			</vox>
+		</body>
+	</group>
+</prefab>
+

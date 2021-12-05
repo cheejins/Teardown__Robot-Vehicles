@@ -1,0 +1,32 @@
+<prefab version="0.6.0">
+	<group id_="72749400" open_="true" name="instance=MOD/assets/vehicles/land/crownzygot-xvc.xml" pos="-2.1 0.1 -3.4" rot="0.0 0.0 0.0">
+		<vehicle id_="1725209472" open_="true" pos="0.0 0.0 0.0" rot="0.0 0.0 0.0" driven="false" sound="racingcar" spring="1.2" topspeed="120" acceleration="8" strength="8" antispin="0" antiroll="0.2" difflock=".1" steerassist="0.4" friction="1.9">
+			<body id_="797097472" open_="true" pos="-0.05002 0.3 -0.45" rot="0.0 0.0 0.0" dynamic="true">
+				<vox id_="489977024" open_="true" pos="0.05 -0.2 0.45" rot="0 180 0" density="1.5" strength="2" file="MOD/assets/vehicles/land/crownzygot-xvc.vox" object="body">
+					<light id_="76681800" pos="0.65 0.45 -2.3" rot="0.0 -180.0 0.0" type="area" color="1 .1 .1" size="0.3 0.1" unshadowed="0.3" glare="0.2"/>
+					<light id_="1711773696" pos="-0.55 0.45 -2.3" rot="0.0 -180.0 0.0" type="area" color="1 .1 .1" size="0.3 0.1" unshadowed="0.3" glare="0.2"/>
+					<light id_="1076756608" pos="0.7 0.55 -2.3" rot="0.0 180.0 0.0" type="area" color="1 1 1" size="0.2 0.1" unshadowed="0.2"/>
+					<light id_="49023920" pos="-0.6 0.55 -2.3" rot="0.0 180.0 0.0" type="area" size="0.2 0.1" unshadowed="0.2"/>
+					<light id_="648387200" pos="0.9 0.35 2.3" rot="0.0 0.0 0.0" type="cone" color="1 .9 .8" scale="20" angle="90" penumbra="30" size="0.1" unshadowed="0.2" glare="0.3"/>
+					<light id_="52956320" pos="-0.8 0.35 2.3" rot="0.0 0.0 0.0" type="cone" color="1 .9 .8" scale="20" angle="90" penumbra="30" size="0.1" unshadowed="0.2" glare="0.3"/>
+					<location id_="835307328" tags="exhaust" pos="0.5 0.1 -2.4" rot="-180.0 360.0 -180.0"/>
+					<location id_="1033303616" tags="vital" pos="0.05 0.55 1.4" rot="-180.0 360.0 -180.0"/>
+					<location id_="1364870528" tags="player" pos="0.35 1.0 -0.05" rot="0.0 0.0 0.0"/>
+				</vox>
+				<wheel id_="1721145984" open_="true" name="bl" pos="-0.64999 0.05 1.8" drive="1" travel="-0.1 0.1">
+					<vox id_="202715216" pos="-0.1 -0.35 -0.05" rot="0.0 -180.0 0.0" file="MOD/assets/vehicles/land/crownzygot-xvc.vox" object="wheel_bl"/>
+				</wheel>
+				<wheel id_="1762305024" open_="true" name="br" pos="0.75001 0.05 1.8" drive="1" travel="-0.1 0.1">
+					<vox id_="486896672" pos="0.1 -0.35 -0.05" rot="0 180 0" file="MOD/assets/vehicles/land/crownzygot-xvc.vox" object="wheel_br"/>
+				</wheel>
+				<wheel id_="1191058432" open_="true" name="fl" pos="-0.64999 0.05 -1.1" drive="1" steer="0.7" travel="-0.1 0.1">
+					<vox id_="1141051392" pos="-0.1 -0.35 -0.05" rot="0 180 0" file="MOD/assets/vehicles/land/crownzygot-xvc.vox" object="wheel_fl"/>
+				</wheel>
+				<wheel id_="907597952" open_="true" name="fr" pos="0.75001 0.05 -1.1" drive="1" steer="0.7" travel="-0.1 0.1">
+					<vox id_="1452497536" pos="0.1 -0.35 -0.05" rot="0.0 -180.0 0.0" file="MOD/assets/vehicles/land/crownzygot-xvc.vox" object="wheel_fr"/>
+				</wheel>
+			</body>
+		</vehicle>
+	</group>
+</prefab>
+

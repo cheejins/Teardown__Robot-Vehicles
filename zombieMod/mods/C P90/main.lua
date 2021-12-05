@@ -11,7 +11,7 @@ p90projectileHandler = {
 }
 
 function init()
-	RegisterTool("p90", "P90", "MOD/mods/C P90/vox/p90.vox")
+	RegisterTool("p90", "P90", "MOD/zombieMod/mods/C P90/vox/p90.vox")
 	SetBool("game.tool.p90.enabled", true)
 	SetFloat("game.tool.p90.ammo", 101)
 
@@ -19,11 +19,11 @@ function init()
 	gravity = Vec(0, 0, 0)
 	velocity = 3
 
-	gunsound = LoadSound("MOD/mods/C P90/snd/p90.ogg")
-	cocksound = LoadSound("MOD/mods/C P90/snd/p90cock.ogg")
-	reloadsound = LoadSound("MOD/mods/C P90/snd/p90reload.ogg")
-	dryfiresound = LoadSound("MOD/mods/C P90/snd/dryfire.ogg")
-	refillsound = LoadSound("MOD/mods/C P90/snd/refill.ogg")
+	gunsound = LoadSound("MOD/zombieMod/mods/C P90/snd/p90.ogg")
+	cocksound = LoadSound("MOD/zombieMod/mods/C P90/snd/p90cock.ogg")
+	reloadsound = LoadSound("MOD/zombieMod/mods/C P90/snd/p90reload.ogg")
+	dryfiresound = LoadSound("MOD/zombieMod/mods/C P90/snd/dryfire.ogg")
+	refillsound = LoadSound("MOD/zombieMod/mods/C P90/snd/refill.ogg")
 
 	reloadTime = 2
 	shotDelay = 0.06

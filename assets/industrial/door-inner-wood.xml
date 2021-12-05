@@ -1,0 +1,11 @@
+<prefab version="0.6.0">
+	<group id_="502298560" open_="true" name="instance=MOD/assets/industrial/door-inner-wood.xml" pos="22.0 3.0 16.0" rot="0.0 0.0 0.0">
+		<vox id_="2087317888" pos="0.1 0.0 0.2" file="MOD/assets/industrial/doors.vox" object="inner-back-wood"/>
+		<vox id_="141173152" pos="0.1 0.0 0.0" file="MOD/assets/industrial/doors.vox" object="inner-front-wood"/>
+		<vox id_="1438930688" open_="true" pos="0.1 0.1 0.1" prop="true" file="MOD/assets/industrial/doors.vox" object="inner-blade-wood">
+			<joint id_="1362576640" pos="-0.6 1.9 -0.1" rot="-90.0 0.0 0.0" type="hinge" rotstrength="0.005" rotspring="0" limits="0 160"/>
+			<joint id_="1049950784" pos="-0.6 0.3 -0.1" rot="-90.0 0.0 0.0" type="hinge" rotstrength="0.005" rotspring="0" limits="0 160"/>
+		</vox>
+	</group>
+</prefab>
+

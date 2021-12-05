@@ -24,7 +24,7 @@ deagleprojectileHandler = {
 
 function initGlock18()
 
-	RegisterTool("z-glock18", "Z-Glock 18", "MOD/mods/C Glock/vox/glock.vox")
+	RegisterTool("z-glock18", "Z-Glock 18", "MOD/zombieMod/mods/C Glock/vox/glock.vox")
 	SetBool("game.tool.z-glock18.enabled", true)
 	SetFloat("game.tool.z-glock18.ammo", 101)
 
@@ -51,11 +51,11 @@ function initGlock18()
 	recoilTimer = 0
 	lightTimer = 0
 
-	gunsound = LoadSound("MOD/mods/C Glock/snd/deagle_shot.ogg")
-	cocksound = LoadSound("MOD/mods/C Glock/snd/pistolcock.ogg")
-	reloadsound = LoadSound("MOD/mods/C Glock/snd/deagle_reload.ogg")
-	dryfiresound = LoadSound("MOD/mods/C Glock/snd/dryfire.ogg")
-	refillsound = LoadSound("MOD/mods/C Glock/snd/refill.ogg")
+	gunsound = LoadSound("MOD/zombieMod/mods/C Glock/snd/deagle_shot.ogg")
+	cocksound = LoadSound("MOD/zombieMod/mods/C Glock/snd/pistolcock.ogg")
+	reloadsound = LoadSound("MOD/zombieMod/mods/C Glock/snd/deagle_reload.ogg")
+	dryfiresound = LoadSound("MOD/zombieMod/mods/C Glock/snd/dryfire.ogg")
+	refillsound = LoadSound("MOD/zombieMod/mods/C Glock/snd/refill.ogg")
 end
 
 function deepcopy(orig)

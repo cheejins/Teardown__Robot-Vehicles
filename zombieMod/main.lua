@@ -115,27 +115,27 @@ function initGame()
 
     sounds = {
         deaths = {
-            LoadSound("MOD/snd/deaths/death1.ogg"),
+            LoadSound("MOD/zombieMod/snd/deaths/death1.ogg"),
         },
 
         hits = {
-            LoadSound("MOD/snd/hits/hits1.ogg"),
-            LoadSound("MOD/snd/hits/hits2.ogg"),
-            LoadSound("MOD/snd/hits/hits3.ogg"),
-            LoadSound("MOD/snd/hits/hits4.ogg"),
+            LoadSound("MOD/zombieMod/snd/hits/hits1.ogg"),
+            LoadSound("MOD/zombieMod/snd/hits/hits2.ogg"),
+            LoadSound("MOD/zombieMod/snd/hits/hits3.ogg"),
+            LoadSound("MOD/zombieMod/snd/hits/hits4.ogg"),
         },
 
         growls = {
-            LoadSound("MOD/snd/growls/growl1.ogg"),
-            LoadSound("MOD/snd/growls/growl2.ogg"),
-            LoadSound("MOD/snd/growls/growl3.ogg"),
-            LoadSound("MOD/snd/growls/growl4.ogg"),
+            LoadSound("MOD/zombieMod/snd/growls/growl1.ogg"),
+            LoadSound("MOD/zombieMod/snd/growls/growl2.ogg"),
+            LoadSound("MOD/zombieMod/snd/growls/growl3.ogg"),
+            LoadSound("MOD/zombieMod/snd/growls/growl4.ogg"),
         },
 
         damage = {
-            LoadSound("MOD/snd/damage/damage1.ogg"),
-            LoadSound("MOD/snd/damage/damage2.ogg"),
-            LoadSound("MOD/snd/damage/damage3.ogg"),
+            LoadSound("MOD/zombieMod/snd/damage/damage1.ogg"),
+            LoadSound("MOD/zombieMod/snd/damage/damage2.ogg"),
+            LoadSound("MOD/zombieMod/snd/damage/damage3.ogg"),
         }
     }
 

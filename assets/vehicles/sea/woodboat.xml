@@ -1,0 +1,15 @@
+<prefab version="0.5.4">
+	<group id_="1978521472" open_="true" name="instance=MOD/assets/vehicles/sea/woodboat.xml" pos="47.75 1.0 0.0" rot="0.0 -90.0 0.0">
+		<vehicle id_="621253632" open_="true" tags="boat" pos="0.0 -0.1 -0.25" rot="0.0 0.0 0.0" sound="woodboat" spring="0.2" topspeed="60" strength="2.5" steerassist="0.1">
+			<body id_="1193417856" open_="true" tags="boat" pos="-0.0 0.05 0.0" rot="0.0 0.0 0.0" dynamic="true">
+				<vox id_="1073807360" open_="true" pos="0.15 -0.7 0.15" rot="0 90" strength="2" file="MOD/assets/vehicles/sea/woodboat.vox">
+					<location id_="663526976" tags="player" pos="-0.05 2.3 -0.15" rot="0.0 90.0 0.0"/>
+					<location id_="1401572864" tags="exit" pos="-1.55 1.9 -0.15" rot="0.0 90.0 0.0"/>
+					<location id_="220542096" tags="propeller" pos="-3.7 0.05 -0.15" rot="0.0 -90.0 0.0"/>
+					<location id_="1959514880" tags="exhaust" pos="-3.5 0.95 -0.15" rot="0.0 -90.0 0.0"/>
+				</vox>
+			</body>
+		</vehicle>
+	</group>
+</prefab>
+

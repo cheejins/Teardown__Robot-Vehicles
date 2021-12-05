@@ -14,7 +14,7 @@ function drawInfoUi()
 
         UiTranslate(UiCenter(), UiMiddle())
         UiAlign("center middle")
-        UiImageBox('MOD/img/info.png', 1449, 877, 1, 1)
+        UiImageBox('MOD/zombieMod/img/info.png', 1449, 877, 1, 1)
     end
 
 end

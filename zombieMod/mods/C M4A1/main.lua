@@ -12,18 +12,18 @@ m4a1projectileHandler = {
 }
 
 function init()
-	RegisterTool("z-m4a1", "Z-M4A1", "MOD/mods/C M4A1/vox/m4a1.vox")
+	RegisterTool("z-m4a1", "Z-M4A1", "MOD/zombieMod/mods/C M4A1/vox/m4a1.vox")
 	SetBool("game.tool.z-m4a1.enabled", true)
 	SetFloat("game.tool.z-m4a1.ammo", 101)
 
 	gravity = Vec(0, 0, 0)
 	velocity = 4
 
-	gunsound = LoadSound("MOD/mods/C M4A1/snd/m4.ogg")
-	cocksound = LoadSound("MOD/mods/C M4A1/snd/guncock.ogg")
-	reloadsound = LoadSound("MOD/mods/C M4A1/snd/reload.ogg")
-	dryfiresound = LoadSound("MOD/mods/C M4A1/snd/dryfire.ogg")
-	refillsound = LoadSound("MOD/mods/C M4A1/snd/refill.ogg")
+	gunsound = LoadSound("MOD/zombieMod/mods/C M4A1/snd/m4.ogg")
+	cocksound = LoadSound("MOD/zombieMod/mods/C M4A1/snd/guncock.ogg")
+	reloadsound = LoadSound("MOD/zombieMod/mods/C M4A1/snd/reload.ogg")
+	dryfiresound = LoadSound("MOD/zombieMod/mods/C M4A1/snd/dryfire.ogg")
+	refillsound = LoadSound("MOD/zombieMod/mods/C M4A1/snd/refill.ogg")
 
 	reloadTime = 2
 	shotDelay = 0.13

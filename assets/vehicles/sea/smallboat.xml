@@ -1,0 +1,15 @@
+<prefab version="0.5.4">
+	<group id_="1613529216" open_="true" name="instance=MOD/assets/vehicles/sea/smallboat.xml" pos="18.0 1.0 -0.1" rot="0.0 -90.0 0.0">
+		<vehicle id_="76485184" open_="true" tags="boat" pos="0.35 0.0 0.3" rot="0.0 0.0 0.0" sound="smallboat" spring="0.5" topspeed="30" strength="1" steerassist="0.1">
+			<body id_="1660390400" open_="true" tags="boat" pos="-0.3 0.15 -0.1" rot="0.0 0.0 0.0" dynamic="true">
+				<vox id_="385702912" open_="true" pos="0.15 -0.6 -0.3" rot="0.0 90.0 0.0" strength="2" file="MOD/assets/vehicles/sea/smallboat.vox">
+					<location id_="744468864" tags="player" pos="-1.65 1.8 -0.2" rot="0.0 90.0 0.0"/>
+					<location id_="2120087936" tags="exit" pos="-1.15 1.8 -0.2" rot="0.0 90.0 0.0"/>
+					<location id_="977922368" tags="propeller" pos="-2.5 0.05 -0.15" rot="0.0 -90.0 0.0"/>
+					<location id_="1854257664" tags="exhaust" pos="-2.6 1.25 -0.15" rot="0.0 -90.0 0.0"/>
+				</vox>
+			</body>
+		</vehicle>
+	</group>
+</prefab>
+

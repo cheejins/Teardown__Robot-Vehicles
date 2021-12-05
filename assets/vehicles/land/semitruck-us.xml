@@ -1,0 +1,65 @@
+<prefab version="0.6.0">
+	<group id_="189738304" open_="true" name="instance=MOD/assets/vehicles/land/semitruck-us.xml" pos="5.9 0.1 -3.4" rot="0.0 0.0 0.0">
+		<vehicle id_="634558272" open_="true" rot="0.0 0.0 0.0" driven="false" sound="semitruck" spring="0.5" damping="0.5" topspeed="70" acceleration="5" strength="5" antispin="1" antiroll="0.6" difflock="0.5" steerassist="0.2">
+			<body id_="1815916800" open_="true" pos="0.0 0.8 -1.1" rot="0.0 0.0 0.0" dynamic="true">
+				<vox id_="1811591168" open_="true" pos="0.05 -0.5 0.8" rot="180.0 0.0 180.0" density="1" strength="3" file="MOD/assets/vehicles/land/semitruck-us.vox" object="body">
+					<light id_="1933823232" pos="-0.7 0.7 3.5" type="cone" color="1 .9 .8" scale="30" angle="90" penumbra="30" size="0.1" unshadowed="0.2" glare="0.4"/>
+					<light id_="193605152" pos="0.8 0.7 3.5" type="cone" color="1 .9 .8" scale="30" angle="90" penumbra="30" size="0.1" unshadowed="0.2" glare="0.4"/>
+					<location id_="1802874368" tags="player" pos="0.35 1.9 1.7" rot="0.0 0.0 0.0"/>
+					<light id_="424699200" pos="0.9 0.45 -3.8" rot="0.0 -180.0 0.0" type="area" color="1 .1 .1" size="0.2 0.1" unshadowed="0.2" glare="0.2"/>
+					<light id_="1404456704" pos="-0.8 0.45 -3.8" rot="0.0 -180.0 0.0" type="area" color="1 .1 .1" size="0.2 0.1" unshadowed="0.2" glare="0.2"/>
+				</vox>
+				<group id_="859688192" open_="true" pos="0.15 0.2 0.7">
+					<wheel id_="968222400" open_="true" name="br2" pos="0.3 -0.55 1.75" drive="1" travel="-0.1 0.1">
+						<vox id_="393240" pos="0.2 -0.45 0.05" file="MOD/assets/vehicles/land/semitruck-us.vox" object="wheel_br"/>
+					</wheel>
+					<wheel id_="1754636928" open_="true" name="br2" pos="0.3 -0.55 3.15" drive="1" travel="-0.1 0.1">
+						<vox id_="1650100608" pos="0.2 -0.45 0.05" file="MOD/assets/vehicles/land/semitruck-us.vox" object="wheel_br"/>
+					</wheel>
+					<wheel id_="1870577152" open_="true" name="bl1" pos="-0.6 -0.55 1.75" drive="1" travel="-0.1 0.1">
+						<vox id_="389569760" pos="-0.3 -0.45 0.05" file="MOD/assets/vehicles/land/semitruck-us.vox" object="wheel_bl"/>
+					</wheel>
+					<wheel id_="1086325504" open_="true" name="bl1" pos="-0.6 -0.55 3.15" drive="1" travel="-0.1 0.1">
+						<vox id_="712223168" pos="-0.3 -0.45 0.05" file="MOD/assets/vehicles/land/semitruck-us.vox" object="wheel_bl"/>
+					</wheel>
+					<wheel id_="1396854016" open_="true" name="fl" pos="-0.9 -0.55 -2.95" steer="1" travel="-0.1 0.1">
+						<vox id_="1830990976" pos="-0.2 -0.45 0.05" file="MOD/assets/vehicles/land/semitruck-us.vox" object="wheel_fl"/>
+					</wheel>
+					<wheel id_="2076700416" open_="true" name="fr" pos="0.6 -0.55 -2.95" steer="1" travel="-0.1 0.1">
+						<vox id_="33032160" pos="0.2 -0.45 -0.05" rot="0 180 0" file="MOD/assets/vehicles/land/semitruck-us.vox" object="wheel_fr"/>
+					</wheel>
+				</group>
+			</body>
+			<location id_="1144066304" tags="exhaust" pos="0.95 3.3 -1.6" rot="-90.0 0.0 0.0"/>
+			<location id_="2106848896" tags="vital" pos="0.05 1.4 -3.6" rot="-90.0 0.0 0.0"/>
+			<location id_="369055744" tags="camera" pos="0.05 2.0 -1.0" rot="-90.0 0.0 0.0"/>
+			<location id_="1894695808" tags="exhaust" pos="-0.95 3.3 -1.6" rot="-90.0 0.0 0.0"/>
+			<body id_="1572239104" open_="true" pos="0.05 1.5 6.7" dynamic="true">
+				<vox id_="538345536" open_="true" pos="0.0 -1.2 0.0" rot="0 180 0" file="MOD/assets/vehicles/land/semitruck-us.vox" object="trailer">
+					<joint id_="2054416896" pos="0.0 0.7 4.7" rot="-90.0 -90.0 0.0" type="hinge" limits="-70 70"/>
+					<light id_="1058012224" pos="0.85 0.5 -6.2" rot="0.0 180.0 0.0" type="area" color="1 .1 .1" size="0.3 0.2" unshadowed="0.2" glare="0.2"/>
+					<light id_="1725471616" pos="-0.75 0.5 -6.2" rot="0.0 180.0 0.0" type="area" color="1 .1 .1" size="0.3 0.2" unshadowed="0.2" glare="0.2"/>
+				</vox>
+				<wheel id_="332681024" open_="true" pos="-0.6 -1.05 1.75" travel="-0.1 0.1">
+					<vox id_="1736613376" pos="-0.3 -0.45 0.05" file="MOD/assets/vehicles/land/semitruck-us.vox" object="wheel_bl"/>
+				</wheel>
+				<wheel id_="24249800" open_="true" pos="-0.6 -1.05 2.95" travel="-0.1 0.1">
+					<vox id_="1466195328" pos="-0.3 -0.45 0.05" file="MOD/assets/vehicles/land/semitruck-us.vox" object="wheel_bl"/>
+				</wheel>
+				<wheel id_="36702400" open_="true" pos="-0.6 -1.05 4.15" travel="-0.1 0.1">
+					<vox id_="1947914368" pos="-0.3 -0.45 0.05" file="MOD/assets/vehicles/land/semitruck-us.vox" object="wheel_bl"/>
+				</wheel>
+				<wheel id_="518093696" open_="true" pos="0.5 -1.05 4.15" travel="-0.1 0.1">
+					<vox id_="1454594816" pos="0.2 -0.45 0.05" file="MOD/assets/vehicles/land/semitruck-us.vox" object="wheel_br"/>
+				</wheel>
+				<wheel id_="431384288" open_="true" pos="0.5 -1.05 2.95" travel="-0.1 0.1">
+					<vox id_="410083776" pos="0.2 -0.45 0.05" file="MOD/assets/vehicles/land/semitruck-us.vox" object="wheel_br"/>
+				</wheel>
+				<wheel id_="1868152192" open_="true" pos="0.5 -1.05 1.75" travel="-0.1 0.1">
+					<vox id_="839567424" pos="0.2 -0.45 0.05" file="MOD/assets/vehicles/land/semitruck-us.vox" object="wheel_br"/>
+				</wheel>
+			</body>
+		</vehicle>
+	</group>
+</prefab>
+

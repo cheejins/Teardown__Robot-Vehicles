@@ -1,7 +1,7 @@
 function init()
     maceHeadJoint = FindJoint('maceHeadJoint')
     maceHeadShape = FindShape('maceHead')
-    maceLoop = LoadLoop('MOD/instances/contraptions/sounds/maceLoop.ogg')
+    maceLoop = LoadLoop('MOD/zombieMod/instances/contraptions/sounds/maceLoop.ogg')
 end
 
 function tick()
