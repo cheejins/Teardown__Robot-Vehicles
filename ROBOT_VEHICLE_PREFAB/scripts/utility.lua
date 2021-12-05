@@ -24,7 +24,7 @@
     function QuatTrLookLeft(tr) return QuatLookAt(tr.pos, TransformToParentPoint(tr, Vec(-1,0,0))) end
     function QuatTrLookRight(tr) return QuatLookAt(tr.pos, TransformToParentPoint(tr, Vec(1,0,0))) end
 
-    function QuatDir(dir) return QuatLookAt(Vec(0, 0, 0), dir) end -- Normalized dir to quat.
+    function DirToQuat(dir) return QuatLookAt(Vec(0, 0, 0), dir) end -- Normalized dir to quat.
     function GetDir(eye, target) return VecNormalize(VecSub(eye, target)) end -- Normalized dir of two positions.
     function GetQuatEulerVec(quat) local x,y,z = GetQuatEuler(quat) return Vec(x,y,z) end
     function GetQuatDirVec(quat) return VecNormalize(GetQuatEulerVec(quat)) end

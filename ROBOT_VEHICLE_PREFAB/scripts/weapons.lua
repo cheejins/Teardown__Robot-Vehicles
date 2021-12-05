@@ -290,7 +290,7 @@ function initWeapons()
 
         rocket = {
             isActive = true, -- Active when firing, inactive after hit.
-            speed = 0.3,
+            speed = 0.2,
             lifeLength = 10,
             -- sprite = sprites.bullet.mg,
             particleRadius = 0.1,

@@ -26,9 +26,7 @@ do
 
 		--+ Override robot aim.
 		-- DrawDot(crosshairPos, 0.1,0.1, 1,0,0, 1, false)
-		-- PointLight(crosshairPos, 1,0,0, 1)
 		robot.playerPos = crosshairPos
-		-- robotTurnTowards(crosshairPos)
 		headTurnTowards(crosshairPos)
 		headUpdate(dt)
 
@@ -44,20 +42,57 @@ do
 
 				TimerResetTime(timers.gun.bullets)
 
-				local spread = (math.random() * 2) + 3
+				local spread = (math.random() * 2) + 4
 
 				local shootTr = Transform(TransformToParentPoint(headTr, (Vec(0,0,-3))), QuatLookAt(headTr.pos, TransformToParentPoint(headTr, (Vec(0,0,-5)))))
 				rejectAllBodies(robot.allBodies)
 
+
+				--TODO create function
+
 				local leftTr = Transform(TransformToParentPoint(shootTr, Vec(-0.7, 0, 0)), shootTr.rot)
-				leftTr = Transform(leftTr.pos, QuatLookAt(leftTr.pos, crosshairPos))
+				leftTr = Transform(leftTr.pos, QuatLookAt(leftTr.pos, TransformToParentPoint(leftTr, Vec(0,0,-1))))
+
+				-- Align y rot
+				local leftDir = QuatToDir(leftTr.rot)
+				local leftDirCopy = VecCopy(leftDir)
+
+				-- Quat look crosshair
+				local leftRotCrosshair = QuatLookAt(leftTr.pos, crosshairPos)
+				local leftRotCrosshairDir = QuatToDir(leftRotCrosshair)
+				local leftRotCrosshairDirY = leftRotCrosshairDir[2]
+
+				-- dir look crosshair
+				local leftRot = DirToQuat(Vec(leftDirCopy[1], leftRotCrosshairDirY, leftDirCopy[3]))
+				leftTr.rot = leftRot
+
+				-- Spread
 				leftTr.rot = QuatRotateQuat(leftTr.rot, QuatEuler((math.random()-0.5)*spread,(math.random()-0.5)*spread,(math.random()-0.5)*spread))
+				createBullet(leftTr, activeBullets, bulletPresets.mg.light, {})
+
+
+
 
 				local rightTr = Transform(TransformToParentPoint(shootTr, Vec(0.7, 0, 0)), shootTr.rot)
-				rightTr = Transform(rightTr.pos, QuatLookAt(rightTr.pos, crosshairPos))
-				rightTr.rot = QuatRotateQuat(rightTr.rot, QuatEuler((math.random()-0.5)*spread,(math.random()-0.5)*spread,(math.random()-0.5)*spread))
+				rightTr = Transform(rightTr.pos, QuatLookAt(rightTr.pos, TransformToParentPoint(rightTr, Vec(0,0,-1))))
 
-				createBullet(leftTr, activeBullets, bulletPresets.mg.light, {})
+				-- Align y rot
+				local leftDir = QuatToDir(rightTr.rot)
+				local leftDirCopy = VecCopy(leftDir)
+
+				-- Slerp X and Z
+
+				-- Quat look crosshair
+				local leftRotCrosshair = QuatLookAt(rightTr.pos, crosshairPos)
+				local leftRotCrosshairDir = QuatToDir(leftRotCrosshair)
+				local leftRotCrosshairDirY = leftRotCrosshairDir[2]
+
+				-- dir look crosshair
+				local leftRot = DirToQuat(Vec(leftDirCopy[1], leftRotCrosshairDirY, leftDirCopy[3]))
+				rightTr.rot = leftRot
+
+				-- Spread
+				rightTr.rot = QuatRotateQuat(rightTr.rot, QuatEuler((math.random()-0.5)*spread,(math.random()-0.5)*spread,(math.random()-0.5)*spread))
 				createBullet(rightTr, activeBullets, bulletPresets.mg.light, {})
 
 			end
@@ -76,7 +111,27 @@ do
 				local spread = 1
 				rejectAllBodies(robot.allBodies)
 
-				local shootTr = Transform(TransformToParentPoint(headTr, (Vec(0,0.5,-5))), QuatLookAt(headTr.pos, crosshairPos))
+				local shootTr = Transform(TransformToParentPoint(headTr, (Vec(0,0,-3))), QuatLookAt(headTr.pos, TransformToParentPoint(headTr, (Vec(0,0,-5)))))
+
+				local shootTr = Transform(TransformToParentPoint(shootTr, Vec(0, 0, 0)), shootTr.rot)
+				shootTr = Transform(shootTr.pos, QuatLookAt(shootTr.pos, TransformToParentPoint(shootTr, Vec(0,0,-1))))
+
+				-- Align y rot
+				local leftDir = QuatToDir(shootTr.rot)
+				local leftDirCopy = VecCopy(leftDir)
+
+				-- Slerp X and Z
+
+				-- Quat look crosshair
+				local leftRotCrosshair = QuatLookAt(shootTr.pos, crosshairPos)
+				local leftRotCrosshairDir = QuatToDir(leftRotCrosshair)
+				local leftRotCrosshairDirY = leftRotCrosshairDir[2]
+
+				-- dir look crosshair
+				local leftRot = DirToQuat(Vec(leftDirCopy[1], leftRotCrosshairDirY, leftDirCopy[3]))
+				shootTr.rot = leftRot
+
+				-- Spread
 				shootTr.rot = QuatRotateQuat(shootTr.rot, QuatEuler((math.random()-0.5)*spread,(math.random()-0.5)*spread,(math.random()-0.5)*spread))
 				createMissile(shootTr, activeMissiles, missilePresets.rocket, {})
 			end
@@ -208,6 +263,8 @@ do
 		robot.speed = config.speed * speedScale
 	end
 
+
+
 	--> CAMERA
 	initCamera = function()
 		cameraX = 0
@@ -244,7 +301,7 @@ do
 		pos = pos or GetCameraTransform()
 
 		local crosshairDir = UiPixelToWorld(CAMERA.xy[1], CAMERA.xy[2])
-		local crosshairQuat = QuatDir(crosshairDir)
+		local crosshairQuat = DirToQuat(crosshairDir)
 		local crosshairTr = Transform(GetCameraTransform().pos, crosshairQuat)
 
 		return crosshairTr
