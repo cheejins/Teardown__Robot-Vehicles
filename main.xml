@@ -155,7 +155,7 @@
 			<instance id_="1784916352" pos="0.5 0.0 3.4" file="MOD/assets/vehicles/land/van.xml"/>
 		</group>
 	</group>
-	<instance id_="1355563776" pos="1.9 0.0 25.4" rot="0.0 0.0 0.0" file="MOD/ROBOT_VEHICLE_PREFAB/ROBOT_VEHICLE_PREFAB.xml"/>
+	<instance id_="1355563776" pos="1.9 0.0 25.4" rot="0.0 0.0 0.0" file="MOD/ROBOT_VEHICLE_PREFAB/instance_robotVehicle.xml"/>
 	<layers/>
 </scene>
 

@@ -9,6 +9,6 @@ function initTimers()
     timers = {}
 
     timers.gun = { 
-        bullets = { time = 0, rpm = 800 },
-        rockets = { time = 0, rpm = 150 }}
+        bullets = { time = 0, rpm = 700 },
+        rockets = { time = 0, rpm = 160 }}
 end

@@ -77,7 +77,7 @@ function propelBullet(bullet)
 
         ParticleReset()
 		ParticleType("smoke")
-		ParticleRadius(0.2, 0.1)
+		ParticleRadius(0.3, 0.1)
         ParticleEmissive(0.3, 0.1)
 		ParticleAlpha(1, 0.5, "constant", 0.1/1, 0.5)	-- Ramp up fast, ramp down after 50%
 		ParticleGravity(1 * rnd(0.5, 1.5))				-- Slightly randomized gravity looks better
@@ -85,19 +85,17 @@ function propelBullet(bullet)
 		ParticleColor(0.5,0.5,0.5, 0.9, 0.9, 0.9)			-- Animating color towards white
         SpawnParticle(pos, rdmVec(0,1), 1)
 
-        MakeHole(hitPos, 0.5, 0.5, 0.5, 0.5)
-
+        MakeHole(hitPos, 0.4, 0.4, 0.3, 0.3)
+        PointLight(hitPos, bullet.particleColor[1], bullet.particleColor[2], bullet.particleColor[3], 3)
 
         if bullet.explosive > 0 then
             Explosion(hitPos, bullet.explosive)
         end
 
-        PointLight(hitPos, bullet.particleColor[1], bullet.particleColor[2], bullet.particleColor[3], 3)
-
         local hitBody = GetShapeBody(hitShape)
 
         -- Bullet kinetic force
-        local totalVel = GetBodyVelocity(hitBody)
+        -- local totalVel = GetBodyVelocity(hitBody)
         if IsBodyDynamic(hitBody) and VecDist(GetBodyVelocity(hitBody)) < bullet.force then
             local hitBodyTr = GetBodyTransform(hitBody)
             ApplyBodyImpulse(hitBody, VecSub(hitBodyTr.pos, bullet.transform.pos), VecScale(QuatToDir(bullet.transform.rot), bullet.force * 1000/GetBodyMass(hitBody)))
@@ -218,14 +216,14 @@ function propelMissile(missile)
         end
 
         Explosion(missile.transform.pos, missile.explosionSize)
-        SpawnParticle("fire", missile.transform.pos, Vec(0,0,0), 6, 1)
+        SpawnParticle("fire", missile.transform.pos, Vec(0,0,0))
         missile.hit = true
     end
 
     -- hit water
     if IsPointInWater(missile.transform.pos) then
         missile.hit = true
-        SpawnParticle("water", missile.transform.pos, Vec(0,0,0), 3, 1)
+        SpawnParticle("water", missile.transform.pos, Vec(0,0,0))
     end
 
     if missile.hit then
@@ -234,7 +232,7 @@ function propelMissile(missile)
         missile.isActive = true
     end
 
-    missile.transform.pos = TransformToParentPoint(missile.transform, Vec(0,-0.01,-missile.speed))
+    missile.transform.pos = TransformToParentPoint(missile.transform, Vec(0,0,-missile.speed))
 end
 
 
@@ -319,7 +317,7 @@ function initWeapons()
     }
 
 end
-function manageWeapons()
+function manageProjectiles()
     manageActiveBullets(activeBullets)
     manageActiveMissiles(activeMissiles)
 end

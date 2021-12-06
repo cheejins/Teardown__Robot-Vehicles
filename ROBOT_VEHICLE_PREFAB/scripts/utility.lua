@@ -308,3 +308,8 @@
     function TimerResetTime(timer)
         timer.time = 60/timer.rpm
     end
+
+
+
+-- Ideas
+--> Manage input bool (bool ref and input pressed)
