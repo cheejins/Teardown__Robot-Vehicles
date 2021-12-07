@@ -44,21 +44,6 @@ function manageActiveBullets(activeBullets)
 end
 function propelBullet(bullet)
 
-    PointLight(bullet.transform.pos, bullet.particleColor[1], bullet.particleColor[2], bullet.particleColor[3], 1)
-
-    DrawSprite(LoadSprite('ui/common/dot.png'), Transform(bullet.transform.pos, QuatRotateQuat(bullet.transform.rot, QuatEuler(90,90,0))), 0.5, 0.15, bullet.particleColor[1], bullet.particleColor[2], bullet.particleColor[3], 1, true)
-    DrawSprite(LoadSprite('ui/common/dot.png'), Transform(bullet.transform.pos, QuatRotateQuat(bullet.transform.rot, QuatEuler(0,90,0))), 0.5, 0.15, bullet.particleColor[1], bullet.particleColor[2], bullet.particleColor[3], 1, true)
-
-    ParticleReset()
-    ParticleEmissive(0.5, 0.2, "easein")
-    ParticleGravity(0)
-    ParticleRadius(0.1, 0.05, "smooth") 
-    ParticleColor(bullet.particleColor[1], bullet.particleColor[2], bullet.particleColor[3], 1, 1, 1)
-    ParticleTile(3)
-    ParticleDrag(0.2)
-    ParticleCollide(0, 1, "easeout")
-    SpawnParticle(bullet.transform.pos, rdmVec(0,1), 0.2)
-
     if bullet.ignoreBodies ~= nil then -- TODO append different tags to table
         for i = 1, #bullet.ignoreBodies do
             QueryRejectBody(bullet.ignoreBodies[i])
@@ -67,7 +52,7 @@ function propelBullet(bullet)
 
     -- hit shape
     local pos = bullet.transform.pos
-    local dir = VecSub(bullet.transform.pos, TransformToParentPoint(bullet.transform, Vec(0,0,-1)))
+    local dir = VecNormalize(VecSub(bullet.transform.pos, TransformToParentPoint(bullet.transform, Vec(0,0,-1))))
     local dist = bullet.speed
     local radius = 0.2
     local hit, dist, norm, hitShape = QueryRaycast(pos, dir, dist, radius)
@@ -83,9 +68,9 @@ function propelBullet(bullet)
 		ParticleGravity(1 * rnd(0.5, 1.5))				-- Slightly randomized gravity looks better
 		ParticleDrag(1)
 		ParticleColor(0.5,0.5,0.5, 0.9, 0.9, 0.9)			-- Animating color towards white
-        SpawnParticle(pos, rdmVec(0,1), 1)
+        SpawnParticle(hitPos, VecRdm(0,1), 1)
 
-        MakeHole(hitPos, 0.4, 0.4, 0.3, 0.3)
+        MakeHole(hitPos, 0.4, 0.4, 0.4, 0.4)
         PointLight(hitPos, bullet.particleColor[1], bullet.particleColor[2], bullet.particleColor[3], 3)
 
         if bullet.explosive > 0 then
@@ -117,6 +102,22 @@ function propelBullet(bullet)
     else
         bullet.isActive = true
     end
+
+    PointLight(bullet.transform.pos, bullet.particleColor[1], bullet.particleColor[2], bullet.particleColor[3], 1)
+
+    DrawSprite(LoadSprite('ui/common/dot.png'), Transform(bullet.transform.pos, QuatRotateQuat(bullet.transform.rot, QuatEuler(90,90,0))), 0.5, 0.15, bullet.particleColor[1], bullet.particleColor[2], bullet.particleColor[3], 1, true)
+    DrawSprite(LoadSprite('ui/common/dot.png'), Transform(bullet.transform.pos, QuatRotateQuat(bullet.transform.rot, QuatEuler(0,90,0))), 0.5, 0.15, bullet.particleColor[1], bullet.particleColor[2], bullet.particleColor[3], 1, true)
+
+    ParticleReset()
+    ParticleEmissive(0.5, 0.2, "easein")
+    ParticleGravity(0)
+    ParticleRadius(0.1, 0.05, "smooth") 
+    ParticleColor(bullet.particleColor[1], bullet.particleColor[2], bullet.particleColor[3], 1, 1, 1)
+    ParticleTile(3)
+    ParticleDrag(0.2)
+    ParticleCollide(0, 1, "easeout")
+    SpawnParticle(bullet.transform.pos, VecRdm(0,1), 0.2)
+
 
     bullet.transform.pos = TransformToParentPoint(bullet.transform, Vec(0,-0.01,-bullet.speed))
 
@@ -175,7 +176,7 @@ function propelMissile(missile)
     ParticleTile(4)
     ParticleDrag(0.5)
     ParticleCollide(0, 1, "easeout")
-    SpawnParticle(missile.transform.pos, rdmVec(1,2), 1)
+    SpawnParticle(missile.transform.pos, VecRdm(1,2), 1)
 
     -- raycast
     for i = 1, #missile.ignoreBodies do
@@ -183,7 +184,7 @@ function propelMissile(missile)
     end
 
     local pos = missile.transform.pos
-    local dir = VecSub(missile.transform.pos, TransformToParentPoint(missile.transform, Vec(0,0,-1)))
+    local dir = VecNormalize(VecSub(missile.transform.pos, TransformToParentPoint(missile.transform, Vec(0,0,-1))))
     local dist = missile.speed
     local radius = 0.2
     local hit, dist, hitShape = QueryRaycast(pos, dir, dist, radius)

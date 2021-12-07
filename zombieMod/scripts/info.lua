@@ -4,17 +4,17 @@ local menu = {
 
 function drawInfoUi()
 
-    if InputPressed('i') then
-        menu.isShowing = not menu.isShowing
-    end
+    -- if InputPressed('i') then
+    --     menu.isShowing = not menu.isShowing
+    -- end
 
-    if menu.isShowing then
+    -- if menu.isShowing then
 
-        UiMakeInteractive()
+    --     UiMakeInteractive()
 
-        UiTranslate(UiCenter(), UiMiddle())
-        UiAlign("center middle")
-        UiImageBox('MOD/zombieMod/img/info.png', 1449, 877, 1, 1)
-    end
+    --     UiTranslate(UiCenter(), UiMiddle())
+    --     UiAlign("center middle")
+    --     UiImageBox('MOD/zombieMod/img/info.png', 1449, 877, 1, 1)
+    -- end
 
 end

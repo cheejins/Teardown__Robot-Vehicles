@@ -203,7 +203,7 @@ end
 function populateObstacles()
     if boidsData.obstacles.initDone == false then
         for i = 1, boidsData.obstacles.count do
-            local obstaclePos = rdmVec(-boidMap.boundsSize, boidMap.boundsSize)
+            local obstaclePos = VecRdm(-boidMap.boundsSize, boidMap.boundsSize)
             obstaclePos[1] = obstaclePos[1]
             obstaclePos[2] = 0
             obstaclePos[3] = obstaclePos[3] + 40

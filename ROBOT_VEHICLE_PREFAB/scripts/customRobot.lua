@@ -13,12 +13,17 @@ do
 
 		SetTag(head.body, 'interact')
 		SetDescription(head.body, 'Drive Robot')
-		robot.playerInVehicle = true
+
+		if not GetBool('level.playerIsDrivingRobot') then
+			player.isDrivingRobot = true
+			SetBool('level.playerIsDrivingRobot', true)
+		end
 
 		initCamera()
 		initDebug()
 		initWeapons()
 		initTimers()
+		initUi()
 
 	end
 	function tickCustom(dt)
@@ -35,55 +40,68 @@ do
 		manageProjectiles()
 
 		--+ Check and set player robot vehicle.
-		checkPlayerCustomVehicle()
+		playerCheckRobot()
 
 		--+ Drive robot.
-		if player.drivingRobot then
+		if player.isDrivingRobot then
 			playerDriveRobot(dt, bodyTr.pos)
 		end
+
+		robot.speedScale = regGetFloat('robot.move.speed')
+		timers.gun.bullets.rpm = regGetFloat('robot.weapon.bullet.rpm')
+		timers.gun.rockets.rpm = regGetFloat('robot.weapon.rocket.rpm')
 
 	end
 	function updateCustom(dt)
 	end
 	function drawCustom()
 
-		do UiPush()
-		UiPop() end
+		if player.isDrivingRobot and robot.enabled then
 
-		CAMERA.xy = {UiCenter(), UiMiddle()}
+			uiManageGameOptions()
 
-		do UiPush()
-			UiAlign('center middle')
-			UiTranslate(UiCenter(), UiMiddle())
-			UiImageBox('MOD/ROBOT_VEHICLE_PREFAB/img/crosshair.png', 40,40, 1,1)
-		UiPop() end
+			CAMERA.xy = {UiCenter(), UiMiddle()}
 
-		do UiPush()
-			UiTranslate(UiCenter(), UiHeight() - 30)
-			UiFont('bold.ttf', 24)
-			UiColor(0.75,0.75,0.75)
-			UiAlign('center top')
-			UiText('Press "o" to show the welcome screen.')
-		UiPop() end
-
-		if not GetBool('LEVEL.welcome') then
 			do UiPush()
-				UiTranslate(UiCenter(), UiMiddle())
 				UiAlign('center middle')
-				UiImageBox('MOD/ROBOT_VEHICLE_PREFAB/img/welcome.png', UiWidth()*0.7, UiHeight()*0.7, 1, 1)
+				UiTranslate(UiCenter(), UiMiddle())
+				UiImageBox('MOD/ROBOT_VEHICLE_PREFAB/img/crosshair.png', 40,40, 1,1)
+			UiPop() end
 
-				if InputPressed('any') then
-					SetBool('LEVEL.welcome', not GetBool('LEVEL.welcome'))
-				end
+			do UiPush()
+				UiTranslate(UiCenter(), UiHeight() - 60)
+				UiFont('bold.ttf', 24)
+				UiColor(0.75,0.75,0.75)
+				UiAlign('center top')
+
+				UiText('Press "i" to show the options menu.')
+				UiTranslate(0, 30)
+				
+				UiText('Press "o" to show the welcome screen.')
 
 			UiPop() end
-		end
 
-		if InputPressed('o') then
-			SetBool('LEVEL.welcome', not GetBool('LEVEL.welcome'))
+			if not GetBool('LEVEL.welcome') then
+				do UiPush()
+					UiTranslate(UiCenter(), UiMiddle())
+					UiAlign('center middle')
+					UiImageBox('MOD/ROBOT_VEHICLE_PREFAB/img/welcome.png', UiWidth()*0.7, UiHeight()*0.7, 1, 1)
+
+					if InputPressed('any') then
+						SetBool('LEVEL.welcome', not GetBool('LEVEL.welcome'))
+					end
+
+				UiPop() end
+			end
+
+			if InputPressed('o') then
+				SetBool('LEVEL.welcome', not GetBool('LEVEL.welcome'))
+			end
+
 		end
 
 	end
+
 end
 
 --> MOVEMENT
@@ -150,8 +168,10 @@ do
 		cameraY = 0
 		zoom = 2
 	end
-	manageCamera = function()
+	manageCamera = function(disableRotation)
 		local mx, my = InputValue("mousedx"), InputValue("mousedy")
+		disableRotation = disableRotation or false
+		if disableRotation then mx, my = 0,0 end
 		cameraX = cameraX - mx / 10
 		cameraY = cameraY - my / 10
 		cameraY = clamp(cameraY, -75, 75)
@@ -310,49 +330,63 @@ end
 do
 
 	player = {}
-	player.drivingRobot = false
+	player.isDrivingRobot = false
 
 	function playerDriveRobot(dt, pos)
-
-		manageCamera()
-
-		--+ Override robot aim.
-		headTurnTowards(crosshairPos)
-		headUpdate(dt)
-
-		--+ Override robot movement.
-		processMovement()
-
-		--+ Override robot weapons.
-		processWeapons()
 
 		--+ Update player values.
 		SetPlayerTransform(Transform(pos))
 		SetPlayerHealth(1)
 		SetString("game.player.tool", 'sledge')
 
+		manageCamera(UI_OPTIONS)
+		
+		if not UI_OPTIONS then
+
+			--+ Override robot aim.
+			headTurnTowards(crosshairPos)
+			headUpdate(dt)
+
+			--+ Override robot movement.
+			processMovement()
+
+			--+ Override robot weapons.
+			processWeapons()
+		end
+
+
+
 	end
 
-	function checkPlayerCustomVehicle()
+	function playerCheckRobot()
 
-		if player.drivingRobot then
+		if robot.enabled then
 
-			--+ Exit robot.
-			if InputPressed('interact') or InputPressed('e') then
-				player.drivingRobot = false
-				local playerExitTr = Transform(TransformToParentPoint(bodyTr, Vec(0,0,-2)))
-				SetPlayerTransform(playerExitTr)
+			if player.isDrivingRobot then
+
+				--+ Exit robot.
+				if InputPressed('interact') or InputPressed('e') then
+					player.isDrivingRobot = false
+					local playerExitTr = Transform(TransformToParentPoint(bodyTr, Vec(0,0,-2)))
+					SetPlayerTransform(playerExitTr)
+				end
+
+			elseif InputPressed('interact') or InputPressed('e') then
+
+				--+ Exit robot.
+				if GetPlayerInteractBody() == head.body then
+					player.isDrivingRobot = true
+				end
+
 			end
 
-		elseif InputPressed('interact') or InputPressed('e') then
+		else
 
-			--+ Exit robot.
-			if GetPlayerInteractBody() == head.body then
-				player.drivingRobot = true
-			end
+			player.isDrivingRobot = false
 
 		end
 
 	end
+
 
 end

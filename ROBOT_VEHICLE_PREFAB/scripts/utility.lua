@@ -1,12 +1,15 @@
 --[[VECTORS]]
     -- Distance between two vectors.
-    function VecDist(vec1, vec2) return VecLength(VecSub(vec1, vec2)) end
+    function VecDist(a, b) return VecLength(VecSub(a, b)) end
     -- Divide a vector by another vector.
-    function VecDiv(v, n) n = n or 1 return Vec(v[1] / n, v[2] / n, v[3] / n) end
+    function VecDiv(a, b) return Vec(a[1] / b[1], a[2] / b[2], a[3] / b[3]) end
     -- Add all vectors in a table together.
-    function VecAddAll(vectorsTable) local v = Vec(0,0,0) for i = 1, #vectorsTable do VecAdd(v, vectorsTable[i]) end return v end
+    function VecAddAll(vtb) local v = Vec(0,0,0) for i = 1, #vtb do VecAdd(v, vtb[i]) end return v end
     --- Returns a vector with random values.
-    function rdmVec(min, max) return Vec(rdm(min, max),rdm(min, max),rdm(min, max)) end
+    function VecRdm(length)
+        local v = VecNormalize(Vec(math.random(-100,100), math.random(-100,100), math.random(-100,100)))
+        return VecScale(v, length)	
+    end
     ---Print QuatEulers or vectors.
     function VecPrint(vec, decimals, label)
         DebugPrint((label or "") .. 
@@ -18,23 +21,24 @@
 
 
 --[[QUAT]]
-    function QuatLookDown(pos) return QuatLookAt(pos, VecAdd(pos, Vec(0, -1, 0))) end
+do
     function QuatLookUp(pos) return QuatLookAt(pos, VecAdd(pos, Vec(0, 1, 0))) end
+    function QuatLookDown(pos) return QuatLookAt(pos, VecAdd(pos, Vec(0, -1, 0))) end
+
+    function QuatTrLookUp(tr) return QuatLookAt(tr.pos, TransformToParentPoint(tr, Vec(0,1,0))) end
     function QuatTrLookDown(tr) return QuatLookAt(tr.pos, TransformToParentPoint(tr, Vec(0,-1,0))) end
     function QuatTrLookLeft(tr) return QuatLookAt(tr.pos, TransformToParentPoint(tr, Vec(-1,0,0))) end
     function QuatTrLookRight(tr) return QuatLookAt(tr.pos, TransformToParentPoint(tr, Vec(1,0,0))) end
 
+    function QuatToDir(quat) return VecNormalize(TransformToParentPoint(Transform(Vec, quat), Vec(0,0,-1))) end -- Quat to normalized dir.
     function DirToQuat(dir) return QuatLookAt(Vec(0, 0, 0), dir) end -- Normalized dir to quat.
     function GetDir(eye, target) return VecNormalize(VecSub(eye, target)) end -- Normalized dir of two positions.
-    function GetQuatEulerVec(quat) local x,y,z = GetQuatEuler(quat) return Vec(x,y,z) end
-    function GetQuatDirVec(quat) return VecNormalize(GetQuatEulerVec(quat)) end
-
-    function QuatToDir(quat)
-        return VecNormalize(TransformToParentPoint(Transform(Vec, quat), Vec(0,0,-1)))
-    end
+end
 
 
 --[[AABB]]
+
+    function AabbDimensions(min, max) return Vec(max[1] - min[1], max[2] - min[2], max[3] - min[3]) end
     function AabbDraw(v1, v2, r, g, b, a)
         r = r or 1
         g = g or 1
@@ -70,11 +74,11 @@
         (aMin[2] <= bMax[2] and aMax[2] >= bMin[2]) and
         (aMin[3] <= bMax[3] and aMax[3] >= bMin[3])
     end
-    function AabbCheckPointInside(aMin, aMax, p)
+    function AabbCheckPointInside(aMin, aMax, pos)
         return 
-        (p[1] <= aMax[1] and p[1] >= aMin[1]) and
-        (p[2] <= aMax[2] and p[2] >= aMin[2]) and
-        (p[3] <= aMax[3] and p[3] >= aMin[3])
+        (pos[1] <= aMax[1] and pos[1] >= aMin[1]) and
+        (pos[2] <= aMax[2] and pos[2] >= aMin[2]) and
+        (pos[3] <= aMax[3] and pos[3] >= aMin[3])
     end
     function AabbClosestEdge(pos, shape)
 
@@ -110,7 +114,6 @@
         edges = tableSwapIndex(edges, #edges, endIndex)
         return edges
     end
-    function AabbDimensions(min, max) return Vec(max[1] - min[1], max[2] - min[2], max[3] - min[3]) end
     function AabbGetShapeCenterPos(shape)
         local mi, ma = GetShapeBounds(shape)
         return VecLerp(mi,ma,0.5)
@@ -143,7 +146,6 @@
         t[i2] = temp
         return t
     end
-
     function TableClone(tb)
         local tbc = {}
         for k,v in pairs(tb) do tbc[k] = v end
@@ -154,17 +156,25 @@
 
 --[[RAYCASTING]]
 ---comment
----@param tr table
----@param distance number
----@param rad number
----@param rejectBodies table
----@param rejectShapes table
-    function RaycastFromTransform(tr, distance, rad, rejectBodies, rejectShapes)
+---@param tr table -- Source transform.
+---@param distance number -- Max raycast distance. Default is 300.
+---@param rad number -- Raycst radius.
+---@param rejectBodies table -- Table of bodies to reject.
+---@param rejectShapes table -- Table of shapes to reject.
+---@param returnNil bool -- If true, return nil if no raycast hit. If false, return the end point of the raycast based on the transfom and distance.
+---@return hit boolean
+---@return hitPos table
+---@return hitShape table
+---@return hitBody table
+---@return hitDist number
+    function RaycastFromTransform(tr, distance, rad, rejectBodies, rejectShapes, returnNil)
 
         if distance ~= nil then distance = -distance else distance = -300 end
 
         if rejectBodies ~= nil then for i = 1, #rejectBodies do QueryRejectBody(rejectBodies[i]) end end
         if rejectShapes ~= nil then for i = 1, #rejectShapes do QueryRejectShape(rejectShapes[i]) end end
+
+        returnNil = returnNil or false
 
         local plyTransform = tr
         local fwdPos = TransformToParentPoint(plyTransform, Vec(0, 0, distance))
@@ -176,15 +186,18 @@
             local p = TransformToParentPoint(plyTransform, Vec(0, 0, d * -1))
             local b = GetShapeBody(s)
             return h, p, s, b, d
-        else
+        elseif not returnNil then
             return true, TransformToParentPoint(tr, Vec(0,0,-300))
+        else
+            return nil
         end
     end
 
 
 
 --[[PHYSICS]]
-    function diminishBodyAngVel(body, rate)
+    -- Reduce the angular body velocity by a certain rate each frame.
+    function DiminishBodyAngVel(body, rate)
         local angVel = GetBodyAngularVelocity(body)
         local dRate = rate or 0.99
         local diminishedAngVel = Vec(angVel[1]*dRate, angVel[2]*dRate, angVel[3]*dRate)
@@ -220,15 +233,10 @@
 
 
 --[[SOUND]]
-    local debugSounds = {
-        beep = LoadSound("warning-beep"),
-        buzz = LoadSound("light/spark0"),
-        chime = LoadSound("elevator-chime"),
-        valu = LoadSound("valuable.ogg"),}
-    function beep(pos, vol) PlaySound(debugSounds.beep, pos or GetCameraTransform().pos, vol or 0.3) end
-    function buzz(pos, vol) PlaySound(debugSounds.buzz, pos or GetCameraTransform().pos, vol or 0.3) end
-    function chime(pos, vol) PlaySound(debugSounds.chime, pos or GetCameraTransform().pos, vol or 0.3) end
-    function valu(pos, vol) PlaySound(debugSounds.valu, pos or GetCameraTransform().pos, vol or 0.3) end
+    function beep(pos, vol) PlaySound(LoadSound("warning-beep"), pos or GetCameraTransform().pos, vol or 0.3) end
+    function buzz(pos, vol) PlaySound(LoadSound("light/spark0"), pos or GetCameraTransform().pos, vol or 0.3) end
+    function chime(pos, vol) PlaySound(LoadSound("elevator-chime"), pos or GetCameraTransform().pos, vol or 0.3) end
+    function shine(pos, vol) PlaySound(LoadSound("valuable.ogg"), pos or GetCameraTransform().pos, vol or 0.3) end
 
 
 
@@ -238,8 +246,14 @@
     function gtZero(n) if n <= 0 then return 0.00000001 end return n end
     --- return number if not = 0, else return 0.00000001
     function nZero(n) if n == 0 then return 0.00000001 end return n end
+
+
     --- return number if not = 0, else return 0.00000001
-    function rdm(min, max) return math.random(min or 0, max or 1) end
+    function rdm(min, max)
+        return math.random(min, max-1) + math.random()
+    end
+
+
     function clamp(value, mi, ma)
         if value < mi then value = mi end
         if value > ma then value = ma end
@@ -250,6 +264,30 @@
         a = a * math.pi
         return math.sin(a)
     end
+
+    ---@param x number
+    ---@param hScale number
+    function GetParabola(x, hScale)
+        local h = 1
+        local w = 0
+        local s = 1
+        local y = (-(4*h-w) * (x-(1/2)*s)^2 + (4*h/4)) * hScale
+        return y
+    end
+
+    function DrawParabola()
+        local scale = 3
+        local hScale = 4
+        local denisty = 10 * scale
+        for i = 0, 1, 1/denisty do
+            local pos = Vec(i, 0, 0)
+            pos[2] = GetParabola(i, hScale)
+            pos = VecScale(pos, scale)
+
+            DrawDot(pos, 0.2,0.2, 0,1,1, 1, false)
+        end
+    end
+
 
 
 --[[LOGIC]]

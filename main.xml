@@ -7,7 +7,7 @@
 		</group>
 		<group id_="2063264768" open_="true" name="Scene" pos="-0.4 6.1 0.1">
 			<group id_="2101867776" open_="true" name="Ground" pos="-0.00001 0.0 -0.0">
-				<voxbox id_="1043527872" name="Unbrakable ground" pos="-100.00001 0.0 -100.00001" rot="0.0 0.0 0.0" texture="9" size="2000 1 2000" color=".5 .5 .5"/>
+				<voxbox id_="1043527872" name="Unbrakable ground" pos="-100.00001 -0.9 -100.00001" rot="0.0 0.0 0.0" texture="9" size="2000 10 2000" color=".5 .5 .5"/>
 			</group>
 			<group id_="1025700992" name="Room" pos="2.19999 0.0 -8.8" rot="0.0 0.0 0.0">
 				<voxbox id_="1387088512" pos="-10.0 0.0 10.0" size="81 30 2" material="masonry" color=".5 .5 .5"/>
@@ -44,17 +44,10 @@
 			<group id_="1114573184" open_="true" name="Vehicles">
 				<instance id_="646158848"/>
 			</group>
+			<water id_="1194073216" pos="0.0 -1.0 0.0"/>
 		</group>
 		<group id_="507410688" name="Robots" pos="-0.4 6.1 0.1">
-			<group id_="374036768" open_="true" name="Basic mech" pos="1.8 -0.1 27.0">
-				<body id_="408969600" name="Sign" tags="nocull" pos="-3.1 0.2 3.7" rot="0.0 30.0 0.0" dynamic="true" desc="Basic mech with two patrol locations. This robot will not chase the player or care about sounds in the environment.">
-					<voxbox id_="1250896384" size="5 1 5"/>
-					<voxbox id_="700425984" pos="0.2 0.1 0.2" size="1 12 1"/>
-					<voxbox id_="1064304064" pos="0.0 1.5 0.1" rot="60.0 0.0 0.0" size="5 1 5">
-						<voxbox id_="1733074176" pos="0.1 0.0 0.1" size="3 1 3" color=".5 .5 1" pbr="0 0 0 2"/>
-					</voxbox>
-				</body>
-			</group>
+			<group id_="374036768" name="Basic mech" pos="1.8 -0.1 27.0"/>
 			<group id_="322456800" open_="true" name="Basic mech" pos="1.7 -0.1 -10.0">
 				<body id_="860802368" name="Sign" tags="nocull" pos="-1.3 0.2 12.4" rot="0.0 30.0 0.0" dynamic="true" desc="Non-hostile mech with two patrol locations. This robot will investigate sounds in the area and chase the player when seen.">
 					<voxbox id_="760198464" size="5 1 5"/>
@@ -100,7 +93,7 @@
 					<location id_="1383942656" tags="patrol" pos="5.6 0.1 0.0" rot="0.0 0.0 0.0"/>
 				</script>
 			</group>
-			<group id_="1768138112" name="Mech with rockets" pos="34.2 -0.1 -49.9">
+			<group id_="1768138112" open_="true" name="Mech with rockets" pos="34.2 -0.1 -49.9">
 				<body id_="948953664" name="Sign" tags="nocull" pos="-1.3 0.2 12.4" rot="0.0 30.0 0.0" dynamic="true" desc="Mech with rockets. This robot will investigate sounds in the area and chase the player when seen.">
 					<voxbox id_="1332493696" size="5 1 5"/>
 					<voxbox id_="1193090176" pos="0.2 0.1 0.2" size="1 12 1"/>
@@ -116,7 +109,6 @@
 				</script>
 			</group>
 		</group>
-		<environment id_="1827189632" name="Environment" template="sunset" pos="-0.4 6.1 0.1"/>
 		<spawnpoint id_="1200823936" name="Player spawn" pos="0.8 6.2 42.2" rot="0.0 -180.0 0.0"/>
 		<boundary id_="913889792" name="Boundary" pos="-0.4 0.0 0.1" rot="0.0 0.0 0.0">
 			<vertex pos="-100.0 -99.9"/>
@@ -154,8 +146,9 @@
 			<instance id_="840026176" pos="-7.79999 0.0 3.4" file="MOD/assets/vehicles/land/crownzygot-xvc.xml"/>
 			<instance id_="1784916352" pos="0.5 0.0 3.4" file="MOD/assets/vehicles/land/van.xml"/>
 		</group>
+		<environment id_="1551790592" name="Env" template="sunset" skyboxtint="0.86 0.47 0.25" skyboxrot="100" fogColor="0.55 0.27 0.09"/>
 	</group>
-	<instance id_="1355563776" pos="1.9 0.0 25.4" rot="0.0 0.0 0.0" file="MOD/ROBOT_VEHICLE_PREFAB/instance_robotVehicle.xml"/>
+	<instance id_="1355563776" pos="2.5 0.0 27.8" rot="0.0 0.0 0.0" file="MOD/ROBOT_VEHICLE_PREFAB/instance_robotVehicle.xml"/>
 	<layers/>
 </scene>
 

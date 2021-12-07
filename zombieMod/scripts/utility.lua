@@ -14,7 +14,7 @@ function VecAddAll(vectorsTable)
     return v
 end
 --- return number if not = 0, else return 0.00000001
-function rdmVec(min, max)
+function VecRdm(min, max)
     return Vec(rdm(min, max),rdm(min, max),rdm(min, max))
 end
 --- Prints quats or vectors. dec = decimal places. dec default = 3. title is optional.
