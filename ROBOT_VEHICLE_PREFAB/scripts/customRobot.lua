@@ -11,6 +11,8 @@ do
 		CAMERA = {}
 		CAMERA.xy = {UiCenter(), UiMiddle()}
 
+		missileSound = LoadSound("../snd/launchSound.ogg")
+
 		SetTag(head.body, 'interact')
 		SetDescription(head.body, 'Drive Robot')
 
@@ -47,12 +49,12 @@ do
 			playerDriveRobot(dt, bodyTr.pos)
 		end
 
+	end
+	function updateCustom(dt)
 		robot.speedScale = regGetFloat('robot.move.speed')
 		timers.gun.bullets.rpm = regGetFloat('robot.weapon.bullet.rpm')
 		timers.gun.rockets.rpm = regGetFloat('robot.weapon.rocket.rpm')
-
-	end
-	function updateCustom(dt)
+		processMovement()
 	end
 	function drawCustom()
 
@@ -65,19 +67,22 @@ do
 			do UiPush()
 				UiAlign('center middle')
 				UiTranslate(UiCenter(), UiMiddle())
-				UiImageBox('MOD/ROBOT_VEHICLE_PREFAB/img/crosshair.png', 40,40, 1,1)
+				UiImageBox('../img/crosshair.png', 40,40, 1,1)
 			UiPop() end
 
 			do UiPush()
-				UiTranslate(UiCenter(), UiHeight() - 60)
+				UiTranslate(UiCenter(), UiHeight() - 90)
 				UiFont('bold.ttf', 24)
 				UiColor(0.75,0.75,0.75)
 				UiAlign('center top')
 
-				UiText('Press "i" to show the options menu.')
+				UiText('Mod Version: '..GetModVersion())
 				UiTranslate(0, 30)
-				
-				UiText('Press "o" to show the welcome screen.')
+
+				UiText('Press "o" to show the options menu.')
+				UiTranslate(0, 30)
+
+				UiText('Press "i" to show the welcome screen.')
 
 			UiPop() end
 
@@ -85,7 +90,7 @@ do
 				do UiPush()
 					UiTranslate(UiCenter(), UiMiddle())
 					UiAlign('center middle')
-					UiImageBox('MOD/ROBOT_VEHICLE_PREFAB/img/welcome.png', UiWidth()*0.7, UiHeight()*0.7, 1, 1)
+					UiImageBox('../img/welcome.png', UiWidth()*0.7, UiHeight()*0.7, 1, 1)
 
 					if InputPressed('any') then
 						SetBool('LEVEL.welcome', not GetBool('LEVEL.welcome'))
@@ -94,7 +99,7 @@ do
 				UiPop() end
 			end
 
-			if InputPressed('o') then
+			if InputPressed('i') then
 				SetBool('LEVEL.welcome', not GetBool('LEVEL.welcome'))
 			end
 
@@ -107,6 +112,8 @@ end
 --> MOVEMENT
 do
 	processMovement = function ()
+
+		-- navigationClear()
 
 		--+ WASD
 		if InputDown('w') then
@@ -131,9 +138,9 @@ do
 
 		--+ Sprint
 		if InputDown('shift') then
-			robot.speedScale = 2
+			robot.speedScale = regGetFloat('robot.move.speed') * 2
 		else
-			robot.speedScale = 1
+			robot.speedScale = regGetFloat('robot.move.speed')
 		end
 
 		--+ Jump
@@ -146,8 +153,6 @@ do
 			SetBodyVelocity(robot.body, VecAdd(GetBodyVelocity(robot.body), Vec(0,-5,0)))
 			DebugPrint('Teabag initiated ' .. sfnTime())
 		end
-
-		--. navigationClear()
 
 	end
 
@@ -290,7 +295,7 @@ do
 
 				TimerResetTime(timers.gun.rockets)
 
-				PlaySound(rocketSound, bodyTr.pos, 3)
+				PlaySound(rocketSound, bodyTr.pos, 2)
 
 				local spread = 1
 				rejectAllBodies(robot.allBodies)
@@ -340,7 +345,7 @@ do
 		SetString("game.player.tool", 'sledge')
 
 		manageCamera(UI_OPTIONS)
-		
+
 		if not UI_OPTIONS then
 
 			--+ Override robot aim.
@@ -348,7 +353,7 @@ do
 			headUpdate(dt)
 
 			--+ Override robot movement.
-			processMovement()
+			-- processMovement()
 
 			--+ Override robot weapons.
 			processWeapons()

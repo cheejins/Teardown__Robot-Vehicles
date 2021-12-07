@@ -5,10 +5,12 @@
 #include "weapons.lua"
 #include "ui.lua"
 #include "utility.lua"
+#include "version.lua"
+#include "registry.lua"
 
 
 --= ROBOT OVERVIEW
-do 
+do
 --[[
 
 	The robot script should be parent of all bodies that make up the robot.
@@ -491,7 +493,7 @@ do
 				end
 				state.time = state.time + dt
 				hover.timeSinceContact = 0
-				if state.time > 2.0 then
+				if state.time > 1.0 then
 					stackPop()
 				else
 					hoverGetUp()
@@ -2026,7 +2028,7 @@ do
 					local dx = tonumber(words[6])
 					local dy = tonumber(words[7])
 					local dz = tonumber(words[8])
-					hitByShot(strength, Vec(x,y,z), Vec(dx,dy,dz))
+					hitByShot(strength/1.5, Vec(x,y,z), Vec(dx,dy,dz))
 				end
 			end
 		end

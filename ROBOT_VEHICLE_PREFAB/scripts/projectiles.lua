@@ -9,14 +9,12 @@ end
 --[[Projectiles]]
 function createProjectile(transform, projectiles, projPreset, ignoreBodies) --- Instantiates a proj and adds it to the projectiles table.
     local proj = TableClone(projPreset)
-
     proj.transform = transform
     proj.ignoreBodies = ignoreBodies
-
     table.insert(projectiles, proj)
 end
 
-function manageActiveProjs(projectiles)
+function manageActiveProjs()
 
     local projsToRemove = {} -- projectiles iterations.
     for i = 1, #projectiles do

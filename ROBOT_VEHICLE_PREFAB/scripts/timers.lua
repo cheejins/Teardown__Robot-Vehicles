@@ -8,7 +8,7 @@ function initTimers()
 
     timers = {}
 
-    timers.gun = { 
-        bullets = { time = 0, rpm = 700 },
-        rockets = { time = 0, rpm = 160 }}
+    timers.gun = {
+        bullets = { time = 0, rpm = regGetFloat('robot.weapon.bullet.rpm') },
+        rockets = { time = 0, rpm = regGetFloat('robot.weapon.rocket.rpm') }}
 end

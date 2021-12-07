@@ -54,7 +54,7 @@ function propelBullet(bullet)
     local pos = bullet.transform.pos
     local dir = VecNormalize(VecSub(bullet.transform.pos, TransformToParentPoint(bullet.transform, Vec(0,0,-1))))
     local dist = bullet.speed
-    local radius = 0.2
+    local radius = 0
     local hit, dist, norm, hitShape = QueryRaycast(pos, dir, dist, radius)
     if hit then
 
@@ -70,7 +70,8 @@ function propelBullet(bullet)
 		ParticleColor(0.5,0.5,0.5, 0.9, 0.9, 0.9)			-- Animating color towards white
         SpawnParticle(hitPos, VecRdm(0,1), 1)
 
-        MakeHole(hitPos, 0.4, 0.4, 0.4, 0.4)
+        local holeSize = regGetFloat('robot.weapon.bullet.holeSize')
+        MakeHole(hitPos, holeSize, holeSize, holeSize, holeSize)
         PointLight(hitPos, bullet.particleColor[1], bullet.particleColor[2], bullet.particleColor[3], 3)
 
         if bullet.explosive > 0 then
@@ -186,7 +187,7 @@ function propelMissile(missile)
     local pos = missile.transform.pos
     local dir = VecNormalize(VecSub(missile.transform.pos, TransformToParentPoint(missile.transform, Vec(0,0,-1))))
     local dist = missile.speed
-    local radius = 0.2
+    local radius = 0.4
     local hit, dist, hitShape = QueryRaycast(pos, dir, dist, radius)
     if hit then
 
@@ -216,7 +217,9 @@ function propelMissile(missile)
 
         end
 
-        Explosion(missile.transform.pos, missile.explosionSize)
+        -- Explosion(missile.transform.pos, missile.explosionSize)
+        local explosionSize = regGetFloat('robot.weapon.rocket.explosionSize')
+        Explosion(missile.transform.pos, explosionSize)
         SpawnParticle("fire", missile.transform.pos, Vec(0,0,0))
         missile.hit = true
     end
@@ -292,7 +295,7 @@ function initWeapons()
             speed = 0.2,
             lifeLength = 10,
             -- sprite = sprites.bullet.mg,
-            particleRadius = 0.1,
+            particleRadius = 0.2,
             particleLife = 9,
             particleColor = Vec(0.8, 0.4, 0),
             explosionSize = 1.8,
