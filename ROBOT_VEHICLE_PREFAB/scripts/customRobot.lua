@@ -249,8 +249,6 @@ function processWeapons_mech_aeon()
 			for key, weap in pairs(robot.weaponObjects.secondary) do
 
 				local weapTr = GetLightTransform(weap.light)
-				local weapBodyTr = GetBodyTransform(weap.body)
-
 
 				-- Aim adjust. The shoot location is slightly higher than the weapon body.
 				-- Moves the aim pos just above where the crosshair (weapon body aligned) hits the world.
@@ -260,25 +258,27 @@ function processWeapons_mech_aeon()
 				local trueAimRot = QuatLookAt(shootTr.pos, crosshairPos)
 				local trueAimDir = QuatToDir(trueAimRot)
 				local shootRotAligned =  DirToQuat(Vec(shootDir[1], trueAimDir[2], shootDir[3]))
-
 				shootTr.rot = shootRotAligned
 
-
-				-- Shoot.
+				-- Shoot projectile.
 				createProjectile(shootTr, Projectiles, ProjectilePresets.aeon_secondary, robot.allBodies)
 
-				local vel_impulse = VecScale(QuatToDir(weapTr.rot), -4000)
 
-				-- for key, body in pairs(robot.allBodies) do
-					ApplyBodyImpulse(robot.body, AabbGetBodyCenterPos(robot.body), vel_impulse)
-				-- end
+				-- Apply recoil,
+				local vel_impulse = VecScale(QuatToDir(weapTr.rot), -4500)
+				ApplyBodyImpulse(robot.body, AabbGetBodyCenterPos(robot.body), vel_impulse)
+
+				-- Shoot particles,
+				SpawnParticle_aeon_weap_secondary(shootTr)
 
 				-- Exhaust particles.
 				local exhaustTr = TransformCopy(weapTr)
 				exhaustTr.pos = TransformToParentPoint(weapTr, Vec(0,0,1.5))
 				exhaustTr.rot = QuatTrLookBack(weapTr)
-				SpawnParticle("smoke", exhaustTr.pos, VecScale(QuatToDir(exhaustTr.rot), 3), 1,1,1,1)
-				SpawnParticle("smoke", exhaustTr.pos, VecScale(QuatToDir(exhaustTr.rot), 1), 1,1,1,1)
+
+				SpawnParticle_aeon_weap_secondary_exhaust(exhaustTr, 0)
+				SpawnParticle_aeon_weap_secondary_exhaust(exhaustTr, 3)
+				SpawnParticle_aeon_weap_secondary_exhaust(exhaustTr, 5)
 
 			end
 
@@ -452,6 +452,9 @@ function playerDriveRobot(dt, pos)
 	SetPlayerTransform(Transform(pos))
 	SetPlayerHealth(1)
 	SetString("game.player.tool", 'sledge')
+	SetPlayerVelocity(Vec())
+	SetPlayerGroundVelocity(Vec())
+
 
 	manageCamera(UI_OPTIONS, robot.cameraHeight)
 

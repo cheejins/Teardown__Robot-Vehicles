@@ -1,7 +1,9 @@
-v 22.02.19
+v 22.02.18
 Added
     Aeon robot.
     Robot spawning.
     Breakable robots.
+    Options menu
 Fixes
     Robots can now walk diagonally
+    Walking noises

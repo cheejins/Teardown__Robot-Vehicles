@@ -53,6 +53,11 @@ function propelProjectile(proj)
     --+ Move proj forward.
     proj.transform.pos = TransformToParentPoint(proj.transform, Vec(0,0,-proj.speed))
 
+    proj.lifeLength = proj.lifeLength - GetTimeStep()
+    if proj.lifeLength <= 0 then
+        proj.hit = true
+    end
+
     --+ Ignore bodies
     if proj.ignoreBodies ~= nil then
         for i = 1, #proj.ignoreBodies do
@@ -65,17 +70,21 @@ function propelProjectile(proj)
     local dir = VecSub(proj.transform.pos, TransformToParentPoint(proj.transform, Vec(0,0,-1)))
     local dist = proj.speed
     local radius = proj.rcRad
-    local hit, dist, hitShape = QueryRaycast(pos, dir, dist, radius)
-    if hit then
+    local hit, dist, n, hitShape = QueryRaycast(pos, dir, dist, radius)
+    if hit or proj.hit then
 
         local hitPos = TransformToParentPoint(proj.transform, Vec(0,0,dist))
         proj.isActive = false
         proj.hit = true
 
         --+ Hit Action
+        ApplyBodyImpulse(GetShapeBody(hitShape), hitPos, VecScale(QuatToDir(proj.transform.rot), proj.force))
+
         if proj.explosionSize > 0 then
             Explosion(hitPos, proj.explosionSize)
         end
+
+        --+ Sounds
         local index = proj.sounds.hit[math.random(1, #proj.sounds.hit)]
         PlayRandomSound(proj.sounds.hit, proj.transform.pos, 2, index)
         PlayRandomSound(proj.sounds.hit, GetCameraTransform().pos, 0.2 + math.random()/10, index)
@@ -95,12 +104,6 @@ function propelProjectile(proj)
         proj.isActive = true
     end
 
-    proj.lifeLength = proj.lifeLength - GetTimeStep()
-    if proj.lifeLength <= 0 then
-        proj.isActive = false
-        proj.hit = true
-    end
-
     --+ Proj homing.
     proj.transform.rot = MakeQuaternion(proj.transform.rot)
     proj.transform.rot = proj.transform.rot:Approach(QuatLookAt(proj.transform.pos, proj.homing.targetPos), proj.homing.force)
@@ -118,47 +121,16 @@ function propelProjectile(proj)
     end
 
     --+ Particles
-    SpawnParticle("smoke", proj.transform.pos, Vec(0,0,0))
+    manageAeonWeaponParticles(proj)
+
+    local c = proj.effects.color
+    PointLight(proj.transform.pos, c[1], c[2], c[3], 1)
 
 end
 
 function initProjectiles()
 
     ProjectilePresets = {
-
-        aeon_special = {
-            isActive = true, -- Active when firing, inactive after hit.
-            hit = false,
-            lifeLength = 10, --Seconds
-
-            speed = 0.85,
-            spread = 0.3,
-            drop = 0.1,
-            dropIncrement = 0,
-            explosionSize = 1.1,
-            rcRad = 0.3,
-
-            effects = {
-                particle = 'smoke',
-                color = Vec(0,1,0.9),
-                sprite = '../img/weap/plasma_bullet.png',
-                sprite_dimensions = {1.2, 0.3},
-                sprite_facePlayer = false,
-            },
-
-            sounds = {
-                hit = Sounds.weap_special.hit,
-                hit_vol = 5,
-            },
-
-            homing = {
-                force = 0,
-                gain = 0.01,
-                max = 2,
-                targetPos = Vec(),
-                targetPosRadius = 0,
-            },
-        },
 
         aeon_secondary = {
             isActive = true, -- Active when firing, inactive after hit.
@@ -171,12 +143,13 @@ function initProjectiles()
             dropIncrement = 0,
             explosionSize = 1.7,
             rcRad = 0.2,
+            force = 10000,
 
             effects = {
-                particle = 'smoke',
-                color = Vec(0,1,0.9),
+                particle = 'aeon_secondary',
+                color = Vec(00.5,0.5,0.9),
                 sprite = '../img/weap/plasma_orb.png',
-                sprite_dimensions = {1.5, 1.5},
+                sprite_dimensions = {2, 2},
                 sprite_facePlayer = true,
             },
 
@@ -194,19 +167,147 @@ function initProjectiles()
             }
         },
 
+        aeon_special = {
+            isActive = true, -- Active when firing, inactive after hit.
+            hit = false,
+            lifeLength = 5, --Seconds
+
+            speed = 0.85,
+            spread = 0.3,
+            drop = 0.1,
+            dropIncrement = 0,
+            explosionSize = 1.1,
+            rcRad = 0.3,
+            force = 0,
+
+            effects = {
+                particle = 'aeon_special',
+                color = Vec(0.2,0.2,0.9),
+                sprite = '../img/weap/plasma_bullet.png',
+                sprite_dimensions = {1.6, 0.3},
+                sprite_facePlayer = false,
+            },
+
+            sounds = {
+                hit = Sounds.weap_special.hit,
+                hit_vol = 5,
+            },
+
+            homing = {
+                force = 0,
+                gain = 0.01,
+                max = 2,
+                targetPos = Vec(),
+                targetPosRadius = 0,
+            },
+        },
+
     }
 end
 
 
+function manageAeonWeaponParticles(proj)
+
+    local trAhead = Transform(TransformToParentPoint(proj.transform, Vec(0,0,-proj.speed/1 + math.random())), proj.transform.rot)
+
+    if proj.effects.particle == 'aeon_special' then
+        SpawnParticle_aeon_weap_special(proj.transform)
+        SpawnParticle_aeon_weap_special(proj.transform)
+        SpawnParticle_aeon_weap_special(trAhead)
+        SpawnParticle_aeon_weap_special(trAhead)
+    elseif proj.effects.particle == 'aeon_secondary' then
+        SpawnParticle_aeon_weap_secondary(proj.transform)
+        SpawnParticle_aeon_weap_secondary(trAhead)
+    end
+
+end
+
+
 -- Aeon secondary
-function SpawnParticle_aeon_weap_secondary(tr)
+function SpawnParticle_aeon_weap_secondary(tr, rad)
+    local radius = rad or 0.5
+    local life = 1.2
+    local vel = 10
+    local drag = 0.1
+    local gravity = -math.random()+1
+    local emissive = 3
+    local red = 0.2
+    local green = 0.3 + math.random()/10
+    local blue = 1 + math.random()/10
+    local alpha = 0.5 + math.random()/10
+
     ParticleReset()
-    ParticleEmissive(0.5, 0.2, "easein")
-    ParticleGravity(0)
-    ParticleRadius(0.1, 0.05, "smooth")
-    ParticleColor(0, 1, 1, 0.5, 1, 1)
-    ParticleTile(3)
-    ParticleDrag(0.2)
-    ParticleCollide(0, 1, "easeout")
-    SpawnParticle(tr.pos, Vec(), 2)
+    ParticleType("smoke")
+    ParticleTile(5)
+    ParticleRadius(radius)
+    ParticleAlpha(alpha, alpha, "constant", 0.1/life, 0.5)	-- Ramp up fast, ramp down after 50%
+    ParticleGravity(gravity * rnd(0.5, 1.5))				-- Slightly randomized gravity looks better
+    ParticleDrag(drag)
+    ParticleColor(red, green, blue, 0.0+ math.random()/10, 0.2+ math.random()/10, 0.6+ math.random()/10)			-- Animating color towards white
+    ParticleEmissive(emissive, emissive/3, 'smooth', 0, 2)
+
+
+    local p = tr.pos
+    local v = VecAdd(VecScale(QuatToDir(tr.rot), vel), VecRdm(1))
+    v[2] = -2
+    local l = rnd(life*0.5, life*1.5)
+
+    SpawnParticle(p, v, l)
+end
+
+function SpawnParticle_aeon_weap_special(tr, rad)
+    local radius = rad or 0.5
+    local life = 0.1
+    local vel = -1
+    local drag = 0.5
+    local gravity = -math.random()+1
+    local emissive = 5
+    local red = 0
+    local green = 0
+    local blue = 1
+    local alpha = 1
+
+    ParticleReset()
+    ParticleType("none")
+    ParticleTile(1)
+    ParticleRadius(radius/10, radius, 'smooth', 0,0.5)
+    ParticleAlpha(alpha, alpha, "constant", 0.1/life, 0.5)	-- Ramp up fast, ramp down after 50%
+    ParticleGravity(gravity * rnd(0.5, 1.5))				-- Slightly randomized gravity looks better
+    ParticleDrag(drag)
+    ParticleColor(red, green, blue, 1,1,1)			-- Animating color towards white
+    ParticleEmissive(emissive, emissive/2, 'smooth', 0, 1)
+
+
+    local p = tr.pos
+    local v = VecAdd(VecScale(QuatToDir(tr.rot), vel), VecRdm(1))
+    local l = rnd(life*0.5, life*1.5)
+
+    SpawnParticle(p, v, l)
+end
+
+
+function SpawnParticle_aeon_weap_secondary_exhaust(tr, vel)
+    local radius = 0.2
+    local life = 2.0
+    local vel = vel or 8
+    local drag = 0.3
+    local gravity = 0.0
+    local red = 0.6
+    local green = 0.6
+    local blue = 0.6
+    local alpha = 0.8
+
+    ParticleReset()
+    ParticleType("smoke")
+    ParticleRadius(radius, radius*3)
+    ParticleAlpha(alpha, alpha, "constant", 0.1/life, 0.5)	-- Ramp up fast, ramp down after 50%
+    ParticleGravity(gravity * rnd(0.5, 1.5))				-- Slightly randomized gravity looks better
+    ParticleDrag(drag)
+    ParticleColor(red, green, blue, 1, 1, 1)			-- Animating color towards white
+
+    local p = tr.pos
+    local v = VecAdd(VecScale(QuatToDir(tr.rot), vel), VecRdm(1))
+    local l = rnd(life*0.5, life*1.5)
+
+    SpawnParticle(p, v, l)
 end
