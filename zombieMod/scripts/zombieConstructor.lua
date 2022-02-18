@@ -107,12 +107,12 @@ function createZombie(body, id) -- Create zombie.
         isOnGround = false,
         speed = 5,
         speeds = {
-            walk = 2.5,
-            run = 5,
+            walk = 2 + math.random(),
+            run = 5 + math.random(),
             attacking = 4,
             random = randomSpeed,
         },
-        hop = 2.2, -- Hop = y velocity.
+        hop = 3 + math.random(), -- Hop = y velocity.
         jump = 6,
         jumpSpeed = 2,
         lookRate = 0.03, -- The rate at which the zombie turns towards its target.

@@ -1,0 +1,188 @@
+<scene id_="1307391872" open_="true" version="0.9.3" shadowVolume="200 20 200">
+	<group id_="1978128256" open_="true" pos="0.4 -6.1 -0.1">
+		<group id_="1445419136" open_="true" name="Script" pos="-0.4 6.1 0.1">
+			<script id_="812630464" file="main.lua"/>
+			<script id_="19793080" file="MOD/zombieMod/main.lua"/>
+			<script id_="1126239360" file="sandbox.lua"/>
+			<script id_="288638176" file="MOD/ROBOT_VEHICLE_PREFAB/demo/mapScript.lua"/>
+		</group>
+		<group id_="2063264768" open_="true" name="Scene" pos="-0.4 6.1 0.1">
+			<group id_="2101867776" open_="true" name="Ground" pos="-0.00001 0.0 -0.0">
+				<voxbox id_="1754374656" name="Unbrakable ground" pos="-100.0 -0.2 -100.0" rot="0.0 0.0 0.0" texture="9" size="2000 2 2000" color=".5 .5 .5"/>
+			</group>
+			<group id_="1025700992" name="Room" pos="-52.50005 0.0 -76.0" rot="0.0 0.0 0.0">
+				<voxbox id_="1891681024" pos="9.8 0.0 10.0" rot="0.0 90.0 0.0" texture="9 0.5" size="200 200 2" material="masonry" color=".5 .5 .5"/>
+				<voxbox id_="235550768" pos="-10.0 0.0 10.0" texture="9 0.5" size="81 200 2" material="masonry" color=".5 .5 .5"/>
+				<voxbox id_="1396788480" pos="1.4 0.0 10.0" rot="0.0 0.0 0.0" texture="9 0.5" size="86 200 2" material="masonry" color=".5 .5 .5"/>
+				<voxbox id_="1389841280" pos="-3.8 0.0 6.8" rot="0.0 0.0 0.0" texture="9 0.5" size="69 200 2" material="masonry" color=".5 .5 .5"/>
+				<voxbox id_="2146828288" pos="-10.0 0.0 -10.2" texture="9 0.5" size="200 200 2" material="masonry" color=".5 .5 .5"/>
+				<voxbox id_="1009119360" pos="-10.0 0.0 10.0" rot="0.0 90.0 0.0" texture="9 0.5" size="200 200 2" material="masonry" color=".5 .5 .5"/>
+			</group>
+			<group id_="210842176" name="Room" pos="-19.10004 0.0 -76.5" rot="0.0 0.0 0.0">
+				<voxbox id_="342446496" pos="-10.0 0.0 10.0" texture="9 0.5" size="81 200 2" material="masonry" color=".5 .5 .5"/>
+				<voxbox id_="937418624" pos="1.4 0.0 10.0" rot="0.0 0.0 0.0" texture="9 0.5" size="86 200 2" material="masonry" color=".5 .5 .5"/>
+				<voxbox id_="1966200064" pos="-3.8 0.0 6.8" rot="0.0 0.0 0.0" texture="9 0.5" size="69 200 2" material="masonry" color=".5 .5 .5"/>
+				<voxbox id_="2081484800" pos="-10.0 0.0 -10.2" texture="9 0.5" size="200 200 2" material="masonry" color=".5 .5 .5"/>
+				<voxbox id_="1227826304" pos="-10.0 0.0 10.0" rot="0.0 90.0 0.0" texture="9 0.5" size="200 200 2" material="masonry" color=".5 .5 .5"/>
+				<voxbox id_="571574336" pos="9.8 0.0 10.0" rot="0.0 90.0 0.0" texture="9 0.5" size="200 200 2" material="masonry" color=".5 .5 .5"/>
+			</group>
+			<group id_="1717016960" name="Room" pos="14.29999 0.0 -76.6" rot="0.0 0.0 0.0">
+				<voxbox id_="1034548928" pos="-10.0 0.0 10.0" texture="9 0.5" size="81 200 2" material="masonry" color=".5 .5 .5"/>
+				<voxbox id_="1484481024" pos="1.4 0.0 10.0" rot="0.0 0.0 0.0" texture="9 0.5" size="86 200 2" material="masonry" color=".5 .5 .5"/>
+				<voxbox id_="1041692736" pos="-3.8 0.0 6.8" rot="0.0 0.0 0.0" texture="9 0.5" size="69 200 2" material="masonry" color=".5 .5 .5"/>
+				<voxbox id_="1640531712" pos="-10.0 0.0 -10.2" texture="9 0.5" size="200 200 2" material="masonry" color=".5 .5 .5"/>
+				<voxbox id_="1427395712" pos="-10.0 0.0 10.0" rot="0.0 90.0 0.0" texture="9 0.5" size="200 200 2" material="masonry" color=".5 .5 .5"/>
+				<voxbox id_="205992224" pos="9.8 0.0 10.0" rot="0.0 90.0 0.0" texture="9 0.5" size="200 200 2" material="masonry" color=".5 .5 .5"/>
+			</group>
+			<group id_="1859304320" name="Room" pos="46.79999 0.0 -76.5" rot="0.0 0.0 0.0">
+				<voxbox id_="1013838272" pos="-10.0 0.0 10.0" texture="9 0.5" size="81 200 2" material="masonry" color=".5 .5 .5"/>
+				<voxbox id_="182332288" pos="1.4 0.0 10.0" rot="0.0 0.0 0.0" texture="9 0.5" size="86 200 2" material="masonry" color=".5 .5 .5"/>
+				<voxbox id_="1961743232" pos="-3.8 0.0 6.8" rot="0.0 0.0 0.0" texture="9 0.5" size="69 200 2" material="masonry" color=".5 .5 .5"/>
+				<voxbox id_="84808760" pos="-10.0 0.0 -10.2" texture="9 0.5" size="200 200 2" material="masonry" color=".5 .5 .5"/>
+				<voxbox id_="1047591360" pos="-10.0 0.0 10.0" rot="0.0 90.0 0.0" texture="9 0.5" size="200 200 2" material="masonry" color=".5 .5 .5"/>
+				<voxbox id_="384064384" pos="9.8 0.0 10.0" rot="0.0 90.0 0.0" texture="9 0.5" size="200 200 2" material="masonry" color=".5 .5 .5"/>
+			</group>
+			<group id_="1114573184" name="Vehicles">
+				<instance id_="646158848"/>
+			</group>
+		</group>
+		<group id_="507410688" name="Robots" pos="11.8 6.1 -28.0">
+			<group id_="374036768" name="Basic mech" pos="1.8 -0.1 27.0"/>
+			<group id_="322456800" open_="true" name="Basic mech" pos="-64.9 -0.1 -50.9">
+				<body id_="860802368" name="Sign" tags="nocull" pos="-1.3 0.2 12.4" rot="0.0 30.0 0.0" dynamic="true" desc="Non-hostile mech with two patrol locations. This robot will investigate sounds in the area and chase the player when seen.">
+					<voxbox id_="760198464" size="5 1 5"/>
+					<voxbox id_="510884288" pos="0.2 0.1 0.2" size="1 12 1"/>
+					<voxbox id_="599756544" pos="0.0 1.5 0.1" rot="60.0 0.0 0.0" size="5 1 5">
+						<voxbox id_="1730321536" pos="0.1 0.0 0.1" size="3 1 3" color=".5 .5 1" pbr="0 0 0 2"/>
+					</voxbox>
+				</body>
+				<script id_="1255680896" open_="true" pos="0.2 0.1 -0.1" file="robot.lua" param0="type=investigate chase">
+					<instance id_="1594784768" file="MOD/robot/mech-basic.xml"/>
+					<trigger id_="1476485120" tags="investigate" pos="0.3 0.0 1.3" type="box" size="20 3 20"/>
+					<location id_="1268067968" tags="patrol" pos="-6.0 0.1 0.0" rot="0.0 0.0 0.0"/>
+					<location id_="1995430784" tags="patrol" pos="5.6 0.1 0.0" rot="0.0 0.0 0.0"/>
+				</script>
+			</group>
+			<group id_="1804709376" open_="true" name="Flamethrower mech" pos="-31.7 -0.1 -49.9">
+				<body id_="2007031424" name="Sign" tags="nocull" pos="-1.3 0.2 12.4" rot="0.0 30.0 0.0" dynamic="true" desc="Flamethrower mech. This robot will investigate sounds in the area and chase the player when seen.">
+					<voxbox id_="1089340288" size="5 1 5"/>
+					<voxbox id_="1744936960" pos="0.2 0.1 0.2" size="1 12 1"/>
+					<voxbox id_="1199775232" pos="0.0 1.5 0.1" rot="60.0 0.0 0.0" size="5 1 5">
+						<voxbox id_="1370965760" pos="0.1 0.0 0.1" size="3 1 3" color=".5 .5 1" pbr="0 0 0 2"/>
+					</voxbox>
+				</body>
+				<script id_="69210240" open_="true" pos="0.2 0.1 -0.1" file="robot.lua" param0="type=investigate chase">
+					<instance id_="1480810752" file="MOD/robot/mech-fire.xml"/>
+					<trigger id_="2129460096" tags="investigate" pos="0.3 0.0 1.3" type="box" size="20 3 20"/>
+					<location id_="845662592" tags="patrol" pos="-6.0 0.1 0.0" rot="0.0 0.0 0.0"/>
+					<location id_="874172544" tags="patrol" pos="5.6 0.1 0.0" rot="0.0 0.0 0.0"/>
+				</script>
+			</group>
+			<group id_="340939072" name="Mech with guns" pos="1.7 -0.1 -49.9">
+				<body id_="515865344" name="Sign" tags="nocull" pos="-1.3 0.2 12.4" rot="0.0 30.0 0.0" dynamic="true" desc="Mech with guns. This robot will investigate sounds in the area and chase the player when seen.">
+					<voxbox id_="164374320" size="5 1 5"/>
+					<voxbox id_="727231872" pos="0.2 0.1 0.2" size="1 12 1"/>
+					<voxbox id_="1502569984" pos="0.0 1.5 0.1" rot="60.0 0.0 0.0" size="5 1 5">
+						<voxbox id_="630036032" pos="0.1 0.0 0.1" size="3 1 3" color=".5 .5 1" pbr="0 0 0 2"/>
+					</voxbox>
+				</body>
+				<script id_="1343963264" pos="0.2 0.1 -0.1" file="robot.lua" param0="type=investigate chase">
+					<instance id_="763803136" file="MOD/robot/mech-guns.xml"/>
+					<trigger id_="1868021120" tags="investigate" pos="0.3 0.0 1.3" type="box" size="20 3 20"/>
+					<location id_="810139968" tags="patrol" pos="-6.0 0.1 0.0" rot="0.0 0.0 0.0"/>
+					<location id_="1383942656" tags="patrol" pos="5.6 0.1 0.0" rot="0.0 0.0 0.0"/>
+				</script>
+			</group>
+			<group id_="1768138112" open_="true" name="Mech with rockets" pos="34.2 -0.1 -49.9">
+				<body id_="948953664" name="Sign" tags="nocull" pos="-1.3 0.2 12.4" rot="0.0 30.0 0.0" dynamic="true" desc="Mech with rockets. This robot will investigate sounds in the area and chase the player when seen.">
+					<voxbox id_="1332493696" size="5 1 5"/>
+					<voxbox id_="1193090176" pos="0.2 0.1 0.2" size="1 12 1"/>
+					<voxbox id_="250231712" pos="0.0 1.5 0.1" rot="60.0 0.0 0.0" size="5 1 5">
+						<voxbox id_="1070595904" pos="0.1 0.0 0.1" size="3 1 3" color=".5 .5 1" pbr="0 0 0 2"/>
+					</voxbox>
+				</body>
+				<script id_="358897024" open_="true" pos="0.2 0.1 -0.1" file="robot.lua" param0="type=investigate chase">
+					<instance id_="407396640" file="MOD/robot/mech-rockets.xml"/>
+					<trigger id_="758822144" tags="investigate" pos="0.3 0.0 1.3" type="box" size="20 3 20"/>
+					<location id_="1658096512" tags="patrol" pos="-6.0 0.1 0.0" rot="0.0 0.0 0.0"/>
+					<location id_="1136594688" tags="patrol" pos="5.6 0.1 0.0" rot="0.0 0.0 0.0"/>
+				</script>
+			</group>
+		</group>
+		<spawnpoint id_="1200823936" name="Player spawn" pos="-4.8 6.2 31.8" rot="0.0 -180.0 0.0"/>
+		<boundary id_="913889792" name="Boundary" pos="-0.4 0.0 0.1" rot="0.0 0.0 0.0">
+			<vertex pos="-100.0 -99.9"/>
+			<vertex pos="100.0 -100.0"/>
+			<vertex pos="100.0 100.0"/>
+			<vertex pos="-100.0 99.9"/>
+		</boundary>
+		<group id_="236861568" open_="true" name="Zombies" tags="trig" pos="36.60003 6.2 -52.9" rot="0 0 0">
+			<trigger id_="737259456" name="trigger" tags="trig=zombies" pos="30.0 0.0 75.0" type="box" size="60 10 150"/>
+			<location id_="1347371264" name="zombie map" tags="ai_zombie_map" pos="0.0 0.0 0.0"/>
+			<group id_="751743808" pos="48.0 -0.1 74.9">
+				<instance id_="2112157568" pos="6.99176 0.1 -16.32568" rot="0.0 -90.0 0.0" file="MOD/zombieMod/instances/zombie.xml"/>
+				<instance id_="474378528" pos="-2.508 0.1 6.37399" rot="0.0 -90.0 0.0" file="MOD/zombieMod/instances/zombie_scientist.xml"/>
+				<instance id_="1492345856" pos="-6.108 0.1 -14.626" rot="0.0 -90.0 0.0" file="MOD/zombieMod/instances/zombie_soldier.xml"/>
+				<instance id_="1901315456" pos="1.292 0.1 -18.92601" rot="0.0 -90.0 0.0" file="MOD/zombieMod/instances/zombie_soldier_swat.xml"/>
+				<instance id_="1717082496" pos="3.592 0.1 -10.626" rot="0.0 -90.0 0.0" file="MOD/zombieMod/instances/zombie_soldier_swat.xml"/>
+				<instance id_="779073984" pos="-7.40824 0.1 -5.42567" rot="0.0 -90.0 0.0" file="MOD/zombieMod/instances/zombie.xml"/>
+				<instance id_="1490314112" pos="-1.608 0.1 -9.026" rot="0.0 -90.0 0.0" file="MOD/zombieMod/instances/zombie_scientist.xml"/>
+				<instance id_="928374080" pos="2.792 0.1 -4.22601" rot="0.0 -90.0 0.0" file="MOD/zombieMod/instances/zombie_soldier.xml"/>
+				<instance id_="1962857472" pos="1.292 0.1 1.174" rot="0.0 -90.0 0.0" file="MOD/zombieMod/instances/zombie_soldier_swat.xml"/>
+				<instance id_="473788672" pos="-2.80824 0.1 -1.72568" rot="0.0 -90.0 0.0" file="MOD/zombieMod/instances/zombie.xml"/>
+				<instance id_="1344028800" pos="7.492 0.1 5.174" rot="0.0 -90.0 0.0" file="MOD/zombieMod/instances/zombie_scientist.xml"/>
+				<instance id_="58723840" pos="4.692 0.1 9.57398" rot="0.0 -90.0 0.0" file="MOD/zombieMod/instances/zombie_soldier.xml"/>
+				<instance id_="1566930304" pos="1.292 0.1 12.474" rot="0.0 -90.0 0.0" file="MOD/zombieMod/instances/zombie_soldier_swat.xml"/>
+				<instance id_="1755488896" pos="-4.30824 0.1 11.77432" rot="0.0 -90.0 0.0" file="MOD/zombieMod/instances/zombie.xml"/>
+				<instance id_="277037568" pos="-5.708 0.1 17.974" rot="0.0 -90.0 0.0" file="MOD/zombieMod/instances/zombie_scientist.xml"/>
+				<instance id_="214446880" pos="-6.908 0.1 4.87399" rot="0.0 -90.0 0.0" file="MOD/zombieMod/instances/zombie_soldier.xml"/>
+				<instance id_="1044707584" pos="6.99176 0.1 -55.52567" rot="0.0 -90.0 0.0" file="MOD/zombieMod/instances/zombie.xml"/>
+				<instance id_="1705744000" pos="-2.508 0.1 -32.826" rot="0.0 -90.0 0.0" file="MOD/zombieMod/instances/zombie_scientist.xml"/>
+				<instance id_="1927793536" pos="-6.108 0.1 -53.826" rot="0.0 -90.0 0.0" file="MOD/zombieMod/instances/zombie_soldier.xml"/>
+				<instance id_="623744192" pos="1.292 0.1 -58.12601" rot="0.0 -90.0 0.0" file="MOD/zombieMod/instances/zombie_soldier_swat.xml"/>
+				<instance id_="594906560" pos="3.592 0.1 -49.826" rot="0.0 -90.0 0.0" file="MOD/zombieMod/instances/zombie_soldier_swat.xml"/>
+				<instance id_="623350912" pos="-7.40824 0.1 -44.62568" rot="0.0 -90.0 0.0" file="MOD/zombieMod/instances/zombie.xml"/>
+				<instance id_="1421366016" pos="-1.608 0.1 -48.22601" rot="0.0 -90.0 0.0" file="MOD/zombieMod/instances/zombie_scientist.xml"/>
+				<instance id_="514882240" pos="2.792 0.1 -43.426" rot="0.0 -90.0 0.0" file="MOD/zombieMod/instances/zombie_soldier.xml"/>
+				<instance id_="1965085824" pos="1.292 0.1 -38.026" rot="0.0 -90.0 0.0" file="MOD/zombieMod/instances/zombie_soldier_swat.xml"/>
+				<instance id_="424305952" pos="-2.80824 0.1 -40.92567" rot="0.0 -90.0 0.0" file="MOD/zombieMod/instances/zombie.xml"/>
+				<instance id_="1283666432" pos="7.492 0.1 -34.026" rot="0.0 -90.0 0.0" file="MOD/zombieMod/instances/zombie_scientist.xml"/>
+				<instance id_="1263545600" pos="4.692 0.1 -29.626" rot="0.0 -90.0 0.0" file="MOD/zombieMod/instances/zombie_soldier.xml"/>
+				<instance id_="143270432" pos="1.292 0.1 -26.72599" rot="0.0 -90.0 0.0" file="MOD/zombieMod/instances/zombie_soldier_swat.xml"/>
+				<instance id_="1946341376" pos="-4.30824 0.1 -27.42567" rot="0.0 -90.0 0.0" file="MOD/zombieMod/instances/zombie.xml"/>
+				<instance id_="1970328960" pos="-5.708 0.1 -21.22599" rot="0.0 -90.0 0.0" file="MOD/zombieMod/instances/zombie_scientist.xml"/>
+				<instance id_="2098000896" pos="-6.908 0.1 -34.326" rot="0.0 -90.0 0.0" file="MOD/zombieMod/instances/zombie_soldier.xml"/>
+				<instance id_="705996864" pos="-6.908 0.1 45.074" rot="0.0 -90.0 0.0" file="MOD/zombieMod/instances/zombie_soldier.xml"/>
+				<instance id_="8323580" pos="6.99176 0.1 23.87433" rot="0.0 -90.0 0.0" file="MOD/zombieMod/instances/zombie.xml"/>
+				<instance id_="1759683456" pos="-2.508 0.1 46.574" rot="0.0 -90.0 0.0" file="MOD/zombieMod/instances/zombie_scientist.xml"/>
+				<instance id_="1911801856" pos="-6.108 0.1 25.57398" rot="0.0 -90.0 0.0" file="MOD/zombieMod/instances/zombie_soldier.xml"/>
+				<instance id_="1777510400" pos="1.292 0.1 21.27399" rot="0.0 -90.0 0.0" file="MOD/zombieMod/instances/zombie_soldier_swat.xml"/>
+				<instance id_="1797958784" pos="3.592 0.1 29.574" rot="0.0 -90.0 0.0" file="MOD/zombieMod/instances/zombie_soldier_swat.xml"/>
+				<instance id_="1187977984" pos="-7.40824 0.1 34.77432" rot="0.0 -90.0 0.0" file="MOD/zombieMod/instances/zombie.xml"/>
+				<instance id_="1070595904" pos="-1.608 0.1 31.174" rot="0.0 -90.0 0.0" file="MOD/zombieMod/instances/zombie_scientist.xml"/>
+				<instance id_="179776224" pos="2.792 0.1 35.97401" rot="0.0 -90.0 0.0" file="MOD/zombieMod/instances/zombie_soldier.xml"/>
+				<instance id_="1986189696" pos="1.292 0.1 41.37401" rot="0.0 -90.0 0.0" file="MOD/zombieMod/instances/zombie_soldier_swat.xml"/>
+				<instance id_="431646432" pos="-2.80824 0.1 38.47433" rot="0.0 -90.0 0.0" file="MOD/zombieMod/instances/zombie.xml"/>
+				<instance id_="544113088" pos="7.492 0.1 45.37401" rot="0.0 -90.0 0.0" file="MOD/zombieMod/instances/zombie_scientist.xml"/>
+				<instance id_="375806368" pos="4.692 0.1 49.774" rot="0.0 -90.0 0.0" file="MOD/zombieMod/instances/zombie_soldier.xml"/>
+				<instance id_="227882576" pos="1.292 0.1 52.67402" rot="0.0 -90.0 0.0" file="MOD/zombieMod/instances/zombie_soldier_swat.xml"/>
+				<instance id_="321342624" pos="-4.30824 0.1 51.97433" rot="0.0 -90.0 0.0" file="MOD/zombieMod/instances/zombie.xml"/>
+				<instance id_="1995168640" pos="-5.708 0.1 58.174" rot="0.0 -90.0 0.0" file="MOD/zombieMod/instances/zombie_scientist.xml"/>
+			</group>
+			<voxbox id_="612471296" name="Unbrakable ground" pos="0.0 -0.1 0.0" rot="0.0 0.0 0.0" texture="9" size="600 1 1500" color="0.29 0.29 0.29"/>
+		</group>
+		<group id_="116988896" pos="-24.7 6.1 -0.3" rot="0.0 -90.0 0.0">
+			<instance id_="861261120" pos="5.1 0.0 3.4" file="MOD/assets/vehicles/land/dumptruck.xml"/>
+			<instance id_="2134375680" pos="-3.7 0.0 3.4" file="MOD/assets/vehicles/land/taskmaster-4wd.xml"/>
+			<instance id_="840026176" pos="-7.79999 0.0 3.4" file="MOD/assets/vehicles/land/crownzygot-xvc.xml"/>
+			<instance id_="1784916352" pos="0.5 0.0 3.4" file="MOD/assets/vehicles/land/van.xml"/>
+		</group>
+		<environment id_="1551790592" name="Env" template="sunset" skyboxtint="0.86 0.47 0.25" skyboxrot="100" fogColor="0.55 0.27 0.09"/>
+	</group>
+	<instance id_="1235428992" pos="-7.2 0.0 28.8" rot="0.0 0.0 0.0" file="MOD/ROBOT_VEHICLE_PREFAB/instance_robotVehicle.xml"/>
+	<instance id_="1286877952" pos="-13.2 0.0 28.9" rot="0.0 0.0 0.0" file="MOD/ROBOT_VEHICLE_PREFAB/instance_robotVehicle.xml"/>
+	<instance id_="1991105152" pos="5.6 0.0 28.8" rot="0.0 0.0 0.0" file="MOD/ROBOT_VEHICLE_PREFAB/robot/mech-aeon.xml"/>
+	<instance id_="1507092352" pos="-0.7 0.0 28.8" rot="0.0 0.0 0.0" file="MOD/ROBOT_VEHICLE_PREFAB/robot/mech-aeon.xml"/>
+	<layers/>
+</scene>
+

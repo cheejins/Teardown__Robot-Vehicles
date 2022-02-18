@@ -1,6 +1,6 @@
+#include "camera.lua"
 #include "customRobot.lua"
 #include "debug.lua"
-#include "camera.lua"
 #include "projectiles.lua"
 #include "registry.lua"
 #include "robotPreset.lua"
@@ -8,6 +8,7 @@
 #include "sounds.lua"
 #include "timers.lua"
 #include "ui.lua"
+#include "ui_components.lua"
 #include "umf.lua"
 #include "utility.lua"
 #include "version.lua"
@@ -1845,23 +1846,35 @@ do
 	do
 
 		aims = {}
+		aims_lights = {}
 
 		function aimsInit()
+			--! Added aims_lights
+			local lights = FindLights('weap_secondary')
 			local bodies = FindBodies("aim")
 			for i=1, #bodies do
 				local aim = {}
 				aim.body = bodies[i]
 				aims[i] = aim
+
+				for key, light in pairs(lights) do
+					local body = GetLightShape(light)
+					if body == aim.body then
+						aims_lights[i] = light
+					end
+				end
+
 			end
 		end
 
-
 		function aimsUpdate(dt)
 			for i=1, #aims do
+
 				local aim = aims[i]
 				local playerPos = getOuterCrosshairWorldPos()
 				local toPlayer = VecNormalize(VecSub(playerPos, GetBodyTransform(aim.body).pos))
 				local fwd = TransformToParentVec(GetBodyTransform(robot.body), Vec(0, 0, -1))
+
 				if (head.canSeePlayer and VecDot(fwd, toPlayer) > 0.5) or robot.distToPlayer < 4.0 then
 					--Should aim
 					local v = 2
@@ -1878,6 +1891,7 @@ do
 					local f = math.abs(angle) * 10 + 3
 					ConstrainOrientation(robot.body, aim.body, GetBodyTransform(robot.body).rot, GetBodyTransform(aim.body).rot, v, f)
 				end
+
 			end
 		end
 

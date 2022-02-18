@@ -1,6 +1,11 @@
+MOD_VERSION = {
+    '2021-Dec-16',
+    '22.2.16',
+}
+
 function modReset()
 
-    regSetString('version'                           , GetModVersion())
+    regSetString('version'                          , GetModVersion())
 
     regSetFloat('robot.weapon.bullet.rpm'           , 800)
     regSetFloat('robot.weapon.bullet.holeSize'      , 0.5)
@@ -11,6 +16,13 @@ function modReset()
     regSetFloat('robot.move.speed'                  , 1)
 
     -- regSetBool('robot.followPlayer'                 , false)
+
+    activeAssignment = false
+    regSetString('options.keys.optionsScreen', 'o')
+    regSetString('options.keys.welcomeScreen', 'i')
+    regSetString('options.keys.spawnMenu', 'h')
+    regSetString('options.keys.quickSpawn', 'g')
+
 end
 
 function checkRegInitialized()
@@ -30,6 +42,10 @@ function checkRegInitialized()
         print('> Mod options reset ')
 
     end
+end
+
+function GetModVersion()
+    return MOD_VERSION[#MOD_VERSION]
 end
 
 function regGetFloat(path)

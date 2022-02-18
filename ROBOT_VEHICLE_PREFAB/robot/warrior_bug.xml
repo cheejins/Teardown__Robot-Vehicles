@@ -1,0 +1,47 @@
+<prefab version="0.8.0">
+	<group id_="1952960896" open_="true" name="warrior_bug">
+		<vox id_="116202416" pos="0.7 2.1 -0.5" prop="true" file="MOD/ROBOT_VEHICLE_PREFAB/robot/warrior_bug.vox" object="main_body"/>
+		<vox id_="681353856" pos="2.2 1.8 -0.5" prop="true" file="MOD/ROBOT_VEHICLE_PREFAB/robot/warrior_bug.vox" object="jaw">
+			<joint id_="618828672" pos="-0.6 0.8 0.0" size="0.2"/>
+		</vox>
+		<vox id_="1951125760" pos="1.6 4.1 -1.3" prop="true" file="MOD/ROBOT_VEHICLE_PREFAB/robot/warrior_bug.vox" object="left_ear">
+			<joint id_="1419530880" pos="-0.3 0.1 0.1" size="0.1"/>
+		</vox>
+		<vox id_="1559917568" pos="1.7 4.2 0.2" prop="true" file="MOD/ROBOT_VEHICLE_PREFAB/robot/warrior_bug.vox" object="right_ear">
+			<joint id_="357258528" pos="-0.3 0.1 0.0" size="0.1"/>
+		</vox>
+		<vox id_="1944768384" pos="1.3 1.1 -1.4" prop="true" file="MOD/ROBOT_VEHICLE_PREFAB/robot/warrior_bug.vox" object="front_left_upper_leg">
+			<joint id_="663330368" pos="-0.1 1.1 0.1" size="0.15"/>
+			<joint id_="1065549312" pos="0.2 0.1 -0.25" size="0.2"/>
+		</vox>
+		<vox id_="280249024" pos="-0.4 1.2 -1.3" prop="true" file="MOD/ROBOT_VEHICLE_PREFAB/robot/warrior_bug.vox" object="back_left_upper_leg">
+			<joint id_="612667904" pos="0.2 1.2 0.05" size="0.2"/>
+			<joint id_="1283469824" pos="-0.1 0.2 -0.25" size="0.2"/>
+		</vox>
+		<vox id_="968156864" pos="1.3 1.2 0.2" prop="true" file="MOD/ROBOT_VEHICLE_PREFAB/robot/warrior_bug.vox" object="front_right_upper_leg">
+			<joint id_="572426368" pos="-0.2 1.0 -0.1" size="0.15"/>
+			<joint id_="895079808" pos="0.05 0.1 0.1" size="0.2"/>
+		</vox>
+		<vox id_="2073554560" pos="-0.4 1.2 0.2" prop="true" file="MOD/ROBOT_VEHICLE_PREFAB/robot/warrior_bug.vox" object="back_right_upper_leg">
+			<joint id_="2044454784" pos="0.2 1.1 -0.1" size="0.2"/>
+			<joint id_="918870784" pos="-0.15 0.1 0.15" size="0.2"/>
+		</vox>
+		<vox id_="322260192" pos="1.7 1.1 -1.9" prop="true" file="MOD/ROBOT_VEHICLE_PREFAB/robot/warrior_bug.vox" object="front_left_middle_leg">
+			<joint id_="643209536" pos="0.2 1.3 -0.3" size="0.2"/>
+		</vox>
+		<vox id_="819643264" pos="-1.3 1.1 -2.0" prop="true" file="MOD/ROBOT_VEHICLE_PREFAB/robot/warrior_bug.vox" object="back_left_middle_leg">
+			<joint id_="1723964160" pos="-0.6 1.6 -0.5" size="0.3"/>
+		</vox>
+		<vox id_="1244014720" pos="1.7 1.1 0.7" prop="true" file="MOD/ROBOT_VEHICLE_PREFAB/robot/warrior_bug.vox" object="front_right_middle_leg">
+			<joint id_="1851832704" pos="0.3 1.2 0.2" size="0.2"/>
+		</vox>
+		<vox id_="2028331904" pos="-1.2 1.1 1.2" prop="true" file="MOD/ROBOT_VEHICLE_PREFAB/robot/warrior_bug.vox" object="back_right_middle_leg">
+			<joint id_="2071522816" pos="-0.5 1.6 0.6" size="0.3"/>
+		</vox>
+		<vox id_="956752896" pos="2.1 0.0 -2.4" prop="true" file="MOD/ROBOT_VEHICLE_PREFAB/robot/warrior_bug.vox" object="front_left_bottom_leg"/>
+		<vox id_="1121389440" pos="-2.5 0.0 -2.7" prop="true" file="MOD/ROBOT_VEHICLE_PREFAB/robot/warrior_bug.vox" object="back_left_bottom_leg"/>
+		<vox id_="1611038720" pos="2.2 0.0 1.1" prop="true" file="MOD/ROBOT_VEHICLE_PREFAB/robot/warrior_bug.vox" object="front_right_bottom_leg"/>
+		<vox id_="635279232" pos="-2.0 0.0 2.3" prop="true" file="MOD/ROBOT_VEHICLE_PREFAB/robot/warrior_bug.vox" object="back_right_bottom_leg"/>
+	</group>
+</prefab>
+

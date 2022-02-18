@@ -284,6 +284,11 @@ function printTable(t, n)
 end
 
 
+function GetRandomIndex(tb)
+    return tb[math.random(1, #tb)]
+end
+
+
 
 --[[QUERY]]
 do

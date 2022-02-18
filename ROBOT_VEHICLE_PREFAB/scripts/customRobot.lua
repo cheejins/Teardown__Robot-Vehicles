@@ -14,11 +14,13 @@ do
 		missileSound = LoadSound("../snd/launchSound.ogg")
 		SetTag(head.body, 'interact')
 		SetDescription(head.body, 'Drive Robot')
-
-		robot.followPlayer = regGetBool('robot.followPlayer')
+		-- robot.followPlayer = regGetBool('robot.followPlayer')
 
 		initPlayerDrivingRobot()
 		setRobotUnbreakable(false)
+
+		robot.died = false
+		robot.health = getRobotMass()
 
 		initSounds()
 		initRobotPreset()
@@ -28,6 +30,8 @@ do
 		initWeapons()
 		initTimers()
 		initUi()
+
+		enterCount = 0
 
 	end
 	function tickCustom(dt)
@@ -39,6 +43,7 @@ do
 		crosshairPos = getOuterCrosshairWorldPos()
 
 		--+ Constant functions.
+		manageRobotHealth()
 		runTimers()
 		manageProjs()
 		manageActiveProjectiles()
@@ -76,6 +81,14 @@ do
 
 		if player.isDrivingRobot and robot.enabled then
 
+			do UiPush()
+				UiFont('bold.ttf', 24)
+				UiColor(0.75,0.75,0.75)
+				UiAlign('right top')
+				UiTranslate(UiWidth(), 0)
+				UiText('v' .. GetModVersion())
+			UiPop() end
+
 			uiManageGameOptions()
 
 			CAMERA.xy = {UiCenter(), UiMiddle()}
@@ -98,39 +111,36 @@ do
 			-- end
 
 			-- Bottom info
-			do UiPush()
-				UiTranslate(UiCenter(), UiHeight() - 90)
-				UiFont('bold.ttf', 24)
-				UiColor(0.75,0.75,0.75)
-				UiAlign('center top')
+			if robot.model == robot_models.basic then
+				do UiPush()
+					UiTranslate(UiCenter(), UiHeight() - 60)
+					UiFont('bold.ttf', 24)
+					UiColor(0.75,0.75,0.75)
+					UiAlign('center top')
 
-				UiText('Mod Version: '..GetModVersion())
-				UiTranslate(0, 30)
+					local key_options = regGetString('options.keys.optionsScreen')
 
-				UiText('Press "o" to show the options menu.')
-				UiTranslate(0, 30)
+					UiText('Press "' .. key_options .. '" to show the options menu.')
+					UiTranslate(0, 30)
+				UiPop() end
+			end
 
-				UiText('Press "i" to show the welcome screen.')
+			if GetBool('LEVEL.demoMap') and player.isDrivingRobot and not GetBool('LEVEL.welcome') then
+				do UiPush()
 
-			UiPop() end
+					UiTranslate(UiCenter(), UiMiddle())
+					UiAlign('center middle')
+					UiImageBox('../img/welcome.png', UiWidth()*0.7, UiHeight()*0.7, 1, 1)
 
-			-- if not GetBool('LEVEL.welcome') then
-			-- 	do UiPush()
+					if InputPressed('any') then
+						enterCount = enterCount + 1
+						if enterCount > 1 then
+							SetBool('LEVEL.welcome', true)
+						end
+					end
 
-			-- 		UiTranslate(UiCenter(), UiMiddle())
-			-- 		UiAlign('center middle')
-			-- 		UiImageBox('../img/welcome.png', UiWidth()*0.7, UiHeight()*0.7, 1, 1)
-
-			-- 		if InputPressed('any') then
-			-- 			SetBool('LEVEL.welcome', not GetBool('LEVEL.welcome'))
-			-- 		end
-
-			-- 	UiPop() end
-			-- end
-
-			-- if InputPressed('i') then
-			-- 	SetBool('LEVEL.welcome', not GetBool('LEVEL.welcome'))
-			-- end
+				UiPop() end
+			end
 
 		end
 
@@ -145,27 +155,36 @@ processMovement = function ()
 
 	-- navigationClear()
 
+	local walk = false
+	local walkDir = Vec()
+	local lookTr = Transform(robot.transform.pos, camTr.rot)
+
 	--+ WASD
 	if InputDown('up') then
-		robotWalk(crosshairPos)
-		dbl(bodyTr.pos, crosshairPos, 1,1,0, 1)
-	end
-	if InputDown('left') then
-		local lookTr = Transform(bodyTr.pos, camTr.rot)
-		local moveDir = TransformToParentPoint(lookTr, Vec(-1,0,0))
-		robotWalk(moveDir)
-	end
-	if InputDown('right') then
-		local lookTr = Transform(bodyTr.pos, camTr.rot)
-		local moveDir = TransformToParentPoint(lookTr, Vec(1,0,0))
-		robotWalk(moveDir)
-	end
-	if InputDown('down') then
-		local lookTr = Transform(bodyTr.pos, camTr.rot)
-		local moveDir = TransformToParentPoint(lookTr, Vec(0,0,1))
-		robotWalk(moveDir)
+		local moveDir = TransformToParentVec(lookTr, Vec(0,0,-1))
+		walkDir = VecAdd(walkDir, moveDir)
+		walk = true
+	elseif InputDown('down') then
+		local moveDir = TransformToParentVec(lookTr, Vec(0,0,1))
+		walkDir = VecAdd(walkDir, moveDir)
+		walk = true
 	end
 
+	if InputDown('left') then
+		local moveDir = TransformToParentVec(lookTr, Vec(-1,0,0))
+		walkDir = VecAdd(walkDir, moveDir)
+		walk = true
+	end
+	if InputDown('right') then
+		local moveDir = TransformToParentVec(lookTr, Vec(1,0,0))
+		walkDir = VecAdd(walkDir, moveDir)
+		walk = true
+	end
+
+	if walk then
+		walkDir = VecNormalize(walkDir)
+		robotWalk(walkDir)
+	end
 
 	--+ Sprint
 	if InputDown('shift') then
@@ -186,13 +205,20 @@ processMovement = function ()
 	end
 
 end
-robotWalk = function (pos, dir)
-	robot.dir = dir or VecCopy(VecNormalize(VecSub(pos, robot.transform.pos)))
+robotWalk = function (robotDir)
+	robot.dir = robotDir
 	local dirDiff = VecDot(VecScale(robot.axes[3], -1), robot.dir)
 	local speedScale = math.max(0.25, dirDiff)
 	speedScale = speedScale * clamp(1.0 - navigation.vertical, 0.3, 1.0)
 	robot.speed = config.speed * speedScale
 end
+-- robotWalk = function (pos, dir)
+-- 	robot.dir = dir or VecCopy(VecNormalize(VecSub(pos, robot.transform.pos)))
+-- 	local dirDiff = VecDot(VecScale(robot.axes[3], -1), robot.dir)
+-- 	local speedScale = math.max(0.25, dirDiff)
+-- 	speedScale = speedScale * clamp(1.0 - navigation.vertical, 0.3, 1.0)
+-- 	robot.speed = config.speed * speedScale
+-- end
 robotFollowPlayer = function(dt)
 	navigationSetTarget(GetPlayerTransform().pos, 5)
 	navigationMove(dt)
@@ -227,8 +253,6 @@ function processWeapons_mech_aeon()
 
 			TimerResetTime(timers.aeon.secondary)
 
-			PlayRandomSound(Sounds.weap_secondary.shoot, bodyTr.pos, 2)
-
 			for key, weap in pairs(robot.weaponObjects.secondary) do
 
 				local weapTr = GetLightTransform(weap.light)
@@ -238,13 +262,23 @@ function processWeapons_mech_aeon()
 				-- Aim adjust. The shoot location is slightly higher than the weapon body.
 				-- Moves the aim pos just above where the crosshair (weapon body aligned) hits the world.
 				local shootTr = TransformCopy(weapTr)
-				local pos_weapRelBody TransformToLocalPoint(weapBodyTr, weapTr.pos)
-				pos_trueAim = VecAdd(crosshairPos, VecScale(pos_weapRelBody, -1))
-				rot_trueAim = QuatLookAt(shootTr.pos, pos_trueAim)
-				shootTr.rot = rot_trueAim
+				local shootDir = QuatToDir(shootTr.rot)
+
+				local trueAimRot = QuatLookAt(shootTr.pos, crosshairPos)
+				local trueAimDir = QuatToDir(trueAimRot)
+				local shootRotAligned =  DirToQuat(Vec(shootDir[1], trueAimDir[2], shootDir[3]))
+
+				shootTr.rot = shootRotAligned
+
 
 				-- Shoot.
 				createProjectile(shootTr, Projectiles, ProjectilePresets.aeon_secondary, robot.allBodies)
+
+				local vel_impulse = VecScale(QuatToDir(weapTr.rot), -4000)
+
+				-- for key, body in pairs(robot.allBodies) do
+					ApplyBodyImpulse(robot.body, AabbGetBodyCenterPos(robot.body), vel_impulse)
+				-- end
 
 				-- Exhaust particles.
 				local exhaustTr = TransformCopy(weapTr)
@@ -254,6 +288,10 @@ function processWeapons_mech_aeon()
 				SpawnParticle("smoke", exhaustTr.pos, VecScale(QuatToDir(exhaustTr.rot), 1), 1,1,1,1)
 
 			end
+
+			local index = GetRandomIndex(Sounds.weap_secondary.shoot)
+			PlayRandomSound(Sounds.weap_secondary.shoot, bodyTr.pos, 2, index)
+			PlayRandomSound(Sounds.weap_secondary.shoot, GetCameraTransform().pos, 0.5, index)
 
 		end
 
@@ -519,3 +557,45 @@ function initPlayerDrivingRobot()
 	-- end
 
 end
+function manageRobotHealth()
+
+	-- if robot.enabled and getRobotMass() < robot.health*0.9 then
+
+		-- print('robot died')
+
+		-- local pos = AabbGetBodyCenterPos(robot.body)
+
+		-- feetCollideLegs(false)
+
+		-- robot.enabled = false
+
+		-- Explosion(pos, 1)
+
+		-- ParticleReset()
+        -- ParticleType("smoke")
+        -- ParticleColor(0.86,0.5,0.3, 0.9,0.1,0.1)
+        -- ParticleRadius(5, 8, "linear")
+        -- ParticleTile(5)
+        -- ParticleGravity(0.5)
+        -- ParticleEmissive(5.0, 1, "easein")
+        -- ParticleRotation(rdm(), 0, "linear")
+        -- ParticleStretch(5)
+        -- ParticleCollide(0.5)
+
+        -- SpawnParticle(pos, Vec(0, 0, 0), 5)
+        -- SpawnParticle(pos, Vec(0, 0, 0), 5)
+        -- SpawnParticle(pos, Vec(0, 0, 0), 5)
+        -- SpawnParticle(pos, Vec(0, 0, 0), 5)
+
+	-- end
+
+end
+function getRobotMass()
+	local mass = 0
+	for key, body in pairs(robot.allBodies) do
+		mass = mass + GetBodyMass(body)
+		-- DrawBodyOutline(body, 1,0,0, 1)
+	end
+	return mass
+end
+
