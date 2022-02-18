@@ -5,7 +5,7 @@ do
 		cameraY = 0
 		zoom = 2
 	end
-	manageCamera = function(disableRotation)
+	manageCamera = function(disableRotation, height)
 		local mx, my = InputValue("mousedx"), InputValue("mousedy")
 		disableRotation = disableRotation or false
 		if disableRotation then mx, my = 0,0 end
@@ -16,7 +16,7 @@ do
 		local cameraT = Transform(VecAdd(GetBodyTransform(robot.body).pos, 5), cameraRot)
 		zoom = zoom - InputValue("mousewheel") * 2.5
 		zoom = clamp(zoom, 2, 20)
-		local cameraPos = TransformToParentPoint(cameraT, Vec(0, 3, zoom))
+		local cameraPos = TransformToParentPoint(cameraT, Vec(0, height + zoom/10, zoom))
 		local camera = Transform(VecLerp(cameraPos, GetCameraTransform().pos, 0.5), cameraRot)
 		SetCameraTransform(camera)
 	end

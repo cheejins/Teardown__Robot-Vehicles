@@ -212,13 +212,6 @@ robotWalk = function (robotDir)
 	speedScale = speedScale * clamp(1.0 - navigation.vertical, 0.3, 1.0)
 	robot.speed = config.speed * speedScale
 end
--- robotWalk = function (pos, dir)
--- 	robot.dir = dir or VecCopy(VecNormalize(VecSub(pos, robot.transform.pos)))
--- 	local dirDiff = VecDot(VecScale(robot.axes[3], -1), robot.dir)
--- 	local speedScale = math.max(0.25, dirDiff)
--- 	speedScale = speedScale * clamp(1.0 - navigation.vertical, 0.3, 1.0)
--- 	robot.speed = config.speed * speedScale
--- end
 robotFollowPlayer = function(dt)
 	navigationSetTarget(GetPlayerTransform().pos, 5)
 	navigationMove(dt)
@@ -460,7 +453,7 @@ function playerDriveRobot(dt, pos)
 	SetPlayerHealth(1)
 	SetString("game.player.tool", 'sledge')
 
-	manageCamera(UI_OPTIONS)
+	manageCamera(UI_OPTIONS, robot.cameraHeight)
 
 	if not UI_OPTIONS then
 

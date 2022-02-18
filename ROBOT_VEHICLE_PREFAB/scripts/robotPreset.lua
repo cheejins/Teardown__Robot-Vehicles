@@ -15,9 +15,9 @@ end
 
 function createRobotObject(robot_model)
 
-
     robot.model = robot_model
     robot.crosshair = '../img/crosshair_' .. robot.model .. '.png'
+    robot.cameraHeight = GetBodyBounds(robot.body)[2] * 2
 
     setWeaponLocations(robot)
 

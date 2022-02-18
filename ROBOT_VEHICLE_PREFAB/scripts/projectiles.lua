@@ -64,7 +64,7 @@ function propelProjectile(proj)
     local pos = proj.transform.pos
     local dir = VecSub(proj.transform.pos, TransformToParentPoint(proj.transform, Vec(0,0,-1)))
     local dist = proj.speed
-    local radius = 0.1
+    local radius = proj.rcRad
     local hit, dist, hitShape = QueryRaycast(pos, dir, dist, radius)
     if hit then
 
@@ -117,6 +117,9 @@ function propelProjectile(proj)
         DrawSprite(LoadSprite(proj.effects.sprite), Transform(proj.transform.pos, QuatRotateQuat(proj.transform.rot, QuatEuler(0,-90,0))), proj.effects.sprite_dimensions[1], proj.effects.sprite_dimensions[2], 1, 1, 1, 1, true)
     end
 
+    --+ Particles
+    SpawnParticle("smoke", proj.transform.pos, Vec(0,0,0))
+
 end
 
 function initProjectiles()
@@ -130,9 +133,10 @@ function initProjectiles()
 
             speed = 0.85,
             spread = 0.3,
-            drop = 0,
+            drop = 0.1,
             dropIncrement = 0,
             explosionSize = 1.1,
+            rcRad = 0.3,
 
             effects = {
                 particle = 'smoke',
@@ -166,6 +170,7 @@ function initProjectiles()
             drop = 0,
             dropIncrement = 0,
             explosionSize = 1.7,
+            rcRad = 0.2,
 
             effects = {
                 particle = 'smoke',
