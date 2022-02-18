@@ -44,6 +44,9 @@ function manageActiveBullets(activeBullets)
 end
 function propelBullet(bullet)
 
+    bullet.transform.pos = TransformToParentPoint(bullet.transform, Vec(0,-0.01,-bullet.speed))
+
+
     if bullet.ignoreBodies ~= nil then -- TODO append different tags to table
         for i = 1, #bullet.ignoreBodies do
             QueryRejectBody(bullet.ignoreBodies[i])
@@ -112,15 +115,12 @@ function propelBullet(bullet)
     ParticleReset()
     ParticleEmissive(0.5, 0.2, "easein")
     ParticleGravity(0)
-    ParticleRadius(0.1, 0.05, "smooth") 
+    ParticleRadius(0.1, 0.05, "smooth")
     ParticleColor(bullet.particleColor[1], bullet.particleColor[2], bullet.particleColor[3], 1, 1, 1)
     ParticleTile(3)
     ParticleDrag(0.2)
     ParticleCollide(0, 1, "easeout")
     SpawnParticle(bullet.transform.pos, VecRdm(0,1), 0.2)
-
-
-    bullet.transform.pos = TransformToParentPoint(bullet.transform, Vec(0,-0.01,-bullet.speed))
 
 end
 
@@ -316,12 +316,26 @@ function initWeapons()
             hit = false,
             dropOff = 0,
             force = 0,
+        },
+
+        orb = {
+            isActive = true, -- Active when firing, inactive after hit.
+            speed = 2,
+            lifeLength = 3,
+            -- sprite = sprites.bullet.mg,
+            particleRadius = 1,
+            particleLife = 1,
+            particleColor = Vec(0.3, 1, 0.3),
+            explosionSize = 3.5,
+            hit = false,
+            dropOff = 0,
+            force = 0,
         }
 
     }
 
 end
-function manageProjectiles()
+function manageProjs()
     manageActiveBullets(activeBullets)
     manageActiveMissiles(activeMissiles)
 end

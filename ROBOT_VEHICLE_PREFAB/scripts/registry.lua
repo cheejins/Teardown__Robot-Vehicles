@@ -9,6 +9,8 @@ function modReset()
     regSetFloat('robot.weapon.rocket.explosionSize' , 1.5)
 
     regSetFloat('robot.move.speed'                  , 1)
+
+    -- regSetBool('robot.followPlayer'                 , false)
 end
 
 function checkRegInitialized()

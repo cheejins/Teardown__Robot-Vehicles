@@ -1,5 +1,3 @@
-
-
 function initDebug()
     db = false
     -- db = true

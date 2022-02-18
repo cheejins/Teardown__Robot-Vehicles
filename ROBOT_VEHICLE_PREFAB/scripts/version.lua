@@ -1,5 +1,6 @@
 MOD_VERSION = {
-    '2021_Dec_7',
+    '2021-Dec-16',
+    '22.2.16',
 }
 
 function GetModVersion()

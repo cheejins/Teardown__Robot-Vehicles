@@ -1,12 +1,17 @@
-#include "script/common.lua"
 #include "customRobot.lua"
 #include "debug.lua"
+#include "camera.lua"
+#include "projectiles.lua"
+#include "registry.lua"
+#include "robotPreset.lua"
+#include "script/common.lua"
+#include "sounds.lua"
 #include "timers.lua"
-#include "weapons.lua"
 #include "ui.lua"
+#include "umf.lua"
 #include "utility.lua"
 #include "version.lua"
-#include "registry.lua"
+#include "weapons.lua"
 
 
 --= ROBOT OVERVIEW
@@ -42,7 +47,7 @@ do
 		head
 			(type body: required)
 			The head should be --! jointed to the body
-			(hinge joint with or without limits). 
+			(hinge joint with or without limits).
 			heardist=<value> - Maximum hearing distance in meters, default 100
 		eye
 			(type light: required)
@@ -118,13 +123,13 @@ do
 			(type trigger: optional)
 			If present, robot will start inactive and --! become activated when player enters trigger
 
-]] 
+]]
 end
 
 
 
 --= MAIN
-do 
+do
 	--> Script
 	do
 
@@ -166,9 +171,9 @@ do
 		end
 
 		function update(dt)
-			if robot.deleted then 
+			if robot.deleted then
 				return
-			else 
+			else
 				if not IsHandleValid(robot.body) then
 					for i=1, #robot.allBodies do
 						Delete(robot.allBodies[i])
@@ -180,7 +185,7 @@ do
 				end
 			end
 
-			if robot.activateTrigger ~= 0 then 
+			if robot.activateTrigger ~= 0 then
 				if IsPointInTrigger(robot.activateTrigger, GetPlayerCameraTransform().pos) then
 					RemoveTag(robot.body, "inactive")
 					robot.activateTrigger = 0
@@ -216,7 +221,7 @@ do
 					if robot.investigateTrigger == 0 or IsPointInTrigger(robot.investigateTrigger, pos) then
 						wakeUp = true
 					end
-				end	
+				end
 				if wakeUp then
 					RemoveTag(robot.body, "sleeping")
 				end
@@ -231,7 +236,7 @@ do
 			end
 
 			feetUpdate(dt)
-			
+
 			if IsPointInWater(robot.bodyCenter) then
 				PlaySound(disableSound, robot.bodyCenter)
 				for i=1, #robot.allShapes do
@@ -240,14 +245,14 @@ do
 				SetTag(robot.body, "disabled")
 				robot.enabled = false
 			end
-			
+
 			robot.stunned = clamp(robot.stunned - dt, 0.0, 8.0)
 			if robot.stunned > 0 then
 				head.seenTimer = 0
 				weaponsReset()
 				return
 			end
-			
+
 			hoverUpdate(dt)
 			headUpdate(dt)
 			sensorUpdate(dt)
@@ -257,9 +262,9 @@ do
 			stackUpdate(dt)
 			robot.speedScale = 1.5
 			robot.speed = 0
-			local state = stackTop()
+			-- local state = stackTop()
 			local state = "none"
-			
+
 			if state.id == "none" then
 				-- if config.patrol then
 				-- 	stackPush("patrol")
@@ -290,7 +295,7 @@ do
 				-- end
 			end
 
-			
+
 			if state.id == "patrol" then
 				-- if not state.nextAction then
 				-- 	state.index = getClosestPatrolIndex()
@@ -307,7 +312,7 @@ do
 				-- end
 			end
 
-			
+
 			if state.id == "search" then
 				if state.activeTime > 2.5 then
 					if not state.turn then
@@ -325,7 +330,7 @@ do
 				end
 			end
 
-			
+
 			if state.id == "investigate" then
 				--! disable investigating.
 				-- if not state.nextAction then
@@ -342,9 +347,9 @@ do
 				-- elseif state.nextAction == "done" then
 				-- 	PlaySound(idleSound, robot.bodyCenter)
 				-- 	stackPop()
-				-- end	
+				-- end
 			end
-			
+
 			if state.id == "move" then
 				-- robotTurnTowards(state.pos)
 				-- robot.speed = config.speed
@@ -359,7 +364,7 @@ do
 				-- 	end
 				-- end
 			end
-			
+
 			if state.id == "unblock" then
 				-- if not state.dir then
 				-- 	if math.random(0, 10) < 5 then
@@ -421,7 +426,7 @@ do
 					if VecDist(head.lastSeenPos, robot.bodyCenter) > 3.0 then
 						stackClear()
 						local s = stackPush("investigate")
-						s.pos = VecCopy(head.lastSeenPos)		
+						s.pos = VecCopy(head.lastSeenPos)
 					else
 						stackClear()
 						stackPush("huntlost")
@@ -447,7 +452,7 @@ do
 					end
 				end
 			end
-			
+
 			--Avoid player
 			if state.id == "avoid" then
 				if not state.init then
@@ -456,7 +461,7 @@ do
 					state.headAngle = 0
 					state.headAngleTimer = 0
 				end
-				
+
 				local distantPatrolIndex = getDistantPatrolIndex(GetPlayerTransform().pos)
 				local avoidTarget = GetLocationTransform(patrolLocations[distantPatrolIndex]).pos
 				navigationSetTarget(avoidTarget, 1.0)
@@ -480,16 +485,16 @@ do
 					end
 					head.dir = QuatRotateVec(QuatEuler(0, state.headAngle, 0), robot.dir)
 				end
-				
+
 				if navigation.state ~= "move" and head.timeSinceLastSeen > 2 and state.activeTime > 3.0 then
 					stackClear()
 				end
 			end
-			
+
 			--Get up player
 			if state.id == "getup" then
-				if not state.time then 
-					state.time = 0 
+				if not state.time then
+					state.time = 0
 				end
 				state.time = state.time + dt
 				hover.timeSinceContact = 0
@@ -522,11 +527,11 @@ do
 					stackClear()
 					PlaySound(alertSound, robot.bodyCenter)
 					local s = stackPush("investigate")
-					s.pos = hearing.lastSoundPos	
+					s.pos = hearing.lastSoundPos
 					hearingConsumeSound()
 				end
 			end
-			
+
 			--Seen player
 			if config.huntPlayer and not stackHas("hunt") then
 				if config.canSeePlayer and head.canSeePlayer or robot.canSensePlayer then
@@ -535,7 +540,7 @@ do
 					stackPush("hunt")
 				end
 			end
-			
+
 			--Seen player
 			if config.avoidPlayer and not stackHas("avoid") then
 				if config.canSeePlayer and head.canSeePlayer or robot.distToPlayer < 2.0 then
@@ -543,17 +548,17 @@ do
 					stackPush("avoid")
 				end
 			end
-			
+
 			--Get up
 			if hover.timeSinceContact > 3.0 and not stackHas("getup") then
 				stackPush("getup")
 			end
-			
+
 			if IsShapeBroken(GetLightShape(head.eye)) then
 				config.hasVision = false
 				config.canSeePlayer = false
 			end
-			
+
 			-- debugState()
 
 			updateCustom(dt)
@@ -563,7 +568,7 @@ do
 			if not robot.enabled then
 				return
 			end
-			
+
 			if HasTag(robot.body, "turnhostile") then
 				RemoveTag(robot.body, "turnhostile")
 				config.canHearPlayer = true
@@ -572,7 +577,7 @@ do
 				config.aggressive = true
 				config.practice = false
 			end
-			
+
 			--Outline
 			local dist = VecDist(robot.bodyCenter, GetPlayerCameraTransform().pos)
 			if dist < config.outline then
@@ -585,7 +590,7 @@ do
 					DrawBodyOutline(robot.allBodies[i], 1, 1, 1, robot.outlineAlpha*0.5)
 				end
 			end
-			
+
 			--Remove planks and wires after some time
 			local tags = {"plank", "wire"}
 			local removeTimeOut = 10
@@ -623,8 +628,6 @@ do
 		end
 
 	end
-
-
 
 	--> Config
 	do
@@ -791,7 +794,7 @@ do
 							for l=0.2, GetPathLength(), 0.2 do
 								navigation.path[#navigation.path+1] = GetPathPoint(l)
 							end
-						end			
+						end
 						navigation.lastQueryTime = navigation.thinkTime
 						navigation.resultRetrieved = true
 						navigation.state = "move"
@@ -803,12 +806,12 @@ do
 
 			if navigation.thinkTime == 0 and navigation.hasNewTarget then
 				local startPos
-				
+
 				if #navigation.path > 0 and VecDist(navigation.path[1], robot.navigationCenter) < 2.0 then
 					--Keep a little bit of the old path and use last point of that as start position
 					--Use previous query's time as an estimate for the next
 					local distToKeep = VecLength(GetBodyVelocity(robot.body))*navigation.lastQueryTime
-					local nodesToKeep = math.clamp(math.ceil(distToKeep / 0.2), 1, 15)			
+					local nodesToKeep = math.clamp(math.ceil(distToKeep / 0.2), 1, 15)
 					local newPath = {}
 					for i=1, math.min(nodesToKeep, #navigation.path) do
 						newPath[i] = navigation.path[i]
@@ -824,12 +827,12 @@ do
 				if GetPlayerVehicle()~=0 then
 					targetRadius = 4.0
 				end
-			
+
 				local target = navigation.target
-				if robot.limitTrigger ~= 0 then
-					target = GetTriggerClosestPoint(robot.limitTrigger, target)
+				-- if robot.limitTrigger ~= 0 then
+				-- 	target = GetTriggerClosestPoint(robot.limitTrigger, target)
 					target = truncateToGround(target)
-				end
+				-- end
 
 				QueryRequire("physical large")
 				rejectAllBodies(robot.allBodies)
@@ -840,9 +843,9 @@ do
 				navigation.resultRetrieved = false
 				navigation.state = "move"
 			end
-				
+
 			navigationMove(dt)
-			
+
 			if GetPathState() ~= "busy" and #navigation.path == 0 and not navigation.hasNewTarget then
 				if GetPathState() == "done" or GetPathState() == "idle" then
 					navigation.state = "done"
@@ -899,6 +902,7 @@ do
 							local speedScale = math.max(0.25, dirDiff)
 							speedScale = speedScale * clamp(1.0 - navigation.vertical, 0.3, 1.0)
 							robot.speed = config.speed * speedScale
+
 						end
 					else
 						--Went off path, scrap everything and recompute
@@ -1027,7 +1031,7 @@ do
 			-- else
 				robot.playerPos = getOuterCrosshairWorldPos()
 			-- end
-			
+
 			local vel = GetBodyVelocity(robot.body)
 			local fwdSpeed = VecDot(vel, robot.dir)
 			local blocked = 0
@@ -1047,7 +1051,7 @@ do
 			for i=1, #bodies do
 				robot.mass = robot.mass + GetBodyMass(bodies[i])
 			end
-			
+
 			robot.bodyCenter = TransformToParentPoint(robot.transform, GetBodyCenterOfMass(robot.body))
 			robot.navigationCenter = TransformToParentPoint(robot.transform, Vec(0, -hover.distTarget, 0))
 
@@ -1065,13 +1069,13 @@ do
 				end
 				robot.breakAll = false
 			end
-			
+
 			--Distance and direction to player
 			local pp = VecAdd(GetPlayerTransform().pos, Vec(0, 1, 0))
 			local d = VecSub(pp, robot.bodyCenter)
 			robot.distToPlayer = VecLength(d)
 			robot.dirToPlayer = VecScale(d, 1.0/robot.distToPlayer)
-			
+
 			--Sense player if player is close and there is nothing in between
 			robot.canSensePlayer = false
 			if robot.distToPlayer < 3.0 then
@@ -1099,7 +1103,7 @@ do
 	end
 
 	--> Head
-	do 
+	do
 
 		head = {}
 		head.body = 0
@@ -1155,7 +1159,7 @@ do
 			if config.aggressive then
 				playerVisible = true
 			end
-			
+
 			--If player is visible it takes some time before registered as seen
 			--If player goes out of sight, head can still see for some time second (approximation of motion estimation)
 			if playerVisible then
@@ -1167,7 +1171,7 @@ do
 				head.seenTimer = math.max(0.0, head.seenTimer - dt / config.lostVisibilityTimer)
 			end
 			head.canSeePlayer = (head.seenTimer > 0.5)
-			
+
 			if head.canSeePlayer then
 				head.lastSeenPos = pp
 				head.timeSinceLastSeen = 0
@@ -1180,7 +1184,7 @@ do
 			else
 				head.aim = math.max(0.0, head.aim - dt / config.aimTime)
 			end
-			
+
 			if config.triggerAlarmWhenSeen then
 				local red = false
 				if GetBool("level.alarm") then
@@ -1203,7 +1207,7 @@ do
 					SetLightColor(head.eye, 1, 1, 1)
 				end
 			end
-			
+
 			--Rotate head to head.dir
 			local fwd = TransformToParentVec(t, Vec(0, 0, -1))
 			if playerVisible then
@@ -1235,7 +1239,7 @@ do
 	end
 
 	--> Feet
-	do 
+	do
 		feet = {}
 
 		function feetInit()
@@ -1305,16 +1309,16 @@ do
 			else
 				feetCollideLegs(false)
 			end
-			
+
 			local vel = GetBodyVelocity(robot.body)
 			local velLength = VecLength(vel)
-			local stepLength = clamp(velLength*1.5, 0.35, 1.1)
-			local stepTime = math.min(stepLength / velLength * 0.5, 0.5)
-			local stepHeight = stepLength * 0.3
+			local stepLength = clamp(velLength*1.5, 0.5, 1)
+			local stepTime = math.min(stepLength / velLength * 0.5, 0.25)
+			local stepHeight = stepLength * 0.5
 
 			local inStep = false
 			for i=1, #feet do
-			
+
 				local q = feet[i].stepAge/feet[i].stepLifeTime
 				if feet[i].stepLifeTime > stepTime then
 					feet[i].stepLifeTime = stepTime
@@ -1323,10 +1327,10 @@ do
 					inStep = true
 				end
 			end
-				
+
 			for i=1, #feet do
 				local foot = feet[i]
-				
+
 				if not inStep then
 					--Find candidate footstep
 					local tPredict = TransformCopy(robot.transform)
@@ -1363,7 +1367,7 @@ do
 				end
 
 			end
-			
+
 			if not inStep then
 				--Find best step candidate
 				local bestFoot = 0
@@ -1389,7 +1393,7 @@ do
 	end
 
 	--> Hover
-	do 
+	do
 
 		hover = {}
 		hover.hitBody = 0
@@ -1469,6 +1473,7 @@ do
 			local curr = VecDot(robot.axes[2], GetBodyAngularVelocity(robot.body))
 			angVel = curr + clamp(angVel - curr, -0.2*robot.speedScale, 0.2*robot.speedScale)
 
+			-- local f = robot.mass*0.5 * hover.contact
 			local f = robot.mass*0.5 * hover.contact
 			ConstrainAngularVelocity(robot.body, hover.hitBody, robot.axes[2], angVel, -f , f)
 		end
@@ -1550,7 +1555,7 @@ do
 				hover.currentDist = maxDist
 				hover.contact = 0
 			end
-			
+
 			--Limit body angular velocity magnitude to 10 rad/s at max contact
 			if hover.contact > 0 then
 				local maxAngVel = 10.0 / hover.contact
@@ -1560,7 +1565,7 @@ do
 					SetBodyAngularVelocity(robot.body, VecScale(maxAngVel / angVelLength))
 				end
 			end
-			
+
 			if hover.contact > 0 then
 				hover.timeSinceContact = 0
 			else
@@ -1666,19 +1671,19 @@ do
 
 		function weaponFire(weapon, pos, dir)
 			local perp = getPerpendicular(dir)
-			
+
 			-- This is the default bullet spread
 			local spread =  1 * rnd(0.0, 1.0)
-		
+
 			-- Add more spread up based on aim, so that the first bullets never (well, rarely) hit player
 			local extraSpread = math.min(0.5, 2.0 / robot.distToPlayer)
 			spread = spread	+ (1.0-head.aim) * extraSpread
-		
+
 			dir = VecNormalize(VecAdd(dir, VecScale(perp, spread)))
-		
+
 			--Start one voxel ahead to not hit robot itself
 			pos = VecAdd(pos, VecScale(dir, 0.1))
-			
+
 			if weapon.type == "gun" then
 				PlaySound(shootSound, pos)
 				PointLight(pos, 1, 0.8, 0.6, 5)
@@ -1710,7 +1715,7 @@ do
 			PointLight(p, 1, 0.8, 0.2, 2*amount)
 			PlayLoop(fireLoop, t.pos, amount)
 			SpawnParticle(p, VecScale(d, 12), 0.5 * amount)
-		
+
 			if amount > 0.5 then
 				--Spawn fire
 				if not spawnFireTimer then
@@ -1727,7 +1732,7 @@ do
 						spawnFireTimer = 1
 					end
 				end
-				
+
 				--Hurt player
 				local toPlayer = VecSub(GetPlayerCameraTransform().pos, t.pos)
 				local distToPlayer = VecLength(toPlayer)
@@ -1740,7 +1745,7 @@ do
 						if not hit or distToPlayer < 0.5 then
 							SetPlayerHealth(GetPlayerHealth() - 0.015 * weapon.strength * amount * distScale)
 						end
-					end	
+					end
 				end
 			end
 		end
@@ -1757,7 +1762,7 @@ do
 				local distToPlayer = VecLength(toPlayer)
 				toPlayer = VecNormalize(toPlayer)
 				local clearShot = false
-				
+
 				if weapon.type == "fire" then
 					if not weapon.fire then
 						weapon.fire = 0
@@ -1787,7 +1792,7 @@ do
 							clearShot =  true
 						end
 					end
-		
+
 					--Handle states
 					if weapon.state == "idle" then
 						weapon.idleTimer = weapon.idleTimer - dt
@@ -1806,7 +1811,7 @@ do
 							weapon.fireTimer = 0
 							weapon.fireCount = weapon.shotsPerRound
 						end
-					elseif weapon.state == "fire" then	
+					elseif weapon.state == "fire" then
 						weapon.fireTimer = weapon.fireTimer - dt
 						if towardsPlayer > 0.3 or distToPlayer < 1.0 then
 							if weapon.fireTimer <= 0 then
@@ -1823,7 +1828,7 @@ do
 								else
 									weapon.fireTimer = weapon.fireCooldown
 								end
-							end			
+							end
 						else
 							--We are no longer pointing towards player, abort round
 							weapon.state = "idle"
@@ -1857,24 +1862,24 @@ do
 				local playerPos = getOuterCrosshairWorldPos()
 				local toPlayer = VecNormalize(VecSub(playerPos, GetBodyTransform(aim.body).pos))
 				local fwd = TransformToParentVec(GetBodyTransform(robot.body), Vec(0, 0, -1))
-				-- if (head.canSeePlayer and VecDot(fwd, toPlayer) > 0.5) or robot.distToPlayer < 4.0 then
+				if (head.canSeePlayer and VecDot(fwd, toPlayer) > 0.5) or robot.distToPlayer < 4.0 then
 					--Should aim
 					local v = 2
 					local f = 20
 					local wt = GetBodyTransform(aim.body)
 					local toPlayerOrientation = QuatLookAt(wt.pos, playerPos)
 					ConstrainOrientation(aim.body, robot.body, wt.rot, toPlayerOrientation, v, f)
-				-- else
-				-- 	--Should not aim
-				-- 	local rd = TransformToParentVec(GetBodyTransform(robot.body), Vec(0, 0, -1))
-				-- 	local wd = TransformToParentVec(GetBodyTransform(aim.body), Vec(0, 0, -1))
-				-- 	local angle = clamp(math.acos(VecDot(rd, wd)), 0, 1)
-				-- 	local v = 2
-				-- 	local f = math.abs(angle) * 10 + 3
-				-- 	ConstrainOrientation(robot.body, aim.body, GetBodyTransform(robot.body).rot, GetBodyTransform(aim.body).rot, v, f)
-				-- end
+				else
+					--Should not aim
+					local rd = TransformToParentVec(GetBodyTransform(robot.body), Vec(0, 0, -1))
+					local wd = TransformToParentVec(GetBodyTransform(aim.body), Vec(0, 0, -1))
+					local angle = clamp(math.acos(VecDot(rd, wd)), 0, 1)
+					local v = 2
+					local f = math.abs(angle) * 10 + 3
+					ConstrainOrientation(robot.body, aim.body, GetBodyTransform(robot.body).rot, GetBodyTransform(aim.body).rot, v, f)
+				end
 			end
-		end	
+		end
 
 	end
 
@@ -1995,7 +2000,7 @@ do
 			local mi, ma = GetTriggerBounds(trigger)
 			local minDist = math.max(ma[1]-mi[1], ma[3]-mi[3])*0.25
 			minDist = math.min(minDist, 5.0)
-		
+
 			for i=1, 100 do
 				local probe = Vec()
 				for j=1, 3 do
@@ -2047,8 +2052,8 @@ do
 			end
 			return bestIndex
 		end
-		
-		
+
+
 		function getDistantPatrolIndex(currentPos)
 			local bestIndex = 1
 			local bestDistance = 0
@@ -2062,17 +2067,17 @@ do
 			end
 			return bestIndex
 		end
-		
-		
+
+
 		function getNextPatrolIndex(current)
 			local i = current + 1
 			if i > #patrolLocations then
-				i = 1	
+				i = 1
 			end
 			return i
 		end
-		
-		
+
+
 		function markPatrolLocationAsActive(index)
 			for i=1, #patrolLocations do
 				if i==index then
@@ -2082,8 +2087,8 @@ do
 				end
 			end
 		end
-		
-		
+
+
 		function debugState()
 			local state = stackTop()
 			DebugWatch("state", state.id)
@@ -2100,8 +2105,8 @@ do
 			DebugWatch("navigation.thinkTime", navigation.thinkTime)
 			DebugWatch("GetPathState()", GetPathState())
 		end
-		
-		
+
+
 		function canBeSeenByPlayer()
 			for i=1, #robot.allShapes do
 				if IsShapeVisible(robot.allShapes[i], config.outline, true) then
@@ -2110,16 +2115,16 @@ do
 			end
 			return false
 		end
-		
+
 		function hitByExplosion(strength, pos)
 			--Explosions smaller than 1.0 are ignored (with a bit of room for rounding errors)
 			if strength > 0.99 then
-				local d = VecDist(pos, robot.bodyCenter)	
+				local d = VecDist(pos, robot.bodyCenter)
 				local f = clamp((1.0 - d/10.0), 0.0, 1.0) * strength
 				if f > 0.2 then
 					robot.stunned = robot.stunned + f * 4.0
 				end
-				
+
 				--Give robots an extra push if they are not already moving that much
 				--Unphysical but more fun
 				local maxVel = 7.0
@@ -2140,8 +2145,8 @@ do
 				end
 			end
 		end
-		
-		
+
+
 		function hitByShot(strength, pos, dir)
 			if VecDist(pos, robot.bodyCenter) < 3 then
 				local hit, point, n, shape = QueryClosestPoint(pos, 0.1)
@@ -2167,7 +2172,7 @@ do
 
 		function rndVec(length)
 			local v = VecNormalize(Vec(math.random(-100,100), math.random(-100,100), math.random(-100,100)))
-			return VecScale(v, length)	
+			return VecScale(v, length)
 		end
 
 		function rnd(mi, ma)
