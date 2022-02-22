@@ -1,4 +1,10 @@
-v 22.02.18
+22.02.22
+Added
+- Aeon Robot main gun penetration.
+- Better weapon hit detection.
+
+
+22.02.18
 Added
     Aeon robot.
     Robot spawning.
@@ -6,4 +12,4 @@ Added
     Options menu
 Fixes
     Robots can now walk diagonally
-    Walking noises
+    Player footstep noises

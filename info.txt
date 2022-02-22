@@ -1,6 +1,6 @@
 name = Robot Vehicles (Early Beta)
 author = Cheejins & Tuxedo Labs
-description = [noupload] A simple example of spoofing the robot's inputs/functions to simulate a vehicle.
+description = [noupload] Robots are now spawnable! (Requires Teardown experimental beta)
 tags=Map,Vehicle
 
 # If description contains [noupload] the description on Steam workshop will not be overwritten.

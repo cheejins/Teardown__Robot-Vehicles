@@ -5,143 +5,129 @@
 
 
 --> SCRIPT
-do
+function initCustom()
 
-	function initCustom()
+	CAMERA = {}
+	CAMERA.xy = {UiCenter(), UiMiddle()}
+	missileSound = LoadSound("../snd/launchSound.ogg")
+	SetTag(head.body, 'interact')
+	SetDescription(head.body, 'Drive Robot')
+	-- robot.followPlayer = regGetBool('robot.followPlayer')
 
-		CAMERA = {}
+	initPlayerDrivingRobot()
+	setRobotUnbreakable(false)
+
+	robot.died = false
+	robot.health = getRobotMass()
+
+	initSounds()
+	initRobotPreset()
+	initCamera()
+	initDebug()
+	initProjectiles()
+	initWeapons()
+	initTimers()
+	initUi()
+
+	enterCount = 0
+
+end
+function tickCustom(dt)
+
+	--+ Global robot variables.
+	bodyTr = GetBodyTransform(robot.body)
+	headTr = GetBodyTransform(head.body)
+	camTr = GetCameraTransform()
+	crosshairPos = getOuterCrosshairWorldPos()
+
+	--+ Constant functions.
+	manageRobotHealth()
+	runTimers()
+	manageProjs()
+	manageActiveProjectiles()
+	aimsUpdateCustom()
+
+	--+ Check and set player robot vehicle.
+	playerCheckRobot()
+
+	--+ Drive robot.
+	if player.isDrivingRobot then
+		playerDriveRobot(dt, bodyTr.pos)
+		debugRobot()
+	end
+
+end
+function updateCustom(dt)
+	robot.speedScale = regGetFloat('robot.move.speed')
+	timers.gun.bullets.rpm = regGetFloat('robot.weapon.bullet.rpm')
+	timers.gun.rockets.rpm = regGetFloat('robot.weapon.rocket.rpm')
+
+	if player.isDrivingRobot then
+
+		processMovement()
+
+	-- elseif regGetBool('robot.followPlayer') then
+
+	-- 	if VecDist(GetPlayerTransform().pos, robot.transform.pos) > 3 then
+	-- 		robotFollowPlayer(dt)
+	-- 	end
+
+	end
+end
+function drawCustom()
+
+	if player.isDrivingRobot and robot.enabled then
+
+		do UiPush()
+			UiFont('bold.ttf', 24)
+			UiColor(0.75,0.75,0.75)
+			UiAlign('right top')
+			UiTranslate(UiWidth(), 0)
+			UiText('v' .. GetModVersion())
+		UiPop() end
+
+		uiManageGameOptions()
+
 		CAMERA.xy = {UiCenter(), UiMiddle()}
-		missileSound = LoadSound("../snd/launchSound.ogg")
-		SetTag(head.body, 'interact')
-		SetDescription(head.body, 'Drive Robot')
-		-- robot.followPlayer = regGetBool('robot.followPlayer')
 
-		initPlayerDrivingRobot()
-		setRobotUnbreakable(false)
+		-- Crosshair
+		do UiPush()
+			local crosshairSize = 50*robot.crosshairScale
+			UiAlign('center middle')
+			UiTranslate(UiCenter(), UiMiddle())
+			UiImageBox(robot.crosshair, crosshairSize, crosshairSize, 1,1)
+		UiPop() end
 
-		robot.died = false
-		robot.health = getRobotMass()
-
-		initSounds()
-		initRobotPreset()
-		initCamera()
-		initDebug()
-		initProjectiles()
-		initWeapons()
-		initTimers()
-		initUi()
-
-		enterCount = 0
-
-	end
-	function tickCustom(dt)
-
-		--+ Global robot variables.
-		bodyTr = GetBodyTransform(robot.body)
-		headTr = GetBodyTransform(head.body)
-		camTr = GetCameraTransform()
-		crosshairPos = getOuterCrosshairWorldPos()
-
-		--+ Constant functions.
-		manageRobotHealth()
-		runTimers()
-		manageProjs()
-		manageActiveProjectiles()
-		aimsUpdateCustom()
-
-		--+ Check and set player robot vehicle.
-		playerCheckRobot()
-
-		--+ Drive robot.
-		if player.isDrivingRobot then
-			playerDriveRobot(dt, bodyTr.pos)
-			debugRobot()
-		end
-
-	end
-
-	function updateCustom(dt)
-		robot.speedScale = regGetFloat('robot.move.speed')
-		timers.gun.bullets.rpm = regGetFloat('robot.weapon.bullet.rpm')
-		timers.gun.rockets.rpm = regGetFloat('robot.weapon.rocket.rpm')
-
-		if player.isDrivingRobot then
-
-			processMovement()
-
-		-- elseif regGetBool('robot.followPlayer') then
-
-		-- 	if VecDist(GetPlayerTransform().pos, robot.transform.pos) > 3 then
-		-- 		robotFollowPlayer(dt)
-		-- 	end
-
-		end
-	end
-	function drawCustom()
-
-		if player.isDrivingRobot and robot.enabled then
-
+		-- Bottom info
+		if robot.model == robot_models.basic then
 			do UiPush()
+				UiTranslate(UiCenter(), UiHeight() - 60)
 				UiFont('bold.ttf', 24)
 				UiColor(0.75,0.75,0.75)
-				UiAlign('right top')
-				UiTranslate(UiWidth(), 0)
-				UiText('v' .. GetModVersion())
+				UiAlign('center top')
+
+				local key_options = regGetString('options.keys.optionsScreen')
+
+				UiText('Press "' .. key_options .. '" to show the options menu.')
+				UiTranslate(0, 30)
 			UiPop() end
+		end
 
-			uiManageGameOptions()
-
-			CAMERA.xy = {UiCenter(), UiMiddle()}
-
-			-- Crosshair
+		if GetBool('LEVEL.demoMap') and player.isDrivingRobot and not GetBool('LEVEL.welcome') then
 			do UiPush()
-				local crosshairSize = 50*robot.crosshairScale
-				UiAlign('center middle')
+
 				UiTranslate(UiCenter(), UiMiddle())
-				UiImageBox(robot.crosshair, crosshairSize, crosshairSize, 1,1)
-			UiPop() end
+				UiAlign('center middle')
+				UiImageBox('../img/welcome.png', UiWidth()*0.7, UiHeight()*0.7, 1, 1)
 
-			-- if headShootTr then
-			-- 	local cx, cy = UiWorldToPixel(headShootTr.pos)
-			-- 	do UiPush()
-			-- 		UiTranslate(cx, cy)
-			-- 		UiAlign('center middle')
-			-- 		UiImageBox(robot.crosshair, 40,40, 1,1)
-			-- 	UiPop() end
-			-- end
-
-			-- Bottom info
-			if robot.model == robot_models.basic then
-				do UiPush()
-					UiTranslate(UiCenter(), UiHeight() - 60)
-					UiFont('bold.ttf', 24)
-					UiColor(0.75,0.75,0.75)
-					UiAlign('center top')
-
-					local key_options = regGetString('options.keys.optionsScreen')
-
-					UiText('Press "' .. key_options .. '" to show the options menu.')
-					UiTranslate(0, 30)
-				UiPop() end
-			end
-
-			if GetBool('LEVEL.demoMap') and player.isDrivingRobot and not GetBool('LEVEL.welcome') then
-				do UiPush()
-
-					UiTranslate(UiCenter(), UiMiddle())
-					UiAlign('center middle')
-					UiImageBox('../img/welcome.png', UiWidth()*0.7, UiHeight()*0.7, 1, 1)
-
-					if InputPressed('any') then
-						enterCount = enterCount + 1
-						if enterCount > 1 then
-							SetBool('LEVEL.welcome', true)
-						end
+				if InputPressed('any') then
+					enterCount = enterCount + 1
+					if enterCount > 1 then
+						SetBool('LEVEL.welcome', true)
 					end
+				end
 
-				UiPop() end
-			end
-
+			UiPop() end
 		end
 
 	end
@@ -201,7 +187,7 @@ processMovement = function ()
 	--+ Crouch
 	if InputPressed('ctrl') then
 		SetBodyVelocity(robot.body, VecAdd(GetBodyVelocity(robot.body), Vec(0,-5,0)))
-		DebugPrint('Teabag initiated ' .. sfnTime())
+		-- DebugPrint('Teabag initiated ' .. sfnTime())
 	end
 
 end
@@ -298,7 +284,11 @@ function processWeapons_mech_aeon()
 			PlayRandomSound(Sounds.weap_special.shoot, bodyTr.pos)
 			PlayRandomSound(Sounds.weap_special.hit, bodyTr.pos, 0.5)
 
-			createProjectile(GetLightTransform(robot.weaponObjects.special[math.random(1, #robot.weaponObjects.special)].light), Projectiles, ProjectilePresets.aeon_special, robot.allBodies)
+			createProjectile(
+				GetLightTransform(robot.weaponObjects.special[math.random(1, #robot.weaponObjects.special)].light),
+				Projectiles,
+				ProjectilePresets.aeon_special,
+				robot.allBodies)
 
 		end
 
@@ -417,7 +407,6 @@ function processWeapons_mech_basic()
 
 	end
 end
-
 function aimsUpdateCustom()
 	for i=1, #aims do
 		local aim = aims[i]
@@ -594,4 +583,3 @@ function getRobotMass()
 	end
 	return mass
 end
-

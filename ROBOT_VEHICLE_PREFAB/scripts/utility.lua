@@ -306,23 +306,19 @@ do
     ---@return hitDist number
     function RaycastFromTransform(tr, distance, rad, rejectBodies, rejectShapes, returnNil)
 
-        if distance ~= nil then distance = -distance else distance = -300 end
+        if distance == nil then distance = 300 end
 
         if rejectBodies ~= nil then for i = 1, #rejectBodies do QueryRejectBody(rejectBodies[i]) end end
         if rejectShapes ~= nil then for i = 1, #rejectShapes do QueryRejectShape(rejectShapes[i]) end end
 
         returnNil = returnNil or false
 
-        local plyTransform = tr
-        local fwdPos = TransformToParentPoint(plyTransform, Vec(0, 0, distance))
-        local direction = VecSub(fwdPos, plyTransform.pos)
-        local dist = VecLength(direction)
-        direction = VecNormalize(direction)
-        local h, d, n, s = QueryRaycast(tr.pos, direction, dist, rad)
+        local direction = QuatToDir(tr.rot)
+        local h, d, n, s = QueryRaycast(tr.pos, direction, distance, rad)
         if h then
-            local p = TransformToParentPoint(plyTransform, Vec(0, 0, d * -1))
+            local p = TransformToParentPoint(tr, Vec(0, 0, d * -1))
             local b = GetShapeBody(s)
-            return h, p, s, b, d
+            return h, p, s, b, d, n
         elseif not returnNil then
             return true, TransformToParentPoint(tr, Vec(0,0,-300))
         else
@@ -330,11 +326,6 @@ do
         end
     end
 
-    function QueryRejectAll(ignoreShapes, ignoreBodies, ignoreVehicles)
-        for i = 1, #ignoreShapes do QueryRejectShape(ignoreShapes[i]) end
-        for i = 1, #ignoreBodies do QueryRejectBody(ignoreBodies[i]) end
-        for i = 1, #ignoreVehicles do QueryRejectVehicle(ignoreVehicles[i]) end
-    end
 end
 
 

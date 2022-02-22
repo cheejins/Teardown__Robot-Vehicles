@@ -44,9 +44,6 @@ function manageActiveBullets(activeBullets)
 end
 function propelBullet(bullet)
 
-    bullet.transform.pos = TransformToParentPoint(bullet.transform, Vec(0,-0.01,-bullet.speed))
-
-
     if bullet.ignoreBodies ~= nil then -- TODO append different tags to table
         for i = 1, #bullet.ignoreBodies do
             QueryRejectBody(bullet.ignoreBodies[i])
@@ -57,7 +54,7 @@ function propelBullet(bullet)
     local pos = bullet.transform.pos
     local dir = VecNormalize(VecSub(bullet.transform.pos, TransformToParentPoint(bullet.transform, Vec(0,0,-1))))
     local dist = bullet.speed
-    local radius = 0
+    local radius = nil
     local hit, dist, norm, hitShape = QueryRaycast(pos, dir, dist, radius)
     if hit then
 
@@ -121,6 +118,8 @@ function propelBullet(bullet)
     ParticleDrag(0.2)
     ParticleCollide(0, 1, "easeout")
     SpawnParticle(bullet.transform.pos, VecRdm(0,1), 0.2)
+
+    bullet.transform.pos = TransformToParentPoint(bullet.transform, Vec(0,-0.01,-bullet.speed))
 
 end
 

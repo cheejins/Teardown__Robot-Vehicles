@@ -16,20 +16,25 @@ function tick()
     manageRobotSpawning()
 end
 
+
 function manageRobotSpawning()
 
-    -- Spawn mech-basic
-    if InputPressed(regGetString('options.keys.spawnMenu')) then
-        local hit, pos = RaycastFromTransform(GetCameraTransform())
-        Spawn('MOD/ROBOT_VEHICLE_PREFAB/robot/mech-aeon.xml', Transform(pos))
-        SetBool('level.robotExists', true)
-    end
+    if HasVersion("0.9.3") then
 
-    -- Spawn mech-aeon
-    if InputPressed(regGetString('options.keys.quickSpawn')) then
-        local hit, pos = RaycastFromTransform(GetCameraTransform())
-        Spawn('MOD/ROBOT_VEHICLE_PREFAB/instance_robotVehicle.xml', Transform(pos))
-        SetBool('level.robotExists', true)
+        -- Spawn mech-basic
+        if InputPressed(regGetString('options.keys.spawnMenu')) then
+            local hit, pos = RaycastFromTransform(GetCameraTransform())
+            Spawn('MOD/ROBOT_VEHICLE_PREFAB/robot/mech-aeon.xml', Transform(pos))
+            SetBool('level.robotExists', true)
+        end
+
+        -- Spawn mech-aeon
+        if InputPressed(regGetString('options.keys.quickSpawn')) then
+            local hit, pos = RaycastFromTransform(GetCameraTransform())
+            Spawn('MOD/ROBOT_VEHICLE_PREFAB/instance_robotVehicle.xml', Transform(pos))
+            SetBool('level.robotExists', true)
+        end
+
     end
 
 end

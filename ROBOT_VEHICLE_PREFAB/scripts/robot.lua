@@ -1,6 +1,7 @@
 #include "camera.lua"
 #include "customRobot.lua"
 #include "debug.lua"
+#include "particles.lua"
 #include "projectiles.lua"
 #include "registry.lua"
 #include "robotPreset.lua"
@@ -1033,18 +1034,18 @@ do
 				robot.playerPos = getOuterCrosshairWorldPos()
 			-- end
 
-			local vel = GetBodyVelocity(robot.body)
-			local fwdSpeed = VecDot(vel, robot.dir)
-			local blocked = 0
-			if robot.speed > 0 and fwdSpeed > -0.1 then
-				blocked = 1.0 - clamp(fwdSpeed/0.5, 0.0, 1.0)
-			end
-			robot.blocked = robot.blocked * 0.95 + blocked * 0.05
+			-- local vel = GetBodyVelocity(robot.body)
+			-- local fwdSpeed = VecDot(vel, robot.dir)
+			-- local blocked = 0
+			-- if robot.speed > 0 and fwdSpeed > -0.1 then
+			-- 	blocked = 1.0 - clamp(fwdSpeed/0.5, 0.0, 1.0)
+			-- end
+			-- robot.blocked = robot.blocked * 0.95 + blocked * 0.05
 
 			--Always blocked if fall is detected
-			if sensor.detectFall > 0 then
-				robot.blocked = 1.0
-			end
+			-- if sensor.detectFall > 0 then
+			-- 	robot.blocked = 1.0
+			-- end
 
 			--Evaluate mass every frame since robots can break
 			robot.mass = 0
@@ -1076,6 +1077,7 @@ do
 			local d = VecSub(pp, robot.bodyCenter)
 			robot.distToPlayer = VecLength(d)
 			robot.dirToPlayer = VecScale(d, 1.0/robot.distToPlayer)
+
 
 			--Sense player if player is close and there is nothing in between
 			robot.canSensePlayer = false

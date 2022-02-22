@@ -4,6 +4,8 @@
 
 function init()
 
+    checkRegInitialized()
+
     activeAssignment = false
     activePath = '.'
     lastKeyPressed = '.'
@@ -71,13 +73,33 @@ function draw()
 
         UiTranslate(0, 200)
 
-        UiTranslate(0, font_size*2.5)
-        Ui_Option_Keybind('Spawn Basic Robot', 'options.keys.spawnMenu')
-        -- Ui_Option_Keybind('Open spawn menu', 'options.keys.spawnMenu')
+        if HasVersion("0.9.3") then
 
-        UiTranslate(0, font_size*2.5)
-        Ui_Option_Keybind('Spawn Aeon Robot', 'options.keys.quickSpawn')
-        -- Ui_Option_Keybind('Spawn robot', 'options.keys.quickSpawn')
+            UiTranslate(0, font_size*2.5)
+            Ui_Option_Keybind('Spawn Basic Robot', 'options.keys.spawnMenu')
+
+            UiTranslate(0, font_size*2.5)
+            Ui_Option_Keybind('Spawn Aeon Robot', 'options.keys.quickSpawn')
+
+        else
+
+            do UiPush()
+
+                UiColor(1,0,0,1)
+                UiAlign('center middle')
+                UiFont('regular.ttf', font_size)
+                UiTranslate(0, font_size*2)
+
+                UiText('Spawning unavailable!')
+                UiTranslate(0, font_size*1.5)
+
+                UiText('Please switch to the Teardown experimental beta in Steam to enable spawning.')
+
+
+            UiPop() end
+
+        end
+
 
     UiPop() end
 
@@ -90,8 +112,8 @@ function draw()
         UiAlign('center middle')
         UiButtonImageBox("ui/common/box-outline-6.png", 10,10)
         UiButtonHoverColor(0.5,0.5,1,1)
-        if UiTextButton('Reset Mod', 200, font_size*2) then
-            modReset()
+        if UiTextButton('Reset Options', 200, font_size*2) then
+            optionsReset()
         end
 
         UiTranslate(0, font_size*2.5)
