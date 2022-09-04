@@ -31,6 +31,10 @@ function initCustom()
 
 	enterCount = 0
 
+	for key, floor in pairs(FindBodies('robotFloor', true)) do
+		Delete(floor)
+	end
+
 end
 function tickCustom(dt)
 
@@ -52,7 +56,9 @@ function tickCustom(dt)
 
 	--+ Drive robot.
 	if player.isDrivingRobot then
-		playerDriveRobot(dt, bodyTr.pos)
+		local playerPos = TransformToParentPoint(bodyTr, Vec(math.random() - 0.5,0, math.random() - 0.5))
+		-- DrawDot(playerPos)
+		playerDriveRobot(dt, playerPos)
 		debugRobot()
 	end
 

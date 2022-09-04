@@ -1,0 +1,59 @@
+<prefab version="1.1.0">
+	<group name="Mech with guns" pos="-28.0 -0.1 25.0">
+		<script pos="0.2 0.1 -0.1" file="MOD/custom_robot/scripts/robot_default.lua" param0="type=investigate chase">
+			<group name="instance=MOD/custom_robot/robots_default/mech-guns.xml" pos="0.0 0.0 0.0" rot="0.0 0.0 0.0">
+				<body name="body" tags="body" pos="0.05 1.0 0.1" rot="0.0 0.0 0.0" dynamic="true">
+					<vox tags="unbreakable" pos="0.05 -0.2 0.1" rot="0.0 -180.0 0.0" texture="12 1" density="40" file="MOD/custom_robot/robots_default/mech-guns.vox" object="body"/>
+				</body>
+				<body name="head" tags="head" pos="0.1 1.3 0.2" rot="0.0 0.0 0.0" dynamic="true">
+					<joint name="head_joint" tags="head" pos="-0.05 0.0 -0.05" rot="-90.0 90.0 0.0" type="hinge" limits="-60 60"/>
+					<vox tags="unbreakable" pos="0.0 0.0 0.0" rot="0.0 -180.0 0.0" texture="12 1" density="0.25" file="MOD/custom_robot/robots_default/mech-guns.vox" object="head">
+						<light name="eye_area" tags="eye" pos="0.05 0.45 0.7" rot="0.0 0.0 0.0" type="area" color=".65 0.75 1" scale="3" angle="60" size=".5 .1" fogscale="1"/>
+					</vox>
+				</body>
+				<body name="guns" tags="aim" pos="0.1 1.3 -0.5" rot="0.0 0.0 0.0" dynamic="true">
+					<vox tags="unbreakable" pos="0.0 0.0 0.0" rot="0.0 -180.0 0.0" texture="12 1" file="MOD/custom_robot/robots_default/mech-guns.vox" object="guns">
+						<joint name="guns_joint" pos="0.05 0.2 -0.2" rot="0.0 90.0 -90" rotstrength="0.0001" rotspring="0"/>
+						<location name="l_guns_emitter" tags="weapon=gun strength=0.3" pos="0.25 0.05 0.2" rot="0.0 180 0.0"/>
+						<location name="r_guns_emitter" tags="weapon=gun strength=0.3" pos="-0.15 0.05 0.2" rot="0.0 180 0.0"/>
+					</vox>
+				</body>
+				<group name="r_leg" pos="0.5 -0.1 0.1">
+					<body name="r_leg" tags="leg" pos="-0.2 0.4 0.1" rot="0.0 0.0 0.0" dynamic="true">
+						<vox tags="unbreakable" pos="0.3 0.2 0.0" rot="0.0 -180.0 0.0" texture="12 1" density=".25" file="MOD/custom_robot/robots_default/mech-guns.vox" object="r_leg_upper">
+							<joint name="r_leg_joint" pos="0.3 0.45 -0.05" rot="0.0 90.0 -90" type="hinge" limits="-60 60"/>
+						</vox>
+					</body>
+					<body name="r_foot" tags="foot" pos="-0.1 0.1 0.0" rot="0.0 0.0 0.0" dynamic="true">
+						<vox tags="unbreakable" pos="0.2 0.0 -0.1" rot="0.0 -180.0 0.0" texture="12 1" file="MOD/custom_robot/robots_default/mech-guns.vox" object="r_leg_lower">
+							<joint name="r_foot_joint" pos="0.05 0.55 0.05" rot="0.0 90.0 -90" type="hinge" rotstrength="0" rotspring="0" limits="-25 75"/>
+						</vox>
+					</body>
+				</group>
+				<group name="l_leg" pos="-0.4 -0.1 0.1">
+					<body name="l_leg" tags="leg" pos="0.1 0.5 0.1" rot="0.0 0.0 0.0" dynamic="true">
+						<vox tags="unbreakable" pos="-0.1 0.1 0.0" rot="0.0 -180.0 0.0" texture="12 1" density=".25" file="MOD/custom_robot/robots_default/mech-guns.vox" object="l_leg_upper">
+							<joint name="l_leg_joint" pos="-0.2 0.45 -0.05" rot="0.0 90.0 -90" type="hinge" limits="-60 60"/>
+						</vox>
+					</body>
+					<body name="l_foot" tags="foot" pos="0.1 0.1 0.0" rot="0.0 0.0 0.0" dynamic="true">
+						<vox tags="unbreakable" pos="-0.1 0.0 -0.1" rot="0.0 -180.0 0.0" texture="12 1" file="MOD/custom_robot/robots_default/mech-guns.vox" object="l_leg_lower">
+							<joint name="l_foot_joint" pos="0.05 0.55 0.05" rot="0.0 90.0 -90.0" type="hinge" rotstrength="0" rotspring="0" limits="-25 75"/>
+						</vox>
+					</body>
+				</group>
+				<group name="cables" pos="0.0 0.9 0.7">
+					<rope name="r_cable" pos="0.45 1.1 0.15" rot="0.0 0.0 0.0" color="0.7 0.05 0.05" slack="0.35" strength="0.1">
+						<location pos="0.0 0.0 0.0" rot="0.0 0.0 0.0"/>
+						<location pos="0.2 -0.95 -0.25" rot="0.0 0.0 0.0"/>
+					</rope>
+					<rope name="l_cable" pos="-0.35 1.1 0.15" rot="0.0 0.0 0.0" color="0.7 0.05 0.05" slack="0.35" strength="0.1">
+						<location pos="0.0 0.0 0.0" rot="0.0 0.0 0.0"/>
+						<location pos="-0.2 -0.95 -0.25" rot="0.0 0.0 0.0"/>
+					</rope>
+				</group>
+			</group>
+		</script>
+	</group>
+</prefab>
+

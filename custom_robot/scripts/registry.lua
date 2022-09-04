@@ -2,6 +2,7 @@ MOD_VERSION = {
     '2021-Dec-16',
     '22.02.18',
     '22.02.22',
+    '04.09.22',
 }
 
 function modReset()
@@ -14,7 +15,6 @@ function modReset()
     regSetFloat('robot.weapon.rocket.explosionSize' , 1.5)
 
     regSetFloat('robot.move.speed'                  , 1)
-
 
 end
 

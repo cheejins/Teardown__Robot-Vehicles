@@ -1,0 +1,66 @@
+<prefab version="1.1.0">
+	<group name="Mech with rockets" pos="-25.0 0.0 25.0">
+		<script pos="0.2 0.1 -0.1" file="MOD/custom_robot/scripts/robot_default.lua" param0="type=investigate chase">
+			<group pos="0.0 0.0 0.0" rot="0.0 0.0 0.0">
+				<body name="pelvis" tags="body" pos="0.05 1.0 0.1" rot="0.0 0.0 0.0" dynamic="true">
+					<vox tags="unbreakable" pos="0.05 -0.2 0.1" rot="0.0 -180.0 0.0" texture="12 1" density="40" file="MOD/custom_robot/robots_default/mech-rockets.vox" object="body"/>
+				</body>
+				<body name="head" tags="head" pos="0.0 1.1 0.1" rot="0.0 0.0 0.0" dynamic="true">
+					<joint name="head_joint" tags="head" pos="0.05 0.2 0.05" rot="-90.0 90.0 0.0" type="hinge" limits="-60 60"/>
+					<vox tags="unbreakable" pos="0.1 0.1 0.0" rot="0.0 -180.0 0.0" texture="12 1" density="0.25" file="MOD/custom_robot/robots_default/mech-rockets.vox" object="head">
+						<light name="eye_spotlight" tags="eye" pos="0.05 0.45 0.6" rot="0.0 0.0 0.0" type="cone" color="1.0 0.4 0.2" scale="5" angle="60" unshadowed="0.15" fogscale="3"/>
+					</vox>
+				</body>
+				<group name="rocket_launchers" pos="0.0 1.8 0.0">
+					<body name="l_launcher" tags="aim" pos="-0.8 -0.3 0.0" rot="0.0 0.0 0.0" dynamic="true">
+						<vox tags="unbreakable" pos="0.2 0.3 0.0" rot="0.0 -180.0 0.0" texture="12 1" density=".1" file="MOD/custom_robot/robots_default/mech-rockets.vox" object="l_launcher">
+							<joint name="l_rl_joint" pos="0.05 0.3 -0.05" rot="0.0 90.0 -90" rotstrength="0.0005" rotspring="0"/>
+							<location name="l_rl_emitter" tags="weapon=rocket charge=1.75 cooldown=0.5 count=2 strength=0.2" pos="0.05 0.15 0.4" rot="0.0 180.0 0.0"/>
+						</vox>
+					</body>
+					<body name="r_launcher" tags="aim" pos="0.6 -0.3 0.0" rot="0.0 0.0 0.0" dynamic="true">
+						<vox tags="unbreakable" pos="0.2 0.3 0.0" rot="0.0 -180.0 0.0" texture="12 1" density=".1" file="MOD/custom_robot/robots_default/mech-rockets.vox" object="r_launcher">
+							<joint name="r_rl_joint" pos="0.05 0.3 -0.05" rot="0.0 90.0 -90" rotstrength="0.0005" rotspring="0"/>
+							<location name="r_rl_emitter" tags="weapon=rocket charge=1.5 cooldown=0.5 count=2 strength=0.2" pos="0.05 0.15 0.4" rot="0.0 180 0.0"/>
+						</vox>
+					</body>
+				</group>
+				<group name="r_leg" pos="0.5 -0.1 0.1">
+					<body name="r_leg" tags="leg" pos="-0.2 0.4 0.1" rot="0.0 0.0 0.0" dynamic="true">
+						<vox tags="unbreakable" pos="0.3 0.2 0.0" rot="0.0 -180.0 0.0" texture="12 1" density=".25" file="MOD/custom_robot/robots_default/mech-rockets.vox" object="r_leg_upper">
+							<joint name="l_leg_joint" pos="0.3 0.45 -0.05" rot="0.0 90.0 -90" type="hinge" limits="-60 60"/>
+						</vox>
+					</body>
+					<body name="r_foot" tags="foot" pos="-0.1 0.1 0.0" rot="0.0 0.0 0.0" dynamic="true">
+						<vox tags="unbreakable" pos="0.2 0.0 -0.1" rot="0.0 -180.0 0.0" texture="12 1" file="MOD/custom_robot/robots_default/mech-rockets.vox" object="r_leg_lower">
+							<joint name="l_foot_joint" pos="0.05 0.55 0.05" rot="0.0 90.0 -90" type="hinge" rotstrength="0" rotspring="0" limits="-25 75"/>
+						</vox>
+					</body>
+				</group>
+				<group name="l_leg" pos="-0.4 -0.1 0.1">
+					<body name="l_leg" tags="leg" pos="0.1 0.5 0.1" rot="0.0 0.0 0.0" dynamic="true">
+						<vox tags="unbreakable" pos="-0.1 0.1 0.0" rot="0.0 -180.0 0.0" texture="12 1" density=".25" file="MOD/custom_robot/robots_default/mech-rockets.vox" object="l_leg_upper">
+							<joint name="r_leg_joint" pos="-0.2 0.45 -0.05" rot="0.0 90.0 -90" type="hinge" limits="-60 60"/>
+						</vox>
+					</body>
+					<body name="l_foot" tags="foot" pos="0.1 0.1 0.0" rot="0.0 0.0 0.0" dynamic="true">
+						<vox tags="unbreakable" pos="-0.1 0.0 -0.1" rot="0.0 -180.0 0.0" texture="12 1" file="MOD/custom_robot/robots_default/mech-rockets.vox" object="l_leg_lower">
+							<joint name="r_foot_joint" pos="0.05 0.55 0.05" rot="0.0 90.0 -90.0" type="hinge" rotstrength="0" rotspring="0" limits="-25 75"/>
+						</vox>
+					</body>
+				</group>
+				<group name="cables" pos="0.0 0.9 0.7">
+					<rope name="r_cable" pos="0.45 1.1 0.15" rot="0.0 0.0 0.0" color="0.7 0.3 0.05" slack="0.35" strength="0.1">
+						<location pos="0.0 0.0 0.0" rot="0.0 0.0 0.0"/>
+						<location pos="0.2 -0.95 -0.25" rot="0.0 0.0 0.0"/>
+					</rope>
+					<rope name="l_cable" pos="-0.35 1.1 0.15" rot="0.0 0.0 0.0" color="0.7 0.3 0.05" slack="0.35" strength="0.1">
+						<location pos="0.0 0.0 0.0" rot="0.0 0.0 0.0"/>
+						<location pos="-0.2 -0.95 -0.25" rot="0.0 0.0 0.0"/>
+					</rope>
+				</group>
+			</group>
+		</script>
+	</group>
+</prefab>
+

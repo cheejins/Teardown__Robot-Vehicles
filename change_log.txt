@@ -1,15 +1,59 @@
+04.09.22
+Added
+- Default robots.
+
+
 22.02.22
 Added
 - Aeon Robot main gun penetration.
 - Better weapon hit detection.
+- Added option keybind spawning.
 
 
 22.02.18
 Added
-    Aeon robot.
-    Robot spawning.
-    Breakable robots.
-    Options menu
+- Aeon robot.
+- Robot spawning.
+- Breakable robots.
+- Options menu
 Fixes
-    Robots can now walk diagonally
-    Player footstep noises
+- Robots can now walk diagonally
+- Player footstep noises
+- Camera height issue.
+
+
+13.12.21
+- Robot fully rotates now..
+- Fixed options menu reset and close buttons misplacement.
+- Changed inputs from WASD to logical inputs to support other types of keyboards.
+- Options: added bullet presets (Balanced, Shredder, Dissolver)
+
+
+6.12.21
+- Fixed the entering and exiting after moving a file to update()
+- Fixed the initial setting of the newly added options.
+- Added options: bullet hole size, explosion size
+- Added a mod version label so people know the last day it was updated.
+- Fixed sprint (was glitched after adding options menu)
+- Slightly improved movement (moved movement functions to update() )
+- Added an options menu to adjust the robot's: bullet rpm, rocket rpm and move speed.
+- Fixed robot falling into water (player did not exit vehicle properly before)
+- Added water to the map.
+
+
+5.12.21
+- Added the ability to enter/exit the robot.
+- Renamed the instance/prefab xml file
+- Fixed rocket aim.
+- Increased bullet shooting sound.
+- Tuned weapons
+- Fixed aim assist and weapon alignment.
+- Fixed the shooting alignment and spawn points of the projectiles (only while the robot's head is upright.)
+- Changed the robot's colors.
+
+
+4.12.21
+- Added sprint.
+- Slowed the robot down a little he was basically hussain ro-bolt
+- Player's tool is no longer usable while driving the robot.
+Changed a whole bunch of files around to make it easier to add the robot vehicle to other maps.

@@ -1,0 +1,52 @@
+<prefab version="1.1.0">
+	<group name="Basic mech" pos="-34.0 -0.1 25.0">
+		<script pos="0.2 0.1 -0.1" file="MOD/custom_robot/scripts/robot_default.lua" param0="type=investigate chase">
+			<group name="instance=MOD/custom_robot/robots_default/mech-basic.xml" pos="0.0 0.0 0.0" rot="0.0 0.0 0.0">
+				<body name="body" tags="body" pos="0.05 1.0 0.1" rot="0.0 0.0 0.0" dynamic="true">
+					<vox tags="unbreakable" pos="0.05 -0.2 0.1" rot="0.0 -180.0 0.0" texture="12 1" density="40" file="MOD/custom_robot/robots_default/mech-basic.vox" object="body"/>
+				</body>
+				<body name="head" tags="head" pos="0.0 1.1 0.1" rot="0.0 0.0 0.0" dynamic="true">
+					<joint name="head_joint" tags="head" pos="0.05 0.2 0.05" rot="-90.0 90.0 0.0" type="hinge" size="0.15" limits="-60 60"/>
+					<vox tags="unbreakable" pos="0.1 0.1 0.0" rot="0.0 -180.0 0.0" texture="12 1" density="0.25" file="MOD/custom_robot/robots_default/mech-basic.vox" object="head">
+						<light name="head_light" tags="eye" pos="0.05 0.55 0.6" rot="0.0 0.0 0.0" type="area" color="1.0 0.4 0.2" scale="3" size="0.5 0.1" fogscale="1"/>
+					</vox>
+				</body>
+				<group name="l_leg" pos="-0.4 -0.1 0.1">
+					<body name="l_leg" tags="leg" pos="0.1 0.5 0.1" rot="0.0 0.0 0.0" dynamic="true">
+						<vox tags="unbreakable" pos="-0.1 0.1 0.0" rot="0.0 -180.0 0.0" texture="12 1" density="0.25" file="MOD/custom_robot/robots_default/mech-basic.vox" object="l_leg_upper">
+							<joint name="l_leg_joint" pos="-0.2 0.45 -0.05" rot="0.0 90.0 -90" type="ball" size="0.15" limits="-60 60"/>
+						</vox>
+					</body>
+					<body name="l_foot" tags="foot" pos="0.1 0.1 0.0" rot="0.0 0.0 0.0" dynamic="true">
+						<vox tags="unbreakable" pos="-0.1 0.0 -0.1" rot="0.0 -180.0 0.0" texture="12 1" file="MOD/custom_robot/robots_default/mech-basic.vox" object="l_leg_lower">
+							<joint name="l_foot_joint" pos="0.05 0.55 0.05" rot="0.0 90.0 -90.0" type="hinge" size="0.15" rotstrength="0" rotspring="0" limits="-25 75"/>
+						</vox>
+					</body>
+				</group>
+				<group name="r_leg" pos="0.5 -0.1 0.1">
+					<body name="r_leg" tags="leg" pos="-0.2 0.4 0.1" rot="0.0 0.0 0.0" dynamic="true">
+						<vox tags="unbreakable" pos="0.3 0.2 0.0" rot="0.0 -180.0 0.0" texture="12 1" density="0.25" file="MOD/custom_robot/robots_default/mech-basic.vox" object="r_leg_upper">
+							<joint name="r_leg_joint" pos="0.3 0.45 -0.05" rot="0.0 90.0 -90" type="hinge" size="0.15" limits="-60 60"/>
+						</vox>
+					</body>
+					<body name="r_foot" tags="foot" pos="-0.1 0.1 0.0" rot="0.0 0.0 0.0" dynamic="true">
+						<vox tags="unbreakable" pos="0.2 0.0 -0.1" rot="0.0 -180.0 0.0" texture="12 1" file="MOD/custom_robot/robots_default/mech-basic.vox" object="r_leg_lower">
+							<joint name="r_foot_joint" pos="0.05 0.55 0.05" rot="0.0 90.0 -90" type="hinge" size="0.15" rotstrength="0" rotspring="0" limits="-25 75"/>
+						</vox>
+					</body>
+				</group>
+				<group name="cables" pos="0.0 0.9 0.7">
+					<rope name="l_cable" pos="-0.35 1.1 0.15" rot="0.0 0.0 0.0" color="0.0035 0.0075 0.0085" slack="0.35" strength="0.1">
+						<location pos="0.0 0.0 0.0" rot="0.0 0.0 0.0"/>
+						<location pos="-0.2 -0.95 -0.25" rot="0.0 0.0 0.0"/>
+					</rope>
+					<rope name="r_cable" pos="0.45 1.1 0.15" rot="0.0 0.0 0.0" color="0.0035 0.0075 0.0085" slack="0.35" strength="0.1">
+						<location pos="0.0 0.0 0.0" rot="0.0 0.0 0.0"/>
+						<location pos="0.2 -0.95 -0.25" rot="0.0 0.0 0.0"/>
+					</rope>
+				</group>
+			</group>
+		</script>
+	</group>
+</prefab>
+

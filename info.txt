@@ -1,6 +1,6 @@
-name = Robot Vehicles (Early Beta)
+name = Robot Vehicles
 author = Cheejins & Tuxedo Labs
-description = [noupload] Robots are now spawnable! (Requires Teardown experimental beta)
+description = [noupload] Robots are now spawnable!
 tags=Map,Vehicle
 
 # If description contains [noupload] the description on Steam workshop will not be overwritten.

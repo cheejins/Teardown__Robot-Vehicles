@@ -1,0 +1,97 @@
+<prefab version="1.0.0">
+	<group name="instance=MOD/prefab/robotspider-custom.xml" pos="0.0 0.0 0.0" rot="0.0 0.0 0.0">
+		<script pos="0.0 0.0 0.0" file="MOD/scripts/robot.lua">
+			<group name="body" pos="0.0 1.2 0.0" rot="0.0 -180.0 0.0">
+				<body name="body" tags="stepsound=l body robotvehicle model=basic" rot="0.0 180.0 0.0" dynamic="true">
+					<vox name="1753 voxels" tags="breakall unbreakable" pos="0.0 0.0 0.0" rot="-0 180 -0" texture="12 0.5" blendtexture="12 0.5" density="5" file="MOD/ROBOT_VEHICLE_PREFAB/robot/mech-spider/chassis.vox" object="chassis">
+						<light name="cone" tags="eye" pos="0.05 0.35 0.05" rot="15.0 0.0 0.0" type="cone" color="1 0.78000015 0.6200003" scale="10" angle="60.000004" penumbra="14.999993" size="0.1" reach="14.138599" unshadowed="0" fogscale="2" fogiter="1" glare="0"/>
+						<light name="area" tags="eye" pos="0.05 0.95 0.6" rot="-0 -0.0 0" type="area" color="0.23000033 0.6200003 1" scale="3" angle="60.000004" penumbra="14.999993" size="0.5 0.1" reach="7.739509" unshadowed="0" fogscale="3" fogiter="1" glare="0.25"/>
+					</vox>
+				</body>
+			</group>
+			<group name="head" pos="0.0 2.4 0.1" rot="0.0 -180.0 0.0">
+				<body name="head" tags="head mech_basic" rot="0.0 180.0 0.0" dynamic="true">
+					<vox name="1705 voxels" tags="breakall unbreakable" pos="0 0 0" rot="-0 180 -0" texture="12 0.5" blendtexture="12 0.5" density="0.4" file="MOD/ROBOT_VEHICLE_PREFAB/robot/mech-spider/head.vox" object="head">
+						<light name="area" tags="eye" pos="0.05 0.85 1.0" rot="0.0 0.0 0.0" type="area" color="1 0.78000015 0.6200003" scale="5" angle="90" penumbra="10.000005" size="0.5 0.1" reach="9.994999" unshadowed="0" fogscale="2" fogiter="1" glare="0"/>
+					</vox>
+				</body>
+				<joint name="hinge" tags="head" pos="0.05 0.0 0.15" rot="90.0 -90.0 0.0" type="hinge" size="0.1" rotstrength="0" rotspring="0" collide="false" limits="-360 360"/>
+				<group name="missilepod" pos="0.0 1.1 1.1" rot="0.0 0.0 0.0">
+					<body name="missilepod" tags="aim" pos="0.0 0.1 0.0" rot="0.0 180.0 0.0" dynamic="true">
+						<vox name="73 voxels" tags="breakall unbreakable" pos="0 0 0" rot="-0 -180 0" texture="12 0.5" density="0.5" file="MOD/ROBOT_VEHICLE_PREFAB/robot/mech-spider/missilepod.vox" object="pod">
+							<location name="weapon" tags="weapon=rocket idle=3.0 strength=0.05 charge=1.5" pos="0.05 0.15 0.3" rot="-0 -180 0"/>
+						</vox>
+					</body>
+					<joint name="ball" pos="0.05 0.1 -0.15" type="ball" size="0.1" rotstrength="0.0005" rotspring="0" collide="false" limits="0 0"/>
+				</group>
+				<group name="flamethrower" pos="0.0 0.2 1.0" rot="0.0 0.0 0.0">
+					<body name="flamethrower" tags="aim_" pos="0.0 0.0 0.0" rot="0.0 180.0 0.0" dynamic="true">
+						<vox name="15 voxels" tags="breakall unbreakable" pos="0.0 0 -0.0" rot="-0 -180 0" texture="12 0.5" density="0.5" file="MOD/ROBOT_VEHICLE_PREFAB/robot/mech-spider/chassis.vox" object="flamethrower">
+							<location name="weapon" tags="weapon=fire strength=0.1" pos="0.05 0.15 0.2" rot="0.0 -180.0 0.0"/>
+						</vox>
+					</body>
+					<joint name="ball2hinge" pos="0.05 0.15 -0.2" rot="0.0 -90.0 0.0" type="hinge" size="0.1" rotstrength="0.0005" rotspring="0" collide="false" limits="-0.1 0.1"/>
+				</group>
+			</group>
+			<group name="legs" pos="0.0 0.0 0.0">
+				<group name="fl" pos="-1.5 0.0 -1.4" rot="0.0 -135.0 0.0">
+					<body name="leg" tags="leg" pos="0.0 1.7 0.0" rot="0.0 180.0 0.0" dynamic="true">
+						<vox name="283 voxels" tags="breakall unbreakable" pos="0.0 0 0" rot="-0 180 -0" texture="12 0.5" density="0.2" file="MOD/ROBOT_VEHICLE_PREFAB/robot/mech-spider/chassis.vox" object="leg4"/>
+					</body>
+					<joint name=" ball" pos="-0.05 2.15 -1.2" type="ball" size="0.1" rotstrength="0" rotspring="0.5" collide="false" limits="0 0"/>
+					<body name="foot" tags="foot force=8,5" pos="0.097 0.001 1.15" rot="-0.0 180 0.0" dynamic="true">
+						<vox name="114 voxels" tags="breakall unbreakable" pos="0 0 0" rot="-0 180 -0" texture="12 0.5" density="0.6" file="MOD/ROBOT_VEHICLE_PREFAB/robot/mech-spider/chassis.vox" object="foot4"/>
+					</body>
+					<joint name="hinge" pos="0.0 1.853 1.017" rot="0.0 90.0 0.0" type="hinge" size="0.1" rotstrength="0" rotspring="0" collide="false" limits="-45.0 45.0"/>
+					<rope name="rope" pos="0.0 1.6 -0.2" size="0.2" color="0.7 0.05 0.05 1" slack="0" strength="1" maxstretch="0">
+						<location name="from" pos="-0.05 0.1 -0.55"/>
+						<location name="to" pos="-0.05 0.7 0.55"/>
+					</rope>
+				</group>
+				<group name="br" pos="1.5 -0.1 1.4" rot="0.0 -135.0 0.0">
+					<body name="leg" tags="leg" pos="0.1 1.8 0.1" dynamic="true">
+						<vox name="284 voxels" tags="unbreakable breakall" pos="0.0 0 0" rot="-0 180 -0" texture="12 0.5" density="0.2" file="MOD/ROBOT_VEHICLE_PREFAB/robot/mech-spider/chassis.vox" object="leg3"/>
+					</body>
+					<joint name="ball" pos="0.15 2.25 1.3" type="ball" size="0.1" rotstrength="0" rotspring="0.5" collide="false" limits="0 0"/>
+					<body name="foot" tags="force=8,5 foot" pos="-0.0 0.1 -1.1" dynamic="true">
+						<vox name="113 voxels" tags="unbreakable breakall" pos="0 0 0" rot="-0 180 -0" texture="12 0.5" density="0.6" file="MOD/ROBOT_VEHICLE_PREFAB/robot/mech-spider/chassis.vox" object="foot3"/>
+					</body>
+					<joint name="hinge" pos="0.1 1.95 -0.95" rot="0.0 -90.0 0.0" type="hinge" size="0.1" rotstrength="0" rotspring="0" collide="false" limits="-45.0 45.0"/>
+					<rope name="rope" pos="0.2 1.7 0.1" size="0.2" color="0.7 0.05 0.05 1" slack="0" strength="1" maxstretch="0">
+						<location name="from" pos="-0.05 0.1 0.75"/>
+						<location name="to" pos="-0.05 0.7 -0.35"/>
+					</rope>
+				</group>
+				<group name="fr" pos="1.4 0.0 -1.4" rot="0.0 135.0 0.0">
+					<body name="leg" tags="leg" pos="0.0 1.7 0.0" rot="0.0 180.0 0.0" dynamic="true">
+						<vox name="283 voxels" tags="unbreakable breakall" pos="-0.0 0 0" rot="-0 180 -0" texture="12 0.5" density="0.2" file="MOD/ROBOT_VEHICLE_PREFAB/robot/mech-spider/chassis.vox" object="leg2"/>
+					</body>
+					<joint name="ball" pos="0.05 2.15 -1.2" type="ball" size="0.1" rotstrength="0" rotspring="0.5" collide="false" limits="0 0"/>
+					<body name="foot" tags="force=8,5 foot" pos="-0.2 0.0 1.2" rot="0.0 180.0 0.0" dynamic="true">
+						<vox name="115 voxels" tags="unbreakable breakall" pos="0.0 0 0" rot="-0 180 -0" texture="12 0.5" density="0.6" file="MOD/ROBOT_VEHICLE_PREFAB/robot/mech-spider/chassis.vox" object="foot2"/>
+					</body>
+					<joint name="hinge" pos="0.0 1.85 1.05" rot="0.0 90.0 0.0" type="hinge" size="0.1" rotstrength="0" rotspring="0" collide="false" limits="-45.0 45.0"/>
+					<rope name="rope" pos="0.0 1.7 0.0" rot="0.0 0.0 0.0" size="0.2" color="0.7 0.05 0.05 1" slack="0" strength="1" maxstretch="0">
+						<location name="from" pos="0.05 0.0 -0.75"/>
+						<location name="to" pos="0.05 0.6 0.35"/>
+					</rope>
+				</group>
+				<group name="bl" pos="-1.5 -0.1 1.4" rot="0.0 135.0 0.0">
+					<body name="leg" tags="leg" pos="0.0 1.8 0.0" dynamic="true">
+						<vox name="284 voxels" tags="unbreakable breakall" pos="0.0 0 0" rot="-0 180 -0" texture="12 0.5" density="0.2" file="MOD/ROBOT_VEHICLE_PREFAB/robot/mech-spider/chassis.vox" object="leg1"/>
+					</body>
+					<joint name="ball" pos="-0.05 2.25 1.2" type="ball" size="0.1" rotstrength="0" rotspring="0.5" collide="false" limits="0 0"/>
+					<body name="foot" tags="foot force=8,5" pos="0.2 0.1 -1.2" dynamic="true">
+						<vox name="114 voxels" tags="unbreakable breakall" pos="0.0 0.0 0.0" rot="-0 180 -0" texture="12 0.5" density="0.6" file="MOD/ROBOT_VEHICLE_PREFAB/robot/mech-spider/chassis.vox" object="foot1"/>
+					</body>
+					<joint name="hinge" pos="0.0 1.95 -1.05" rot="0.0 -90.0 0.0" type="hinge" size="0.1" rotstrength="0" rotspring="0" collide="false" limits="-45.0 45.0"/>
+					<rope name="rope" pos="0.0 1.8 0.0" rot="0.0 0.0 0.0" size="0.2" color="0.7 0.05 0.05 1" slack="0" strength="1" maxstretch="0">
+						<location name="from" pos="-0.05 0.0 0.75"/>
+						<location name="to" pos="-0.05 0.6 -0.35"/>
+					</rope>
+				</group>
+			</group>
+		</script>
+	</group>
+</prefab>
+

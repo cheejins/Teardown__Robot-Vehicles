@@ -60,6 +60,18 @@ function propelBullet(bullet)
 
         local hitPos = TransformToParentPoint(bullet.transform, Vec(0,0,dist))
 
+        if HasTag(hitShape, 'health') then
+
+            local health = tonumber(GetTagValue(hitShape, 'health'))
+
+            local healthNew = health - 10
+
+            SetTag(hitShape, 'health', healthNew)
+
+            beep()
+
+        end
+
         ParticleReset()
 		ParticleType("smoke")
 		ParticleRadius(0.3, 0.1)

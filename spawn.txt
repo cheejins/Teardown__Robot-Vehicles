@@ -1,0 +1,7 @@
+MOD/custom_robot/instance_robotVehicle.xml  : Custom Robots/ Basic MK2
+MOD/custom_robot/robot/mech-aeon.xml        : Custom Robots/ Aeon Robot
+
+MOD/custom_robot/robots_default/mech-basic.xml   : Default Robots/ Basic
+MOD/custom_robot/robots_default/mech-fire.xml    : Default Robots/ Fire
+MOD/custom_robot/robots_default/mech-guns.xml    : Default Robots/ Guns
+MOD/custom_robot/robots_default/mech-rockets.xml : Default Robots/ Rockets

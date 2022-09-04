@@ -1,5 +1,5 @@
-#include "ROBOT_VEHICLE_PREFAB/scripts/registry.lua"
-#include "ROBOT_VEHICLE_PREFAB/scripts/utility.lua"
+#include "custom_robot/scripts/registry.lua"
+#include "custom_robot/scripts/utility.lua"
 
 
 function init()
@@ -73,13 +73,21 @@ function draw()
 
         UiTranslate(0, 200)
 
+        -- Version warning.
         if HasVersion("0.9.3") then
 
-            UiTranslate(0, font_size*2.5)
-            Ui_Option_Keybind('Spawn Basic Robot', 'options.keys.spawnMenu')
+            ui_createToggleSwitch('Enable keybind spawning.', 'spawningKeysEnabled', font_size)
 
-            UiTranslate(0, font_size*2.5)
-            Ui_Option_Keybind('Spawn Aeon Robot', 'options.keys.quickSpawn')
+            if regGetBool('spawningKeysEnabled') then
+
+                UiTranslate(0, font_size*2.5)
+                Ui_Option_Keybind('Spawn Basic Robot', 'options.keys.spawnMenu')
+
+                UiTranslate(0, font_size*2.5)
+                Ui_Option_Keybind('Spawn Aeon Robot', 'options.keys.quickSpawn')
+
+            end
+
 
         else
 
@@ -144,7 +152,6 @@ function Ui_Option_Keybind(label, regPath)
         UiAlign('left middle')
         UiButtonImageBox("ui/common/box-outline-6.png", 10,10)
         UiButtonHoverColor(0.5,0.5,1,1)
-
         if UiTextButton(regGetString(regPath), font_size*6, font_size*2) then
 
             if not activeAssignment then
@@ -153,6 +160,64 @@ function Ui_Option_Keybind(label, regPath)
                 activePath = regPath
             end
 
+        end
+
+    UiPop() end
+
+end
+
+
+function ui_createToggleSwitch(title, registryPath, fontSize)
+
+    do UiPush()
+
+        local value = GetBool('savegame.mod.' .. registryPath)
+
+        UiAlign('right middle')
+
+        -- Text header
+        UiColor(1,1,1, 1)
+        UiFont('regular.ttf', fontSize)
+        UiText(title)
+        UiTranslate(font_size, -fontSize/2)
+
+
+        -- Toggle BG
+        UiAlign('left top')
+        UiColor(0.4,0.4,0.4, 1)
+        local tglW = 130
+        local tglH = 40
+        UiRect(tglW, tglH)
+
+        -- Render toggle
+        do UiPush()
+
+            local toggleText = 'ON'
+
+            if value then
+                UiTranslate(tglW/2, 0)
+                UiColor(0,0.8,0, 1)
+            else
+                toggleText = 'OFF'
+                UiColor(0.8,0,0, 1)
+            end
+
+            UiRect(tglW/2, tglH)
+
+            do UiPush()
+                UiTranslate(tglW/4, tglH/2)
+                UiColor(1,1,1, 1)
+                UiFont('bold.ttf', fontSize)
+                UiAlign('center middle')
+                UiText(toggleText)
+            UiPop() end
+
+        UiPop() end
+
+        UiButtonImageBox('ui/common/box-outline-6.png', 10,10, 0,0,0, a)
+        if UiBlankButton(tglW, tglH) then
+            SetBool('savegame.mod.' .. registryPath, not value)
+            PlaySound(LoadSound('clickdown.ogg'), GetCameraTransform().pos, 1)
         end
 
     UiPop() end

@@ -1,12 +1,12 @@
 <prefab version="0.9.3">
-	<group id_="1597799680" open_="true" name="instance=MOD/ROBOT_VEHICLE_PREFAB/robot/mech-aeon.xml" pos="-0.7 0.0 28.8" rot="0.0 0.0 0.0">
-		<script id_="935321344" open_="true" pos="0.0 -0.6 0.0" file="MOD/ROBOT_VEHICLE_PREFAB/scripts/robot.lua">
-			<body id_="796114368" open_="true" tags="body model=aeon robotVehicle" pos="0.05 2.4 0.1" rot="0.0 0.0 0.0" dynamic="true">
-				<vox id_="252525616" tags="unbreakable" pos="0.05 -0.2 0.1" rot="0.0 -180.0 0.0" texture="11 0.6" density="20" file="MOD/ROBOT_VEHICLE_PREFAB/robot/mech-aeon.vox" object="body"/>
+	<group id_="1428575360" open_="true" name="instance=MOD/custom_robot/robot/mech-aeon.xml" pos="-0.7 0.0 28.8" rot="0.0 0.0 0.0">
+		<script id_="935321344" open_="true" pos="0.0 -0.7 0.0" file="MOD/custom_robot/scripts/robot.lua">
+			<body id_="796114368" tags="body model=aeon robotVehicle" pos="0.05 2.4 0.1" rot="0.0 0.0 0.0" dynamic="true">
+				<vox id_="252525616" tags="unbreakable" pos="0.05 -0.2 0.1" rot="0.0 -180.0 0.0" texture="9 0.6" density="20" file="MOD/custom_robot/robot/mech-aeon.vox" object="body"/>
 			</body>
 			<body id_="914348544" open_="true" name="head" tags="head" pos="0.0 2.7 0.3" rot="0.0 0.0 0.0" dynamic="true">
 				<joint id_="609653056" name="head_joint" tags="head" pos="0.1 0.1 -0.1" rot="-90.0 90.0 0.0" type="hinge" limits="-180 180"/>
-				<vox id_="1232872960" open_="true" tags="unbreakable" pos="0.1 0.1 -0.1" rot="0.0 -180.0 0.0" texture="11 0.6" density="0.1" file="MOD/ROBOT_VEHICLE_PREFAB/robot/mech-aeon.vox" object="head">
+				<vox id_="1232872960" open_="true" tags="unbreakable" pos="0.1 0.1 -0.1" rot="0.0 -180.0 0.0" texture="9 0.6" density="0.1" file="MOD/custom_robot/robot/mech-aeon.vox" object="head">
 					<light id_="2088890880" name="eye_spotlight" tags="eye" pos="0.0 0.35 1.1" rot="0.0 0.0 0.0" type="cone" color="0.11 0.68 1.0" scale="5" angle="60" unshadowed="0.15" fogscale="3"/>
 					<light id_="1557820288" name="weap_special" tags="weap_special" pos="0.44 1.1 -1.04" rot="90.0 0.0 0.0" type="cone" color="0.0 0.0 0.0" scale="0"/>
 					<light id_="1814212736" name="weap_special" tags="weap_special" pos="-0.46 1.1 -1.04" rot="90.0 0.0 0.0" type="cone" color="0.0 0.0 0.0" scale="0"/>
@@ -15,40 +15,40 @@
 					<light id_="1804381696" name="weap_primary" tags="weap_primary" pos="0.0 0.65 1.1" rot="-180.0 -180.0 0.0" type="cone" color="0.0 0.0 0.0" scale="0"/>
 				</vox>
 			</body>
-			<group id_="673226880" open_="true" name="rocket_launchers" pos="0.0 1.8 0.2">
+			<group id_="673226880" name="rocket_launchers" pos="0.0 1.8 0.2">
 				<body id_="1945358336" open_="true" name="l_launcher" tags="aim" pos="-1.8 0.9 0.0" rot="0.0 0.0 0.0" dynamic="true">
-					<vox id_="1873591936" open_="true" tags="unbreakable" pos="0.2 0.3 -0.1" rot="0.0 -180.0 0.0" texture="11 0.6" density=".05" file="MOD/ROBOT_VEHICLE_PREFAB/robot/mech-aeon.vox" object="l_launcher">
+					<vox id_="1873591936" open_="true" tags="unbreakable" pos="0.2 0.3 -0.1" rot="0.0 -180.0 0.0" texture="9 0.6" density=".05" file="MOD/custom_robot/robot/mech-aeon.vox" object="l_launcher">
 						<joint id_="1130761600" name="l_rl_joint" pos="-0.5 0.5 -0.05" rot="0.0 90.0 -90" rotstrength="0.0005" rotspring="1"/>
 						<light id_="1589476096" name="weap_secondary" tags="weap_secondary" pos="0.15 0.55 0.5" rot="0.0 180.0 0.0" type="cone" color="0.0 0.0 0.0" scale="0"/>
 					</vox>
 				</body>
 				<body id_="196095680" open_="true" name="r_launcher" tags="aim" pos="1.6 0.9 0.0" rot="0.0 0.0 0.0" dynamic="true">
-					<vox id_="967894720" open_="true" tags="unbreakable" pos="0.2 0.3 -0.1" rot="0.0 -180.0 0.0" texture="11 0.6" density=".05" file="MOD/ROBOT_VEHICLE_PREFAB/robot/mech-aeon.vox" object="r_launcher">
+					<vox id_="967894720" open_="true" tags="unbreakable" pos="0.2 0.3 -0.1" rot="0.0 -180.0 0.0" texture="9 0.6" density=".05" file="MOD/custom_robot/robot/mech-aeon.vox" object="r_launcher">
 						<joint id_="1004466048" name="r_rl_joint" pos="0.5 0.5 -0.05" rot="0.0 90.0 -90" rotstrength="0.0005" rotspring="1"/>
 						<light id_="773568640" name="weap_secondary" tags="weap_secondary" pos="-0.15 0.55 0.5" rot="-180.0 0.0 0.0" type="cone" color="0.0 0.0 0.0" scale="0"/>
 					</vox>
 				</body>
 			</group>
-			<group id_="1915996416" open_="true" name="r_leg" pos="0.9 0.7 0.1">
+			<group id_="1915996416" name="r_leg" pos="0.9 0.7 0.1">
 				<body id_="665034368" open_="true" name="r_leg" tags="leg" pos="-0.2 0.4 0.1" rot="0.0 0.0 0.0" dynamic="true">
-					<vox id_="1272328064" open_="true" tags="unbreakable" pos="0.3 0.2 0.0" rot="0.0 -180.0 0.0" texture="11 0.6" density="0.25" file="MOD/ROBOT_VEHICLE_PREFAB/robot/mech-aeon.vox" object="r_leg_upper">
+					<vox id_="1272328064" open_="true" tags="unbreakable" pos="0.3 0.2 0.0" rot="0.0 -180.0 0.0" texture="9 0.6" density="0.25" file="MOD/custom_robot/robot/mech-aeon.vox" object="r_leg_upper">
 						<joint id_="39848320" name="l_leg_joint" pos="0.4 1.25 -0.05" rot="0.0 90.0 -90" type="hinge" limits="-60 60"/>
 					</vox>
 				</body>
 				<body id_="1665699072" open_="true" name="r_foot" tags="foot" pos="-0.1 0.1 0.0" rot="0.0 0.0 0.0" dynamic="true">
-					<vox id_="690726080" open_="true" tags="unbreakable" pos="0.2 -0.1 -0.1" rot="0.0 -180.0 0.0" texture="11 0.6" density="0.25" file="MOD/ROBOT_VEHICLE_PREFAB/robot/mech-aeon.vox" object="r_leg_lower">
+					<vox id_="690726080" open_="true" tags="unbreakable" pos="0.2 -0.1 -0.1" rot="0.0 -180.0 0.0" texture="9 0.6" density="0.25" file="MOD/custom_robot/robot/mech-aeon.vox" object="r_leg_lower">
 						<joint id_="2066082944" name="l_foot_joint" pos="-0.1 0.6 0.05" rot="0.0 90.0 -90" type="hinge" rotstrength="0" rotspring="0" limits="-25 75"/>
 					</vox>
 				</body>
 			</group>
 			<group id_="1106774016" name="l_leg" pos="-0.8 0.7 0.1">
 				<body id_="3473620" open_="true" name="l_leg" tags="leg" pos="0.1 0.5 0.1" rot="0.0 0.0 0.0" dynamic="true">
-					<vox id_="1921501696" open_="true" tags="unbreakable" pos="-0.1 0.1 0.0" rot="0.0 -180.0 0.0" texture="11 0.6" density="0.25" file="MOD/ROBOT_VEHICLE_PREFAB/robot/mech-aeon.vox" object="l_leg_upper">
+					<vox id_="1921501696" open_="true" tags="unbreakable" pos="-0.1 0.1 0.0" rot="0.0 -180.0 0.0" texture="9 0.6" density="0.25" file="MOD/custom_robot/robot/mech-aeon.vox" object="l_leg_upper">
 						<joint id_="619221888" name="r_leg_joint" pos="-0.4 1.25 -0.05" rot="0.0 90.0 -90" type="hinge" limits="-60 60"/>
 					</vox>
 				</body>
 				<body id_="7668180" open_="true" name="l_foot" tags="foot" pos="0.1 0.1 0.0" rot="0.0 0.0 0.0" dynamic="true">
-					<vox id_="698394240" open_="true" tags="unbreakable" pos="-0.1 -0.1 -0.1" rot="0.0 -180.0 0.0" texture="11 0.6" density="0.25" file="MOD/ROBOT_VEHICLE_PREFAB/robot/mech-aeon.vox" object="l_leg_lower">
+					<vox id_="698394240" open_="true" tags="unbreakable" pos="-0.1 -0.1 -0.1" rot="0.0 -180.0 0.0" texture="9 0.6" density="0.25" file="MOD/custom_robot/robot/mech-aeon.vox" object="l_leg_lower">
 						<joint id_="2128018304" name="r_foot_joint" pos="0.1 0.6 0.05" rot="0.0 90.0 -90.0" type="hinge" rotstrength="0" rotspring="0" limits="-25 75"/>
 					</vox>
 				</body>

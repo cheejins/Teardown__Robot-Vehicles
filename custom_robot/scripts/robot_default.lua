@@ -1,5 +1,5 @@
 #include "camera.lua"
-#include "customRobot.lua"
+#include "robot_default_custom.lua"
 #include "debug.lua"
 #include "particles.lua"
 #include "projectiles.lua"
@@ -16,118 +16,7 @@
 #include "weapons.lua"
 
 
---= ROBOT OVERVIEW
-do
---[[
-
-	The robot script should be parent of all bodies that make up the robot.
-	Configure the robot with the type parameter that can be combinations of the following words: --? Type Parameter
-
-		investigate:
-			investigate sounds in the environment
-		chase:
-			chase player when seen, this is the most common configuration
-		nooutline:
-			no outline when close and hidden
-		alarm:
-			trigger alarm when player is seen and lit by light for 2.0 seconds
-		stun:
-			electrocute player when close or grabbed
-		avoid:
-			avoid player (should not be combined chase, requires patrol locations)
-		aggressive:
-			always know where player is (even through walls)
-
-
-
-	The following robot parts are supported:
-
-		--* REQUIRED
-		body
-			(type body: required)
-			This is the main part of the robot and should be the --! heaviest part
-		head
-			(type body: required)
-			The head should be --! jointed to the body
-			(hinge joint with or without limits).
-			heardist=<value> - Maximum hearing distance in meters, default 100
-		eye
-			(type light: required)
-			Represents robot vision. The direction of light source determines what the robot can see.
-			--! Can be placed on head or body
-			viewdist=<value> - View distance in meters. Default 25.
-			viewfov=<value> - View field of view in degrees. Default 150.
-
-
-		--* OPTIONAL
-		aim
-			(type body: optional)
-			This part will be directed towards the player when seen and is usually equipped with weapons.
-			Should be jointed to body or head with ball joint. There can be multiple aims.
-
-		wheel
-			(type body: optional, should be static with no collisions)
-			If present --! wheels will rotate along with the motion of the robot.
-			There can be multiple wheels.
-
-		leg
-			(type body: optional)
-			Legs should be --! jointed between body and feet.
-			All legs will have collisions disabled when walking and enabled in rag doll mode. --! Legs no collision
-			There can be --! multiple legs.
-
-		foot
-			(type body: optional)
-			Foot bodies are --! animated with respect to the body when walking.
-			They only collide with the environment in rag doll mode.
-			tag force - --! Movement force scale, default is 1.
-			Can also be two values to separate linear and angular, for example: 2,0.5
-
-		weapon
-			(type location: optional)
-			Usually placed on aim head or body.
-			There are several types of weapons:
-			weapon		=	 fire 			- Emit fire when player is close and seen
-			weapon		=	 gun 			- Regular shot
-			weapon		=	 rocket 		- Fire rockets
-			strength	=	 <value> 		- The scaling factor which controls how much damage it makes (default is 1.0)
-
-			The following tags are used to control the --! weapon behavior
-			(only affect gun and rocket):
-			idle		=	 <seconds> 		- Idle time in between rounds
-			charge		=	 <seconds> 		- Charge time before firing
-			cooldown	=	 <seconds> 		- Cooldown between each shot in a round
-			count		=	 <number> 		- Number of shots in a round
-			spread		=	 <fraction> 	- How much each shot may deviates from optimal direction (for instance: 0.05 to deviate up to 5%)
-			maxdist		=	 <meters> 		- How far away target can be to trigger shot. Default is 100
-
-		patrol
-			(type location: optional)
-			If present the robot will patrol these locations.
-			Make sure to place near walkable ground.
-			Targets are visited in the --! same order they appear in scene explorer.
-			Avoid type robots MUST have patrol targets.
-
-		roam
-			(type trigger: optional)
-			If there are no patrol locations, the robot will --! roam randomly within this trigger.
-
-		limit
-			(type trigger: optional)
-			If present the robot will try stay within this trigger volume.
-			If robot ends up outside trigger, it will --! automatically navigate back inside.
-
-		investigate
-			(type trigger: optional)
-			If present and the robot has type investigate it will --! only react to sounds within this trigger.
-
-		activate
-			(type trigger: optional)
-			If present, robot will start inactive and --! become activated when player enters trigger
-
-]]
-end
-
+weaponStatus = "Idle"
 
 
 --= MAIN
@@ -256,12 +145,17 @@ do
 			end
 
 			hoverUpdate(dt)
-			headUpdate(dt)
-			sensorUpdate(dt)
-			aimsUpdate(dt)
-			weaponsUpdate(dt)
-			hearingUpdate(dt)
-			stackUpdate(dt)
+
+			if player.isDrivingRobot then
+				sensorUpdate(dt)
+				headUpdate(dt)
+				aimsUpdate(dt)
+				weaponsUpdate(dt)
+				hearingUpdate(dt)
+				stackUpdate(dt)
+			end
+
+
 			robot.speedScale = 1.5
 			robot.speed = 0
 			-- local state = stackTop()
@@ -1407,14 +1301,16 @@ do
 
 
 		function hoverInit()
-			QueryRequire("physical large")
-			rejectAllBodies(robot.allBodies)
-			local maxDist = 2.0
-			local hit, dist = QueryRaycast(robot.transform.pos, VecScale(robot.axes[2], -1), maxDist)
-			if hit then
+			local bodyPos = robot.transform.pos
+			local footMin, footMax = GetBodyBounds(FindBodies('foot')[1])
+			local dist = bodyPos[2] - footMin[2]
+
+			-- local maxDist = 2.0
+			-- local hit, dist = QueryRaycast(robot.transform.pos, VecScale(robot.axes[2], -1), maxDist)
+			-- if hit then
 				hover.distTarget = dist
 				hover.distPadding = math.min(0.3, dist*0.5)
-			end
+			-- end
 		end
 
 
@@ -1676,11 +1572,10 @@ do
 			local perp = getPerpendicular(dir)
 
 			-- This is the default bullet spread
-			local spread =  1 * rnd(0.0, 1.0)
+			local spread =  rnd(0.0, 1.0) / 9
 
 			-- Add more spread up based on aim, so that the first bullets never (well, rarely) hit player
 			local extraSpread = math.min(0.5, 2.0 / robot.distToPlayer)
-			spread = spread	+ (1.0-head.aim) * extraSpread
 
 			dir = VecNormalize(VecAdd(dir, VecScale(perp, spread)))
 
@@ -1758,8 +1653,8 @@ do
 				local weapon = weapons[i]
 				local bt = GetBodyTransform(weapon.body)
 				local t = TransformToParentTransform(bt, weapon.localTransform)
-				local fwd = TransformToParentVec(t, Vec(0, 0, -1))
-				t.pos = VecAdd(t.pos, VecScale(fwd, 0.15))
+				local fwd = TransformToParentVec(t, Vec(0, 0, -2))
+				t.pos = VecAdd(t.pos, VecScale(fwd, 0.2))
 				local playerPos = VecCopy(robot.playerPos)
 				local toPlayer = VecSub(playerPos, t.pos)
 				local distToPlayer = VecLength(toPlayer)
@@ -1769,9 +1664,11 @@ do
 				if weapon.type == "fire" then
 					if not weapon.fire then
 						weapon.fire = 0
+						weaponStatus = "Idle"
 					end
-					if head.canSeePlayer and robot.distToPlayer < 8.0 then
+					if isShooting then
 						weapon.fire = math.min(weapon.fire + 0.1, 1.0)
+						weaponStatus = "Firing"
 					else
 						weapon.fire = math.max(weapon.fire - dt*0.5, 0.0)
 					end
@@ -1779,15 +1676,17 @@ do
 						weaponEmitFire(weapon, t, weapon.fire)
 					else
 						weaponEmitFire(weapon, t, math.max(weapon.fire, 0.1))
+						weaponStatus = "Idle"
 					end
 				else
 					--Need to point towards player and have clear line of sight to have clear shot
 					local towardsPlayer = VecDot(fwd, toPlayer)
 					local gotAim = towardsPlayer > 0.9
-					if distToPlayer < 1.0 and towardsPlayer > 0.0 then
+					-- if distToPlayer < 1.0 and towardsPlayer > 0.0 then
+					if isShooting then
 						gotAim = true
 					end
-					if head.canSeePlayer and gotAim and robot.distToPlayer < weapon.maxDist then
+					if isShooting then
 						QueryRequire("physical large")
 						rejectAllBodies(robot.allBodies)
 						local hit = QueryRaycast(t.pos, fwd, distToPlayer, 0, true)
@@ -1798,11 +1697,13 @@ do
 
 					--Handle states
 					if weapon.state == "idle" then
+						weaponStatus = "Idle"
 						weapon.idleTimer = weapon.idleTimer - dt
 						if weapon.idleTimer <= 0 and clearShot then
 							weapon.state = "charge"
 							weapon.fireDir = fwd
 							weapon.chargeTimer = weapon.chargeTime
+							weaponStatus = "Charging"
 						end
 					elseif weapon.state == "charge" or weapon.state == "chargesilent" then
 						weapon.chargeTimer = weapon.chargeTimer - dt
@@ -1818,7 +1719,10 @@ do
 						weapon.fireTimer = weapon.fireTimer - dt
 						if towardsPlayer > 0.3 or distToPlayer < 1.0 then
 							if weapon.fireTimer <= 0 then
+
 								weaponFire(weapon, t.pos, fwd)
+								weaponStatus = "Firing"
+
 								weapon.fireCount = weapon.fireCount - 1
 								if weapon.fireCount <= 0 then
 									if clearShot then
@@ -1838,6 +1742,7 @@ do
 							weapon.idleTimer = weapon.timeBetweenRounds
 						end
 					end
+
 				end
 			end
 		end

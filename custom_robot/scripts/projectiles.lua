@@ -67,9 +67,14 @@ function propelProjectile(proj)
 
     --+ Raycast
     local rcHit, hitPos, hitShape = RaycastFromTransform(proj.transform, proj.speed, proj.rcRad, proj.ignoreBodies, nil, true)
-    if rcHit then
+    if rcHit and not proj.hitInitial then
 
-        proj.isActive = false
+        SetInt('level.destructible-bot.hitCounter', GetInt('level.destructible-bot.hitCounter') + 1)
+        SetInt('level.destructible-bot.hitShape',hitShape)
+        SetString('level.destructible-bot.weapon',"robotname")
+        SetFloat('level.destructible-bot.damage',damage)
+
+        proj.hitInitial = true
         proj.hit = true
 
         --+ Hit Action
@@ -77,17 +82,21 @@ function propelProjectile(proj)
 
         if proj.explosionSize > 0 then
             Explosion(hitPos, proj.explosionSize)
-            proj.explosionSize = 0
         end
 
-        if proj.penetrate then
-            proj.hit = false
+        --+ Sounds
+        local index = proj.sounds.hit[math.random(1, #proj.sounds.hit)]
+        PlayRandomSound(proj.sounds.hit, proj.transform.pos, 2, index)
+        PlayRandomSound(proj.sounds.hit, GetCameraTransform().pos, 0.2 + math.random()/10, index)
+
+    end
+
+    if proj.penetrate then
+
+        proj.hit = false
+
+        if VecDist(robot.transform.pos, proj.transform.pos) > proj.holeSize * 2 then
             MakeHole(proj.transform.pos, proj.holeSize,proj.holeSize,proj.holeSize,proj.holeSize)
-        else
-            --+ Sounds
-            local index = proj.sounds.hit[math.random(1, #proj.sounds.hit)]
-            PlayRandomSound(proj.sounds.hit, proj.transform.pos, 2, index)
-            PlayRandomSound(proj.sounds.hit, GetCameraTransform().pos, 0.2 + math.random()/10, index)
         end
 
     end
@@ -136,6 +145,7 @@ function initProjectiles()
         aeon_secondary = {
             isActive = true, -- Active when firing, inactive after hit.
             hit = false,
+            hitInitial = false,
             lifeLength = 3, --Seconds
 
             speed = 3.1,
@@ -173,6 +183,7 @@ function initProjectiles()
         aeon_special = {
             isActive = true, -- Active when firing, inactive after hit.
             hit = false,
+            hitInitial = false,
             lifeLength = 5, --Seconds
 
             speed = 0.85,
