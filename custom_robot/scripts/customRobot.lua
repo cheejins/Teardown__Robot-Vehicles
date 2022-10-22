@@ -10,8 +10,8 @@ function initCustom()
 	CAMERA = {}
 	CAMERA.xy = {UiCenter(), UiMiddle()}
 	missileSound = LoadSound("../snd/launchSound.ogg")
-	SetTag(head.body, 'interact')
-	SetDescription(head.body, 'Drive Robot')
+	SetTag(Eyes.body, 'interact')
+	SetDescription(Eyes.body, 'Drive Robot')
 	-- robot.followPlayer = regGetBool('robot.followPlayer')
 
 	initPlayerDrivingRobot()
@@ -40,7 +40,7 @@ function tickCustom(dt)
 
 	--+ Global robot variables.
 	bodyTr = GetBodyTransform(robot.body)
-	headTr = GetBodyTransform(head.body)
+	headTr = GetBodyTransform(Eyes.body)
 	camTr = GetCameraTransform()
 	crosshairPos = getOuterCrosshairWorldPos()
 
@@ -484,7 +484,7 @@ function playerCheckRobot()
 		elseif InputPressed('interact') or InputPressed('e') then
 
 			--+ Enter robot.
-			if GetPlayerInteractBody() == head.body then
+			if GetPlayerInteractBody() == Eyes.body then
 				player.isDrivingRobot = true
 			end
 

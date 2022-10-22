@@ -250,7 +250,7 @@ do
 
 			robot.stunned = clamp(robot.stunned - dt, 0.0, 8.0)
 			if robot.stunned > 0 then
-				head.seenTimer = 0
+				Eyes.seenTimer = 0
 				weaponsReset()
 				return
 			end
@@ -326,9 +326,9 @@ do
 					end
 				end
 				if state.activeTime < 1.5 or state.activeTime > 3 and state.activeTime < 4.5 then
-					head.dir = TransformToParentVec(robot.transform, Vec(-5, 0, -1))
+					Eyes.dir = TransformToParentVec(robot.transform, Vec(-5, 0, -1))
 				else
-					head.dir = TransformToParentVec(robot.transform, Vec(5, 0, -1))
+					Eyes.dir = TransformToParentVec(robot.transform, Vec(5, 0, -1))
 				end
 			end
 
@@ -394,15 +394,15 @@ do
 				end
 				if robot.distToPlayer < 4.0 then
 					robot.dir = VecCopy(robot.dirToPlayer)
-					head.dir = VecCopy(robot.dirToPlayer)
+					Eyes.dir = VecCopy(robot.dirToPlayer)
 					robot.speed = 0
 					navigationClear()
 				else
-					navigationSetTarget(head.lastSeenPos, 1.0 + clamp(head.timeSinceLastSeen, 0.0, 4.0))
+					navigationSetTarget(Eyes.lastSeenPos, 1.0 + clamp(Eyes.timeSinceLastSeen, 0.0, 4.0))
 					robot.speedScale = config.huntSpeedScale
 					navigationUpdate(dt)
-					if head.canSeePlayer then
-						head.dir = VecCopy(robot.dirToPlayer)
+					if Eyes.canSeePlayer then
+						Eyes.dir = VecCopy(robot.dirToPlayer)
 						state.headAngle = 0
 						state.headAngleTimer = 0
 					else
@@ -417,18 +417,18 @@ do
 							end
 							state.headAngleTimer = 0
 						end
-						head.dir = QuatRotateVec(QuatEuler(0, state.headAngle, 0), robot.dir)
+						Eyes.dir = QuatRotateVec(QuatEuler(0, state.headAngle, 0), robot.dir)
 					end
 				end
-				if navigation.state ~= "move" and head.timeSinceLastSeen < 2 then
+				if navigation.state ~= "move" and Eyes.timeSinceLastSeen < 2 then
 					--Turn towards player if not moving
 					robot.dir = VecCopy(robot.dirToPlayer)
 				end
-				if navigation.state ~= "move" and head.timeSinceLastSeen > 2 and state.activeTime > 3.0 and VecLength(GetBodyVelocity(robot.body)) < 1 then
-					if VecDist(head.lastSeenPos, robot.bodyCenter) > 3.0 then
+				if navigation.state ~= "move" and Eyes.timeSinceLastSeen > 2 and state.activeTime > 3.0 and VecLength(GetBodyVelocity(robot.body)) < 1 then
+					if VecDist(Eyes.lastSeenPos, robot.bodyCenter) > 3.0 then
 						stackClear()
 						local s = stackPush("investigate")
-						s.pos = VecCopy(head.lastSeenPos)
+						s.pos = VecCopy(Eyes.lastSeenPos)
 					else
 						stackClear()
 						stackPush("huntlost")
@@ -442,7 +442,7 @@ do
 					state.turnTimer = 1
 				end
 				state.timer = state.timer - dt
-				head.dir = VecCopy(robot.dir)
+				Eyes.dir = VecCopy(robot.dir)
 				if state.timer < 0 then
 					PlaySound(idleSound, robot.bodyCenter)
 					stackPop()
@@ -469,8 +469,8 @@ do
 				navigationSetTarget(avoidTarget, 1.0)
 				robot.speedScale = config.huntSpeedScale
 				navigationUpdate(dt)
-				if head.canSeePlayer then
-					head.dir = VecNormalize(VecSub(head.lastSeenPos, robot.transform.pos))
+				if Eyes.canSeePlayer then
+					Eyes.dir = VecNormalize(VecSub(Eyes.lastSeenPos, robot.transform.pos))
 					state.headAngle = 0
 					state.headAngleTimer = 0
 				else
@@ -485,10 +485,10 @@ do
 						end
 						state.headAngleTimer = 0
 					end
-					head.dir = QuatRotateVec(QuatEuler(0, state.headAngle, 0), robot.dir)
+					Eyes.dir = QuatRotateVec(QuatEuler(0, state.headAngle, 0), robot.dir)
 				end
 
-				if navigation.state ~= "move" and head.timeSinceLastSeen > 2 and state.activeTime > 3.0 then
+				if navigation.state ~= "move" and Eyes.timeSinceLastSeen > 2 and state.activeTime > 3.0 then
 					stackClear()
 				end
 			end
@@ -536,7 +536,7 @@ do
 
 			--Seen player
 			if config.huntPlayer and not stackHas("hunt") then
-				if config.canSeePlayer and head.canSeePlayer or robot.canSensePlayer then
+				if config.canSeePlayer and Eyes.canSeePlayer or robot.canSensePlayer then
 					stackClear()
 					PlaySound(huntSound, robot.bodyCenter)
 					stackPush("hunt")
@@ -545,7 +545,7 @@ do
 
 			--Seen player
 			if config.avoidPlayer and not stackHas("avoid") then
-				if config.canSeePlayer and head.canSeePlayer or robot.distToPlayer < 2.0 then
+				if config.canSeePlayer and Eyes.canSeePlayer or robot.distToPlayer < 2.0 then
 					stackClear()
 					stackPush("avoid")
 				end
@@ -556,7 +556,7 @@ do
 				stackPush("getup")
 			end
 
-			if IsShapeBroken(GetLightShape(head.eye)) then
+			if IsShapeBroken(GetLightShape(Eyes.eye)) then
 				config.hasVision = false
 				config.canSeePlayer = false
 			end
@@ -1108,37 +1108,37 @@ do
 	--> Head
 	do
 
-		head = {}
-		head.body = 0
-		head.eye = 0
-		head.dir = Vec(0,0,-1)
-		head.lookOffset = 0
-		head.lookOffsetTimer = 0
-		head.canSeePlayer = false
-		head.lastSeenPos = Vec(0,0,0)
-		head.timeSinceLastSeen = 999
-		head.seenTimer = 0
-		head.alarmTimer = 0
-		head.alarmTime = 2.0
-		head.aim = 0	-- 1.0 = perfect aim, 0.0 = will always miss player. This increases when robot sees player based on config.aimTime
+		Eyes = {}
+		Eyes.body = 0
+		Eyes.eye = 0
+		Eyes.dir = Vec(0,0,-1)
+		Eyes.lookOffset = 0
+		Eyes.lookOffsetTimer = 0
+		Eyes.canSeePlayer = false
+		Eyes.lastSeenPos = Vec(0,0,0)
+		Eyes.timeSinceLastSeen = 999
+		Eyes.seenTimer = 0
+		Eyes.alarmTimer = 0
+		Eyes.alarmTime = 2.0
+		Eyes.aim = 0	-- 1.0 = perfect aim, 0.0 = will always miss player. This increases when robot sees player based on config.aimTime
 
 		function headInit()
-			head.body = FindBody("head")
-			head.eye = FindLight("eye")
-			head.joint = FindJoint("head")
-			head.alarmTime = getTagParameter(head.eye, "alarm", 2.0)
+			Eyes.body = FindBody("head")
+			Eyes.eye = FindLight("eye")
+			Eyes.joint = FindJoint("head")
+			Eyes.alarmTime = getTagParameter(Eyes.eye, "alarm", 2.0)
 		end
 
 		function headTurnTowards(pos)
-			head.dir = VecNormalize(VecSub(pos, GetBodyTransform(head.body).pos))
+			Eyes.dir = VecNormalize(VecSub(pos, GetBodyTransform(Eyes.body).pos))
 		end
 
 		function headUpdate(dt)
-			local t = GetBodyTransform(head.body)
+			local t = GetBodyTransform(Eyes.body)
 			local fwd = TransformToParentVec(t, Vec(0, 0, -1))
 
 			--Check if head can see player
-			local et = GetLightTransform(head.eye)
+			local et = GetLightTransform(Eyes.eye)
 			local pp = VecCopy(robot.playerPos)
 			local toPlayer = VecSub(pp, et.pos)
 			local distToPlayer = VecLength(toPlayer)
@@ -1169,23 +1169,23 @@ do
 				local distanceScale = clamp(1.0 - distToPlayer/config.viewDistance, 0.5, 1.0)
 				local angleScale = clamp(VecDot(toPlayer, fwd), 0.5, 1.0)
 				local delta = (dt * distanceScale * angleScale) / (config.visibilityTimer / 0.5)
-				head.seenTimer = math.min(1.0, head.seenTimer + delta)
+				Eyes.seenTimer = math.min(1.0, Eyes.seenTimer + delta)
 			else
-				head.seenTimer = math.max(0.0, head.seenTimer - dt / config.lostVisibilityTimer)
+				Eyes.seenTimer = math.max(0.0, Eyes.seenTimer - dt / config.lostVisibilityTimer)
 			end
-			head.canSeePlayer = (head.seenTimer > 0.5)
+			Eyes.canSeePlayer = (Eyes.seenTimer > 0.5)
 
-			if head.canSeePlayer then
-				head.lastSeenPos = pp
-				head.timeSinceLastSeen = 0
+			if Eyes.canSeePlayer then
+				Eyes.lastSeenPos = pp
+				Eyes.timeSinceLastSeen = 0
 			else
-				head.timeSinceLastSeen = head.timeSinceLastSeen + dt
+				Eyes.timeSinceLastSeen = Eyes.timeSinceLastSeen + dt
 			end
 
-			if playerVisible and head.canSeePlayer then
-				head.aim = math.min(1.0, head.aim + dt / config.aimTime)
+			if playerVisible and Eyes.canSeePlayer then
+				Eyes.aim = math.min(1.0, Eyes.aim + dt / config.aimTime)
 			else
-				head.aim = math.max(0.0, head.aim - dt / config.aimTime)
+				Eyes.aim = math.max(0.0, Eyes.aim - dt / config.aimTime)
 			end
 
 			if config.triggerAlarmWhenSeen then
@@ -1193,21 +1193,21 @@ do
 				if GetBool("level.alarm") then
 					red = math.mod(GetTime(), 0.5) > 0.25
 				else
-					if playerVisible and IsPointAffectedByLight(head.eye, pp) then
+					if playerVisible and IsPointAffectedByLight(Eyes.eye, pp) then
 						red = true
-						head.alarmTimer = head.alarmTimer + dt
+						Eyes.alarmTimer = Eyes.alarmTimer + dt
 						PlayLoop(chargeLoop, robot.transform.pos)
-						if head.alarmTimer > head.alarmTime and playerVisible then
+						if Eyes.alarmTimer > Eyes.alarmTime and playerVisible then
 							SetBool("level.alarm", true)
 						end
 					else
-						head.alarmTimer = math.max(0.0, head.alarmTimer - dt)
+						Eyes.alarmTimer = math.max(0.0, Eyes.alarmTimer - dt)
 					end
 				end
 				if red then
-					SetLightColor(head.eye, 1, 0, 0)
+					SetLightColor(Eyes.eye, 1, 0, 0)
 				else
-					SetLightColor(head.eye, 1, 1, 1)
+					SetLightColor(Eyes.eye, 1, 1, 1)
 				end
 			end
 
@@ -1216,14 +1216,14 @@ do
 			if playerVisible then
 				headTurnTowards(pp)
 			end
-			head.dir = VecNormalize(head.dir)
+			Eyes.dir = VecNormalize(Eyes.dir)
 			--end
-			local c = VecCross(fwd, head.dir)
+			local c = VecCross(fwd, Eyes.dir)
 			local d = VecDot(c, robot.axes[2])
 			local angVel = clamp(d*10, -3, 3)
 			local f = 100
-			mi, ma = GetJointLimits(head.joint)
-			local ang = GetJointMovement(head.joint)
+			mi, ma = GetJointLimits(Eyes.joint)
+			local ang = GetJointMovement(Eyes.joint)
 			if ang < mi+1 and angVel < 0 then
 				angVel = 0
 			end
@@ -1231,7 +1231,7 @@ do
 				angVel = 0
 			end
 
-			ConstrainAngularVelocity(head.body, robot.body, robot.axes[2], angVel, -f , f)
+			ConstrainAngularVelocity(Eyes.body, robot.body, robot.axes[2], angVel, -f , f)
 
 			local vol = clamp(math.abs(angVel)*0.3, 0.0, 1.0)
 			if vol > 0 then
@@ -1682,7 +1682,7 @@ do
 
 			-- Add more spread up based on aim, so that the first bullets never (well, rarely) hit player
 			local extraSpread = math.min(0.5, 2.0 / robot.distToPlayer)
-			spread = spread	+ (1.0-head.aim) * extraSpread
+			spread = spread	+ (1.0-Eyes.aim) * extraSpread
 
 			dir = VecNormalize(VecAdd(dir, VecScale(perp, spread)))
 
@@ -1772,7 +1772,7 @@ do
 					if not weapon.fire then
 						weapon.fire = 0
 					end
-					if head.canSeePlayer and robot.distToPlayer < 8.0 then
+					if Eyes.canSeePlayer and robot.distToPlayer < 8.0 then
 						weapon.fire = math.min(weapon.fire + 0.1, 1.0)
 					else
 						weapon.fire = math.max(weapon.fire - dt*0.5, 0.0)
@@ -1789,7 +1789,7 @@ do
 					if distToPlayer < 1.0 and towardsPlayer > 0.0 then
 						gotAim = true
 					end
-					if head.canSeePlayer and gotAim and robot.distToPlayer < weapon.maxDist then
+					if Eyes.canSeePlayer and gotAim and robot.distToPlayer < weapon.maxDist then
 						QueryRequire("physical large")
 						rejectAllBodies(robot.allBodies)
 						local hit = QueryRaycast(t.pos, fwd, distToPlayer, 0, true)
@@ -1879,7 +1879,7 @@ do
 				local toPlayer = VecNormalize(VecSub(playerPos, GetBodyTransform(aim.body).pos))
 				local fwd = TransformToParentVec(GetBodyTransform(robot.body), Vec(0, 0, -1))
 
-				if (head.canSeePlayer and VecDot(fwd, toPlayer) > 0.5) or robot.distToPlayer < 4.0 then
+				if (Eyes.canSeePlayer and VecDot(fwd, toPlayer) > 0.5) or robot.distToPlayer < 4.0 then
 					--Should aim
 					local v = 2
 					local f = 20
